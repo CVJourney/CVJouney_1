@@ -1,7 +1,7 @@
 async function taxista() {
   const params = new URLSearchParams(window.location.search);
   let id = params.get("wwr");
-  const data = await post("http://localhost:4000/data_chama", id);
+  const data = await post("https://cvprisma.vercel.app/data_chama", id);
   const dados = data[0];
   console.log("--->", dados);
 
@@ -108,7 +108,7 @@ async function taxista() {
         }
 
         alert("Solicitação de corrida feito")
-        await corida("http://localhost:4000/data_corrida",obj)
+        await corida("https://cvprisma.vercel.app/data_corrida",obj)
         
         
 
