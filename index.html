@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_tradutor.css">
+    <title>CVJourney</title>
+</head>
+<body>
+    <div id="centra">
+        <h3 id="titulo_esc">Escolha seu idioma</h3>
+        <select name="idioma_name" id="idioma">
+            <option value="pt">🇵🇹 Português</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="ro">🇷🇴 Română</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="nl">🇳🇱 Nederlands</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="it">🇮🇹 Italiano</option>
+        </select>
+        <h4>
+            esse idioma sera utilizado no inicio da sua jornada, <br> mas podes troca-la.
+        </h4>
+        <button id="avanca">Avançar</button>
+    </div>
+
+    <script>
+
+        document.getElementById("avanca").addEventListener("click", () => {
+            let select = document.getElementById("idioma").value;
+            console.log(select);
+
+            const request = indexedDB.open("idiomas", 1);
+
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+
+                if (!db.objectStoreNames.contains("usuarios")) {
+                    db.createObjectStore("usuarios", { keyPath: "id", autoIncrement: true });
+                }
+            };
+
+            request.onsuccess = function(event) {
+                const db = event.target.result;
+
+                const tx = db.transaction("usuarios", "readwrite");
+                const store = tx.objectStore("usuarios");
+
+                // 👉 Limpar os dados antigos
+                const clearRequest = store.clear();
+
+                clearRequest.onsuccess = () => {
+                    console.log("Dados antigos apagados.");
+
+                    // 👉 Adicionar novo idioma
+                    const usuario = { idioma: select };
+                    const addRequest = store.add(usuario);
+
+                    addRequest.onsuccess = () => console.log("Idioma escolhido com sucesso.");
+                    addRequest.onerror = () => console.error("Erro ao adicionar o idioma.");
+                };
+
+                clearRequest.onerror = () => {
+                    console.error("Erro ao limpar dados antigos.");
+                };
+            };
+
+            request.onerror = function(event) {
+                console.error("Erro ao abrir o banco:", event.target.error);
+            };
+
+            window.location.href="login.html"
+
+        });
+
+    </script>
+    <script src="script_entrada.js"></script>
+</body>
+</html>

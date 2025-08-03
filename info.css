@@ -1,0 +1,168 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.hotel-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.hotel-image {
+    flex: 1 1 300px;
+    max-width: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hotel-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+.hotel-info {
+    flex: 2;
+}
+
+.hotel-info h2 {
+    margin-top: 0;
+    color: #027373;
+}
+
+.stars {
+    color: gold;
+    font-size: 1.2em;
+}
+
+.location {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.info {
+    margin: 10px 0;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1em;
+    color: #e8a004;
+}
+
+#empresas,.price{
+    margin: 10px;
+    margin-left: 0;
+    padding: 5px;
+    border: solid 1px black;
+    border-radius: 10px;
+}
+.hotel-image {
+  position: relative;
+  flex: 1 1 300px;
+  max-width: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.hotel-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.158);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+  transition: background 0.3s;
+}
+
+.seta:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.seta.esquerda {
+  left: 5px;
+}
+
+.seta.direita {
+  right: 5px;
+}
+.mapa_{
+  display: inline-block;
+  float: right;
+}
+
+.mapa_img{
+  width: 30px;
+  height: 30px;
+}
+
+div#mapas{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: red;
+  z-index: 99999;
+  display: none;
+}
+
+#map{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+#close_map{
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #e8a0041e;
+  float: right;
+}
+#local_x{
+  display: none;
+}
+.taxi{
+  color: #000002;
+  font-weight: bolder;
+}
+
+.reserva{
+  padding: 10px;
+  background-image: linear-gradient(to right,white,rgb(255, 127, 53));
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(90, 90, 90, 0.466);
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Táxis</title>
+  <link rel="stylesheet" href="estilo_btn.css">
+  <link rel="stylesheet" href="taxi.css">
+  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <section class="intro">
+    <h1>Bem-vindo ao sistema de táxis</h1>
+    <p>Cada táxi cobra um valor por quilômetro. Você pode escolher viajar com um guia (custa +200$ por km) ou sem guia.</p>
+    <label class="switch-label">
+      <input type="checkbox" id="guia-switch">
+      <span class="slider"></span>
+      Com Guia
+    </label>
+    <button id="filtro-sem-guia">Somente sem guia</button>
+  </section>
+
+  <section id="lista-taxi"></section>
+
+  <nav style="height: 100px;"></nav>
+  
+  <footer class="fundo-fixado">
+    <div id="temas_">
+        <i class="material-icons baixo principal" id="t_home">home</i>
+        <i class="material-icons baixo" id="t_mapa">public</i>
+        <i class="material-icons baixo" id="t_game">sports_esports</i>
+        <i class="material-icons baixo" id="t_taxi">local_taxi</i>
+    </div>
+  </footer>
+  
+    <script src="script_taxi.js"></script>
+    <script src="script_troca.js"></script>
+    
+</body>
+</html>

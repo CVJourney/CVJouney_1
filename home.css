@@ -1,0 +1,303 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+:root{
+    --campos_neutros: white;
+    --base_2: #f59425a1;
+    /*opt: fundo_2 cor: #25cbf541*/
+    /*opt: fundo_5 cor: #f59425a1*/
+}
+
+body{
+
+    width: 100vw;
+    height: 100vh;
+    background-image: url("img/fundo_5.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+#welcome{
+    color: white;
+    padding: 20px;
+    margin-bottom: 5px;
+}
+mark{
+    padding: 3px 30px 3px 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--base_2);
+}
+#pesquisa::placeholder{
+    color: white;
+}
+#pesquisa{
+    padding: 10px;
+    border: solid 1px rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 2px;
+    width: 70%;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    color: white;
+    max-width: 60%;
+}
+
+#tela_sol_lua{
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+#pesquisa_{
+    text-align: center;
+}
+
+span{
+    color: rgb(156, 90, 2);
+}
+
+#sol{
+    background-color: var(--base_2);
+    color: white;
+    padding: 10px;
+    border-radius: 100%;
+}
+
+#campos_ li{
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    background-color: var(--base_2);
+    color: white;
+    border-radius: 10px;
+    text-transform: capitalize;
+}
+
+#campos_{
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    white-space: nowrap; /* evita que quebre linha */
+    height: 50px;
+    overflow-x: auto;
+}
+
+#campos_::-webkit-scrollbar{
+    display: none;
+}
+
+
+.img_empresas,.img_estadia{
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+
+#destaque,#estadia{
+    overflow-x: auto; /* Scroll lateral */
+    overflow-y: hidden; /* Evita scroll vertical */
+    white-space: nowrap; /* Mantém os itens na mesma linha */
+    width: 100%;
+    margin-top: 20px;
+}
+#destaque{
+    margin-top: 50px;
+}
+
+@keyframes aproximar {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.div_imagens_campos, .div_estadia{
+    display: inline-block;
+    margin: 5px;
+    backdrop-filter: blur(20px);
+    padding: 5px;
+    border-radius: 10px;
+    max-height: 200px;
+    animation: aproximar 0.6s ease forwards
+}
+
+
+.div_2,.div_2_estadia{
+    text-align: right;
+    color: white;
+    position: relative;
+    top: -150px;
+    
+}
+
+.div_2_estadia{
+    top: -190px;
+    left: 20px;
+}
+
+.ilhas_,.ilhas_estadia{
+    backdrop-filter: blur(10px);
+    padding: 7px;
+    display: inline-block;
+    margin: 5px;
+    border-radius: 7px;
+}
+
+.nome_des,.estrela{
+    position: relative;
+    top: -20px;
+}
+
+.estrela{
+    float: right;
+    color: gold;
+}
+
+#star_x{
+    color: gold;
+    font-size: 14px; 
+    position: relative;
+    top:-5px;
+}
+
+
+#estadia{
+    margin-top: 20px;
+}
+
+#titulo_estadia,#titulo_destaque{
+    color: rgb(253, 247, 235);
+    backdrop-filter: blur(5px);
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+}
+
+.nome_estadia{
+    padding: 5px 0;
+}
+
+.estrela_estadia{
+    display: inline-block;
+    float: right;
+}
+
+.titulos_{
+    position: sticky;
+    left: 0;
+}
+
+#titulo_x{
+    color: white;
+    margin: 100px 5px 10px 5px;
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 10px;
+}
+/*conta*/
+
+#t_restaurante{
+    color: white;
+    background-color: #f59425a1;
+    padding: 5px;
+    border-radius: 10px;
+    animation: flutuar 3s ease infinite;
+}
+
+@keyframes flutuar {
+    0%   { 
+        transform: translateY();
+        box-shadow: 0 0 5px #f59425a1;
+     }
+    50%  { 
+        transform: translateY(-7px);
+        box-shadow: 0 10px 10px #f59425a1;
+    }
+    100% { 
+        transform: translateY(2px);
+        box-shadow: 0 0 20px #f59425a1;
+     }
+}
+
+#usuario_data{
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    z-index: 999999999999;
+    display:none;
+}
+
+#usuario_{
+    background-color: rgb(250, 203, 116);
+    display: inline-block;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 50px;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+#usuario_ h3,#usuario_ h4{
+    display: inline-block;
+    margin: 10px;
+    font-size:12px;
+}
+#usuario_ h3{
+    width: 50px;
+    position: relative;
+    top:-23px
+}
+
+#usuario_ h4{
+    padding: 10px;
+    border: solid 1px;
+    border-radius: 10px;
+    width: 90px;
+    overflow-x: auto;
+}
+
+#logout{
+    padding: 10px;
+    background-color: transparent;
+    border: solid 1px black;
+    text-align: center;
+    border: solid 1px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#sai{
+    padding:10px;
+    margin: 10px;
+    font-weight: bold;
+    background-color: rgb(255, 197, 91);
+    display: inline-block;
+    color: white;
+    border-radius: 20px;
+}
+
+#sai_{
+    position: absolute;
+}
+
+/*lua*/
+#temas_pes *{
+    backdrop-filter: blur(10px);
+    color: rgb(29, 29, 29);
+    text-shadow: 0 0 20px black;
+}
+
+/*pesquisa*/

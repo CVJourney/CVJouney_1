@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="estilo_btn.css">
+    <link rel="stylesheet" href="style_secundarios.css">
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+<body>
+    <div id="welcome">
+        <h2>Bem vindo ao <mark>CVJourney</mark></h2>
+    </div>
+    <div id="pesquisa_">
+        <input type="search" name="" id="pesquisa" placeholder="Busque por um lugar">
+        <div id="tela_sol_lua">
+            <span class="material-icons" id="t_restaurante">local_dining</span>
+            <span class="material-icons" id="sol">account_circle</span>
+        </div>
+        <div id="temas_pes"></div>
+    </div>
+    <div id="campos_">
+        <li onclick="manda()">Gostos</li>
+    </div>
+
+    <div id="estadia">
+        <div class="titulos_">
+            <h3 id="titulo_estadia">Procure a sua estadia aqui</h3>
+        </div>
+        
+        
+    </div>
+
+    <div id="destaque">
+        <div class="titulos_">
+            <h4 id="titulo_destaque">Veja locais para ir em cabo verde</h4>
+        </div>
+        
+    </div>
+
+    <h3 id="titulo_x">
+        Descubra locais incríveis por categoria
+    </h3>
+
+    <div id="usuario_data">
+        <div id="sai_">
+            <h5 id="sai">X</h5>
+        </div>
+        <div id="usuario_">
+            <div>
+                <img src="" alt="" id="usu_img">
+            </div>
+            <div>
+                <h3>Nome</h3>
+                <h4 id="usu_nome">nome...</h4>
+            </div>
+            <div>
+                <h3>N.Usuario</h3>
+                <h4 id="usu_username">username...</h4>
+            </div>
+            <div>
+                <h3>Senha</h3>
+                <h4 id="usu_senha">senha...</h4>
+            </div>
+            <div>
+                <h3>Pontos</h3>
+                <h4 id="usu_pontos">pontos...</h4>
+            </div>
+            <div>
+                <button id="logout">Logout</button>
+            </div>
+        </div>
+    </div>
+    <div id="container_new"></div>
+
+    <nav style="height: 100px;"></nav>
+
+
+
+
+    <footer class="fundo-fixado">
+        <div id="temas_">
+            <i class="material-icons baixo principal" id="t_home">home</i>
+            <i class="material-icons baixo" id="t_mapa">public</i>
+            <i class="material-icons baixo" id="t_game">sports_esports</i>
+            <i class="material-icons baixo" id="t_taxi">local_taxi</i>
+        </div>
+    </footer>
+    
+    <script src="script_tradutor.js"></script>
+    <script src="script_cria_campos.js"></script>
+    <script src="script_troca.js"></script>
+    <script src="script_secundarios.js"></script>
+    <script src="script_pesquisa.js"></script>
+
+    <script>
+        function manda(){
+            const item = document.getElementById("titulo_destaque");
+            item.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    </script>
+
+</body>
+</html>

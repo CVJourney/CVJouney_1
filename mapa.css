@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#serch{
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px gray;
+    backdrop-filter: blur(10px);
+    position: absolute;
+    margin-top: 20px;
+    width: 90%;
+    background-color: transparent;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+
+}
+
+#serch::placeholder{
+    color: rgb(170, 166, 166);
+}
+
+#mapa_gg{
+    width: 100vw;
+    height: 98vh;
+}

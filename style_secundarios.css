@@ -1,0 +1,114 @@
+/* Categoria com blur e fundo transparente */
+.categoria_new {
+  margin: 40px auto;
+  padding: 20px;
+  max-height: 230px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 90vw;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título */
+.categoria_new h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Container de cards: grade com 2 colunas */
+.content_new {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-height: 500px;
+  transition: max-height 0.5s ease;
+  
+  flex: 1; /* Ocupa o espaço disponível */
+  overflow-y: auto;
+  overflow: hidden;
+}
+
+
+
+/* Mostra tudo ao expandir */
+.area_conteudo_expandido_new {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Card individual */
+.card_new {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card_new:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.card_new img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Botão - agora fica sempre no final da categoria */
+.vermais_new {
+  margin-top: 20px;
+  align-self: center;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background 0.3s;
+  z-index: 1;
+}
+
+.vermais_new:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Informações adicionais */
+.nome_x {
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.ilha_x {
+  background-color: rgba(250, 151, 3, 0.336);
+  font-size: 14px;
+  margin: 2px 0;
+  border-radius: 3px;
+}
+
+.star_x {
+  text-align: left;
+  color: gold;
+}
+nav.espaco{
+  display: block;
+}

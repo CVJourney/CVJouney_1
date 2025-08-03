@@ -1,0 +1,39 @@
+.fundo-fixado {
+  position: fixed; /* fixa na tela */
+  display: inline-block;
+  bottom: 14px;       /* gruda no fundo */
+  left: 0;
+  width: 100%;     /* ocupa toda a largura */
+  color: white;
+  height: 20px;
+  padding: 10px;
+  text-align: center;
+  z-index: 999999999999;   /* fica acima de outros elementos */
+}
+
+.baixo{
+    padding: 5px;
+    background-color: rgb(250, 187, 106);
+    border-radius: 100%;
+    margin-bottom: 30px;
+    margin: 0 10px;
+}
+
+.principal{
+    padding-bottom: 10px;
+    border-radius: 100%;
+    border-bottom-left-radius:560%;
+    border-bottom-right-radius: 560%;
+}
+
+#temas_{
+    backdrop-filter: blur(20px);
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+    padding-top: 3px;
+    margin: 0;
+    position: relative;
+    right: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.411);
+}

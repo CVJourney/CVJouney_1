@@ -1,0 +1,223 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#pegar_img{
+    display: none;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("img/fundo_5.jpg") /*radial-gradient(rgb(129, 129, 247),aqua)*/;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+.centra_{
+    padding: 20px;
+    padding-top:10px;
+    margin-top: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 0 50px rgb(109, 85, 68);
+    width: 350px;
+    max-width: 80%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+
+.perfil_{
+    width: 110px;
+    height: 110px;
+    border-radius: 100%;
+    margin: 40px 10px 15px 10px;
+    background-color: rgba(240, 248, 255, 0.062);
+}
+
+.img_{
+    text-align: center;
+}
+
+input{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 150px;
+}
+
+label{
+    display: inline-block;
+    color: white;
+    width: 90px;
+    margin: 2px;
+}
+
+.campo_info{
+    margin: 20px;
+}
+
+#btn_{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.entrar{
+    display: block;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border: none;
+    position: relative;
+    left: 50%;
+    transition: background-color 1s ease; 
+    transform: translateX(-50%);
+}
+
+.entrar:hover{
+    background-color: rgba(5, 145, 180, 0.507);
+    color: white;
+    transition: all 1s ease;
+}
+
+.erro_pass{
+    position: relative;
+    top: 10px;
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: none;
+}
+
+.apareca{
+    display: block;
+}
+
+.div_lod{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 9999999;
+    pointer-events: none;
+    transition: all 1s ease;
+    background-image: url("img/fundo.jpeg");
+    opacity: 0;
+}
+
+.show{
+    transition: all 1s ease;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.sair{
+    display: none;
+}
+
+
+.opt_lista{
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+    background-color: white;
+    margin: 10px;
+    border-radius: 10px;
+    transition: border 1s ease, padding 1s ease;
+}
+
+.opt_lista:hover{
+    border: solid 1px white;
+    padding: 10px 16px;
+    transition: border 1s ease, padding 1s ease;
+}
+
+.gr_lista{
+    display: inline-block;
+    height: 250px;
+    overflow-y: auto;
+    text-align: left;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gr_lista::-webkit-scrollbar{
+    display: none;
+}
+
+.obs{
+    text-align: center;
+    font-size:18px;
+    color: white;
+    margin: 10px;
+}
+
+div.central_2_{
+    display: none;
+}
+
+.chama{
+    display: inline-block;
+    opacity: 1;
+    transition:all 3s ease;
+
+    padding: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    backdrop-filter: blur(0px);
+    box-shadow: 0 0 50px rgb(109, 85, 68);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 90%;
+    width: 350px;
+}
+
+.chaa{
+    display: none;
+    opacity: 0;
+}
+
+#descer{
+    text-align: center;
+    color: white;
+}
+
+#proximo{
+    padding: 10px 25px;
+    width: 80%;
+    margin: 10px;
+    background-color: rgb(230, 230, 230);
+    color: black;
+    border-radius: 10px;
+    border: none;
+    transition: all 1s ease;
+
+}
+
+#proximo:hover{
+    background-color: rgba(0, 247, 255, 0.548);
+    color: white;
+    transition: all 2s ease;
+}
+
+.proximo_{
+    text-align: center;
+}
+
+.escondido{
+    display: none;
+}
+
+
+/*label*/
+
