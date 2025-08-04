@@ -23,10 +23,16 @@ function latlog(iframe){
 }
 
 document.addEventListener("DOMContentLoaded",async function(){
+    const evento = new CustomEvent("realiza");
+    document.dispatchEvent(evento);
+    console.log(evento)
+
     let mapa_gg=apanha("mapa_gg")
     
     latlog(mapa_gg)
 })
+
+
 
 apanha("serch").addEventListener("input",async function(){
 

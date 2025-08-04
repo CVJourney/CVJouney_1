@@ -37,13 +37,8 @@ apanha("t_taxi").addEventListener("click",function(){
   separa(this.id)
 })
 
-apanha("sai").addEventListener("click",function(){
-    apanha("usuario_data").style.display="none"
-})
 
-apanha("sol").addEventListener("click",async function(){
-    await pegadados("prismacv","usuarios")
-})
+
 
 async function pegadados(dbName, storeName) {
     return new Promise((resolve, reject) => {
@@ -100,6 +95,74 @@ async function lugar(data){
     apanha("usuario_data").style.display="block"
 
 }
+document.addEventListener("realiza",async function(){
+  console.log("deu deu")
+  await verificarSeTemDadosNaBD()
+})
+
+async function verificarSeTemDadosNaBD() {
+  // Verifica compatibilidade com indexedDB.databases()
+  if (!('databases' in indexedDB)) {
+    console.warn("Seu navegador não suporta indexedDB.databases().");
+    return false;
+  }
+
+  try {
+    // Lista todos os bancos existentes
+    const bancos = await indexedDB.databases();
+    const existe = bancos.some(b => b.name === "prismacv");
+
+    if (!existe) {
+      console.log("Banco 'prismacv' NÃO existe.");
+      window.location.href = "index.html"; // Redireciona se não existir
+      return false;
+    }
+
+    // Tenta abrir o banco
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open("prismacv");
+      request.onerror = () => reject("Erro ao abrir o banco.");
+      request.onsuccess = () => resolve(request.result);
+    });
+
+    // Verifica se o objectStore 'usuarios' existe
+    if (!db.objectStoreNames.contains("usuarios")) {
+      console.warn("Object store 'usuarios' não existe.");
+      window.location.href = "index.html";
+      return false;
+    }
+
+    // Verifica se há dados no objectStore
+    const resultado = await new Promise((resolve, reject) => {
+      const tx = db.transaction("usuarios", "readonly");
+      const store = tx.objectStore("usuarios");
+      const getAllRequest = store.getAll();
+
+      getAllRequest.onsuccess = () => {
+        const dados = getAllRequest.result;
+        if (dados.length === 0) {
+          console.log("Banco existe mas está vazio.");
+          window.location.href = "index.html";
+          resolve(false);
+        } else {
+          console.log("Banco e dados existentes.");
+          resolve(true);
+        }
+      };
+
+      getAllRequest.onerror = () => reject("Erro ao ler os dados.");
+    });
+
+    return resultado;
+
+  } catch (erro) {
+    console.error("Erro ao verificar dados:", erro);
+    window.location.href = "index.html";
+    return false;
+  }
+}
+
+
 
 apanha("logout").addEventListener("click",function(){
     if(confirm("Deseja mesmo eleminar essa conta neste dispositivo?")){
@@ -110,7 +173,9 @@ apanha("logout").addEventListener("click",function(){
 })
 
 
-
+apanha("sol").addEventListener("click",async function(){
+    await pegadados("prismacv","usuarios")
+})
 
 
 async function apagarTodosOsDadosLocais() {
@@ -152,6 +217,10 @@ async function apagarTodosOsDadosLocais() {
     console.error("Erro ao apagar os dados locais:", erro);
   }
 }
+
+apanha("sai").addEventListener("click",function(){
+    apanha("usuario_data").style.display="none"
+})
 
 apanha("t_restaurante").addEventListener("click",async function (){
   separa(this.id)

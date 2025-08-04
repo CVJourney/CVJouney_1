@@ -134,6 +134,8 @@ async function post(url, id) {
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
+  const evento = new CustomEvent("realiza");
+  document.dispatchEvent(evento);
   await taxista();
 });
 

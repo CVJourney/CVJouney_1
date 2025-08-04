@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded",async function(){
-    const request = indexedDB.open("prismacv", 3);
+    const request = indexedDB.open("prismacv", 4);
     
     request.onsuccess = function (event) {
     const db = event.target.result;

@@ -79,3 +79,8 @@ function passa(id){
   window.location.href=`taxi_chamada.html?wwr=${id}`
 }
 
+document.addEventListener("DOMContentLoaded",()=>{
+    const evento = new CustomEvent("realiza");
+    document.dispatchEvent(evento);
+    console.log(evento)
+})

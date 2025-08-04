@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  const evento = new CustomEvent("realiza");
+  document.dispatchEvent(evento);
   await Buscar();
 });
+
+
 
 async function Buscar() {
   const sessionKey = "dadosRestaurante";
@@ -92,7 +96,7 @@ function mostrarRestaurantes(data) {
           <div class="prato">
             <strong>${p.nome}</strong> (${p.origem})<br>
             <img src="${p.imagem}" width="100" height="100" />
-            <p style="color:gold;font-size:14px;">${texto.repeat(Number(p.estrelas))}</p>
+            <p style="color:gold;font-size:14px;">${texto.repeat(Number(p.estrelas))}</p> <br>
             <p class="dinheiro">${p.dinheiro}$ECV</p>
           </div>
         `).join("")}

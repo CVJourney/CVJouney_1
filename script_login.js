@@ -258,7 +258,7 @@ function colocar(data) {
     let username = data.username;
     let gosto = data.gosto;
 
-    const request = indexedDB.open("prismacv", 3);
+    const request = indexedDB.open("prismacv", 4);
 
     request.onupgradeneeded = function(event) {
       const db = event.target.result;

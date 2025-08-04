@@ -26,6 +26,8 @@ body{
     padding: 20px;
     margin-bottom: 5px;
 }
+
+
 mark{
     padding: 3px 30px 3px 5px;
     border-radius: 5px;
@@ -244,10 +246,12 @@ span{
     display: inline-block;
     padding: 30px;
     border-radius: 10px;
+    width: 400px;
+    max-width: 80%;
     position: relative;
-    margin-top: 50px;
     left:50%;
-    transform: translateX(-50%);
+    top:50%;
+    transform: translate(-50%,-50%);
 }
 
 #usuario_ h3,#usuario_ h4{

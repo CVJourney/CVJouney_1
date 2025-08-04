@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded",async function(){
+  const evento = new CustomEvent("realiza");
+  document.dispatchEvent(evento);
     function getParam(nome) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(nome);
@@ -121,3 +123,5 @@ document.addEventListener("DOMContentLoaded",async function(){
     })
 
 })
+
+

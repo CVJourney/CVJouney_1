@@ -1,9 +1,61 @@
 let star="★"
 document.addEventListener("DOMContentLoaded",async ()=>{
+    await verificarSeTemDadosNaBD()
     await traduzir_all()
     await campo_1()
-     lerdadosempresas()
+    lerdadosempresas()
 })
+
+async function verificarSeTemDadosNaBD() {
+  if (!('databases' in indexedDB)) {
+    console.warn("Seu navegador não suporta indexedDB.databases()");
+    return false;
+  }
+
+  try {
+    const bancos = await indexedDB.databases();
+    const existe = bancos.some(b => b.name === "prismacv");
+
+    if (!existe) {
+      console.log("Banco 'prismacv' NÃO existe.");
+      window.location.href="index.html"
+      return false;
+    }
+
+    // Tenta abrir o banco
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open("prismacv");
+      request.onerror = () => reject("Erro ao abrir o banco.");
+      request.onsuccess = () => resolve(request.result);
+    });
+
+    // Verifica se o objectStore 'usuarios' existe
+    if (!db.objectStoreNames.contains("usuarios")) {
+      console.warn("Object store 'usuarios' não existe.");
+      return false;
+    }
+
+    const resultado = await new Promise((resolve, reject) => {
+      const tx = db.transaction("usuarios", "readonly");
+      const store = tx.objectStore("usuarios");
+      const getAllRequest = store.getAll();
+
+      getAllRequest.onsuccess = () => {
+        const dados = getAllRequest.result;
+        resolve(dados.length > 0);
+      };
+
+      getAllRequest.onerror = () => reject("Erro ao ler os dados.");
+    });
+
+    return resultado;
+
+  } catch (erro) {
+    console.error("Erro ao verificar dados:", erro);
+    return false;
+  }
+}
+
 
 function apanha(id){
     return document.getElementById(id)
@@ -198,7 +250,7 @@ async function traduzir_all() {
 
 function lerdadosempresas() {
   // Abrir a base de dados chamada "MeuBanco"
-  const request = indexedDB.open("prismacv", 3);
+  const request = indexedDB.open("prismacv", 4);
 
   request.onsuccess = function (event) {
     const db = event.target.result;

@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  const evento = new CustomEvent("realiza");
+  document.dispatchEvent(evento);
   await post();
 });
+
 
 async function post() {
   const params = new URLSearchParams(window.location.search);
