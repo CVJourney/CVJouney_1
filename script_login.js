@@ -208,15 +208,16 @@ document.getElementById("proximo").addEventListener("click", async function(){
   }
   console.log(obj,"cuidado")
 
+  await fetch(url,opt)
+  
   try{
     await colocar({name:obj.name,username:obj.username,gosto:obj.gosto})
   }
   catch{
     console.log("erro")
   }
+  
 
-
-  await Fetch_post(url,opt)
 
 
 
