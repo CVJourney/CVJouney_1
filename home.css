@@ -269,7 +269,7 @@ span{
     padding: 10px;
     border: solid 1px;
     border-radius: 10px;
-    width: 90px;
+    width: 70%;
     overflow-x: auto;
 }
 
@@ -303,5 +303,6 @@ span{
     color: rgb(29, 29, 29);
     text-shadow: 0 0 20px black;
 }
+
 
 /*pesquisa*/
