@@ -1,64 +1,59 @@
-document.addEventListener("DOMContentLoaded",async ()=>{
-    indexedDB.deleteDatabase("prismacv");
-    await verificarPrismacv();
-})
+document.addEventListener("DOMContentLoaded", async () => {
+  await verificarOuCriarPrismacvVersao4();
+});
 
-
-async function verificarPrismacv() {
+async function verificarOuCriarPrismacvVersao4() {
   const dbName = "prismacv";
-  let existe = false;
 
-  const request = indexedDB.open(dbName);
+  const request = indexedDB.open(dbName, 4); // força abrir ou atualizar para versão 4
 
-  request.onerror = function () {
-    console.log(false); // erro ao abrir DB
+  request.onupgradeneeded = function (event) {
+    const db = event.target.result;
+
+    if (!db.objectStoreNames.contains("usuarios")) {
+      db.createObjectStore("usuarios", { keyPath: "id", autoIncrement: true });
+    }
+
+    console.log("Banco criado ou atualizado para versão 4.");
   };
 
-  request.onsuccess = async function (event) {
+  request.onsuccess = function (event) {
     const db = event.target.result;
 
     if (db.objectStoreNames.length === 0) {
-      console.log(false);
+      console.log("Banco sem objectStores, recriando...");
       db.close();
-      criarPrismacvVersao4(); // criar com versão 4
+      indexedDB.deleteDatabase(dbName).onsuccess = criarPrismacvVersao4;
       return;
     }
 
-    let stores = Array.from(db.objectStoreNames);
-    let checks = stores.map(storeName => {
-      return new Promise((resolve) => {
+    const storeNames = Array.from(db.objectStoreNames);
+    const checks = storeNames.map(storeName => {
+      return new Promise(resolve => {
         const tx = db.transaction(storeName, "readonly");
         const store = tx.objectStore(storeName);
-        const countRequest = store.count();
+        const countReq = store.count();
 
-        countRequest.onsuccess = function () {
-          resolve(countRequest.result > 0);
-        };
-        countRequest.onerror = function () {
-          resolve(false);
-        };
+        countReq.onsuccess = () => resolve(countReq.result > 0);
+        countReq.onerror = () => resolve(false);
       });
     });
 
     Promise.all(checks).then(results => {
-      const algumComDados = results.some(r => r === true);
-      console.log(algumComDados, "uu");
+      const temDados = results.some(r => r === true);
+      db.close();
 
-      if (algumComDados) {
+      if (temDados) {
         window.location.href = "home.html";
       } else {
-        criarPrismacvVersao4(); // não tem dados => recria
+        console.log("Banco estava vazio, recriando com versão 4...");
+        indexedDB.deleteDatabase(dbName).onsuccess = criarPrismacvVersao4;
       }
-
-      db.close();
     });
   };
 
-  request.onupgradeneeded = function () {
-    // DB está sendo criada pela primeira vez
-    console.log(false);
-    request.result.close();
-    criarPrismacvVersao4(); // garante criação com versão 4
+  request.onerror = function () {
+    console.error("Erro ao abrir/criar o banco de dados.");
   };
 }
 
@@ -72,8 +67,7 @@ function criarPrismacvVersao4() {
       db.createObjectStore("usuarios", { keyPath: "id", autoIncrement: true });
     }
 
-    // pode adicionar mais stores se quiser
-    console.log("DB criada com versão 4");
+    console.log("Banco recriado com versão 4.");
   };
 
   request.onsuccess = function () {
@@ -81,8 +75,9 @@ function criarPrismacvVersao4() {
   };
 
   request.onerror = function () {
-    console.error("Erro ao criar DB versão 4");
+    console.error("Erro ao criar banco com versão 4.");
   };
 }
+
 
 
