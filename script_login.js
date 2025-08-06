@@ -53,7 +53,7 @@ async function chamada(tipo){
     alert("Ja existe um usuario com esse username.\nTente outro porfavor")
   }
   
-  else if(String(senha).length<8){
+  else if(String(senha).length<=8){
     erro_senha.classList.add("apareca")
     console.log("deu")
   }
@@ -302,6 +302,7 @@ function colocar(data) {
     window.location.href="home.html"
   });
 }
+
 
 
 //fundo_
