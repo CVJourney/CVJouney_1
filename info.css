@@ -169,4 +169,44 @@ div#mapas{
 
 }
 
+
+.hotel-image {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.hotel-image img.imagem-principal {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: 1s ease-in-out;
+}
+
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.thumbnails .miniatura {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: border 0.3s;
+}
+
+.thumbnails .miniatura:hover {
+  border-color: #fc7844;
+}
+
+.thumbnails .miniatura.ativa {
+  border-color: #ff922c;
+}
+
 /*stars
