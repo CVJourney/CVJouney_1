@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded",async function(){
       <p style="text-align:center;">${rest.info}</p>
       <p class="estrelas" style="text-align:center;">${estrelas}</p>
       ${carrosselHTML}
-      <p id="ilha_2">Ilha: ${rest.ilha}</p>
+      <p id="ilha_2">Ilha: <strong class="ilha_3">${rest.ilha}</strong></p>
       <img src="img/mapa_3.png" id="mapa_res"/>
       <h6 id="nome_sai">${rest.nome}</h6>
       `;

@@ -48,13 +48,16 @@ function renderTaxiList(data, filtro, container) {
       <img src="${taxi.perfil}" class="perfil-img" alt="Motorista ${taxi.nome}">
       <div class="taxi-info">
         <h2>${taxi.nome}</h2>
-        <p><strong>Preço da guia</strong> ${taxi.preco_dia}$</p>
-        <p><strong>Estrelas:</strong> ${'⭐'.repeat(taxi.estrela)}</p>
+        <p><strong>Preço da guia</strong>: ${taxi.preco_dia}$ ECV</p>
+        <p><strong>Estrelas:</strong><i class="estrela"> ${'⭐'.repeat(taxi.estrela)}</i></p>
       </div>
       <button class="proximo-btn">→</button>
     `;
     container.appendChild(div);
   });
+
+  
+  document.dispatchEvent(new Event("traduzir"))
 }
 
 // Evento do switch

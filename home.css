@@ -269,7 +269,7 @@ span{
     padding: 10px;
     border: solid 1px;
     border-radius: 10px;
-    width: 150px;
+    width: 70%;
     overflow-x: auto;
 }
 
@@ -304,9 +304,4 @@ span{
     text-shadow: 0 0 20px black;
 }
 
-
 /*pesquisa*/
-
-
-
-

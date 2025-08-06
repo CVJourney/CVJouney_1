@@ -1,10 +1,11 @@
 let star="★"
 document.addEventListener("DOMContentLoaded",async ()=>{
     await verificarSeTemDadosNaBD()
-    await traduzir_all()
     await campo_1()
     lerdadosempresas()
+    document.dispatchEvent(new Event("traduzir"))
 })
+
 
 async function verificarSeTemDadosNaBD() {
   if (!('databases' in indexedDB)) {
@@ -55,7 +56,6 @@ async function verificarSeTemDadosNaBD() {
     return false;
   }
 }
-
 
 function apanha(id){
     return document.getElementById(id)
@@ -109,143 +109,6 @@ async function get(url) {
     return res;
 }
 
-
-async function traduzir_all() {
-  const url = "https://api.jsonbin.io/v3/b/687826e16063391d31af1d8e";
-  const cacheKey = "cache_jsonbin_idiomas";
-
-  // Tenta pegar dados do localStorage data_empresas
-  let cacheString = localStorage.getItem(cacheKey);
-  let dadosCache = null;
-
-  if (cacheString) {
-    try {
-      dadosCache = JSON.parse(cacheString);
-    } catch {
-      dadosCache = null;
-      localStorage.removeItem(cacheKey);
-    }
-  }
-
-  // Se tem cache, usa imediatamente para carregar (pra não travar a UI)
-  if (dadosCache) {
-    processarDados(dadosCache);
-    // Continua para atualizar em background
-    atualizarDados();
-  } else {
-    // Se não tem cache, espera a primeira requisição
-    try {
-      const dadosApi = await buscarDadosDaApi();
-      processarDados(dadosApi);
-    } catch (erro) {
-      console.error(erro);
-    }
-  }
-
-  // Função que busca da API e atualiza o cache
-  async function atualizarDados() {
-    try {
-      const dadosApi = await buscarDadosDaApi();
-      processarDados(dadosApi);
-    } catch (erro) {
-      alert("Internet!!!");
-      console.error(erro);
-    }
-  }
-
-  // Função que faz a requisição fetch
-  async function buscarDadosDaApi() {
-    const resposta = await fetch(url, {
-      method: "GET",
-      headers: {
-        "X-Master-Key": "$2a$10$FHRkxcbaYpizUHCLChg46ODGDOxfAQ.v2OY5Qj9GOyP/kgJSvzfaq",
-      },
-    });
-
-    if (!resposta.ok) {
-      throw new Error("Erro na requisição: " + resposta.status);
-    }
-
-    const res = await resposta.json();
-    localStorage.setItem(cacheKey, JSON.stringify(res));
-    return res;
-  }
-
-  // Sua função que processa os dados e faz a tradução, separada para reaproveitar
-  function processarDados(res) {
-    let dados = res.record;
-
-    let resq = indexedDB.open("idiomas");
-    let idioma = "";
-
-    function traduzir(idioma, tags_) {
-      let chave = Object.keys(idioma);
-      console.log(chave);
-
-      function tradutor(e, tipo) {
-        console.log("deu");
-        e[tipo] = `${idioma[e[tipo]]}`;
-        console.log("**-*", idioma[e[tipo]], "----->", idioma, e[tipo]);
-      }
-
-      tags_.forEach((e) => {
-        if (
-          chave.some((palavra) =>
-            String(e.innerText).toLowerCase().includes(palavra.toLowerCase())
-          )
-        ) {
-          tradutor(e, "innerHTML");
-        } else if (
-          chave.some((palavra) =>
-            String(e.placeholder).toLowerCase().includes(palavra.toLowerCase())
-          )
-        ) {
-          tradutor(e, "placeholder");
-        }
-      });
-    }
-
-    function pegar_idioma(idioma) {
-      let len = dados.length - 1;
-      let data = "";
-
-      while (len >= 0) {
-        let veja = dados[len][idioma];
-        if (String(veja) != "undefined") {
-          data = dados[len][idioma];
-          break;
-        }
-
-        len -= 1;
-      }
-
-      console.log(data);
-
-      let tags = document.querySelectorAll(".texto_pega");
-      console.log("************>>>", tags);
-      let place = document.querySelectorAll("input[type='text']");
-
-      traduzir(data, tags);
-      traduzir(data, place);
-    }
-
-    resq.onsuccess = (event) => {
-      const bd = event.target.result;
-      const tx = bd.transaction("usuarios", "readonly");
-      const store = tx.objectStore("usuarios");
-      const getAll = store.getAll();
-
-      getAll.onsuccess = () => {
-        let dados = getAll.result;
-        idioma = dados[0].idioma;
-        console.log(idioma);
-
-        console.log("/7/7--", idioma);
-        pegar_idioma(idioma);
-      };
-    };
-  }
-}
 
 
 function lerdadosempresas() {

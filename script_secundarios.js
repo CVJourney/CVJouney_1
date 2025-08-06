@@ -66,6 +66,7 @@ async function pega(){
 document.addEventListener("dadosCarregados",async function(){
   console.log("vai dar sim")
   await pega()
+  document.dispatchEvent(new Event("traduzir"))
 })
 
 

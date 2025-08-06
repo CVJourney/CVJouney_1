@@ -61,6 +61,7 @@ app.post("/data_usuarios_post",async (req,res)=>{
 
     await pool.query(comando)
     console.log("fizemos tudo e deu certo...\ndados inseridos...")
+    res.status(201).json({ message: "Usuário criado com sucesso" })
 })
 
 app.post("/data_empresas", async (req, res) => {

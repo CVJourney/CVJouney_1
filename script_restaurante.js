@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const evento = new CustomEvent("realiza");
   document.dispatchEvent(evento);
   await Buscar();
+  document.dispatchEvent(new Event("traduzir"))
 });
 
 
@@ -96,7 +97,7 @@ function mostrarRestaurantes(data) {
           <div class="prato">
             <strong>${p.nome}</strong> (${p.origem})<br>
             <img src="${p.imagem}" width="100" height="100" />
-            <p style="color:gold;font-size:14px;">${texto.repeat(Number(p.estrelas))}</p> <br>
+            <p style="color:gold;font-size:14px;" class="estrela">${texto.repeat(Number(p.estrelas))}</p> <br>
             <p class="dinheiro">${p.dinheiro}$ECV</p>
           </div>
         `).join("")}
@@ -109,7 +110,7 @@ function mostrarRestaurantes(data) {
       <p>${rest.info}</p>
       <div class="fotos">
         <img src="${sep[0]}" />
-        <p style="color:gold;font-size:11px;">${texto.repeat(Number(rest.estrela))}
+        <p style="color:gold;font-size:11px;"><i class="estrela">${texto.repeat(Number(rest.estrela))}</i>
         <mark onclick="manda(${rest.id})">Detalhes</mark></p>
       </div>
       ${pratosHTML}
@@ -139,7 +140,7 @@ function abrirModal(index) {
         <div class="prato principal_pr">
           <strong>${p.nome}</strong> (${p.origem})<br>
           <img src="${p.imagem}" width="150" height="150" />
-          <p style="color:gold;font-size:15px;">${texto.repeat(p.estrelas)}</p>
+          <p style="color:gold;font-size:15px;" class="estrela">${texto.repeat(p.estrelas)}</p>
           <br>
           <p class="dinheiro_pri">${p.dinheiro}$ECV</p>
         </div>
@@ -149,6 +150,7 @@ function abrirModal(index) {
 
   modalBody.innerHTML = pratosHTML;
   modal.classList.remove("hidden");
+  document.dispatchEvent(new Event("traduzir"))
 }
 
 // Fechar modal

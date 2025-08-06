@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const evento = new CustomEvent("realiza");
   document.dispatchEvent(evento);
   await post();
+  document.dispatchEvent(new Event("traduzir"))
+  console.log("45")
 });
 
 
@@ -88,6 +90,7 @@ async function post() {
   }
 
   dados.forEach(criarCard);
+  
 }
 
 

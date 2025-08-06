@@ -11,7 +11,7 @@ async function taxista() {
       <h2>${dados.nome}</h2>
       <p><b>Marca:</b> ${dados.marca}</p>
       <p><b>Modelo:</b> ${dados.modelo}</p>
-      <p><b>Chapa:</b> ${dados.chapa}</p>
+      <p><b>Chapa:</b> <span class="chapa_">${dados.chapa}</span></p>
       <p><b>Telefone:</b> ${dados.telefone}</p>
       <p><b>Estrela:</b> ${"⭐".repeat(dados.estrela)}</p>`;
     document.getElementById("info-text").innerHTML = info;
@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   const evento = new CustomEvent("realiza");
   document.dispatchEvent(evento);
   await taxista();
+  document.dispatchEvent(new Event("traduzir"))
 });
 
 async function corida(url,data){
