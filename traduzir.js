@@ -99,7 +99,7 @@ function obterTodosTextosVisiveis() {
 
 async function traduzirTexto(texto, idiomaDestino) {
 
-  const res = await fetch("https://apiprisma.vercel.app/", {
+  const res = await fetch("https://apiprisma.vercel.app/api_tradutor", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ texto, idiomaDestino }),
