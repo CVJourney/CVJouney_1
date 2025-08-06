@@ -10,13 +10,55 @@
     <div id="centra">
         <h3 id="titulo_esc">Escolha seu idioma</h3>
         <select name="idioma_name" id="idioma">
-            <option value="pt">🇵🇹 Português</option>
-            <option value="en">🇬🇧 English</option>
-            <option value="ro">🇷🇴 Română</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="nl">🇳🇱 Nederlands</option>
-            <option value="es">🇪🇸 Español</option>
+            <option value="af">Afrikaans</option>
+            <option value="bn">Bengali</option>
+            <option value="bg">🇧🇬 Búlgaro</option>
+            <option value="ca">🇨🇦 Catalão</option>
+            <option value="zh-CN">🇨🇳 Chinês Simplificado</option>
+            <option value="hr">🇭🇷 Croata</option>
+            <option value="cs">🇨🇿 Tcheco</option>
+            <option value="da">🇩🇰 Dinamarquês</option>
+            <option value="nl">🇳🇱 Holandês</option>
+            <option value="en">🇬🇧 Inglês</option>
+            <option value="et">Estoniano</option>
+            <option value="fi">🇫🇮 Finlandês</option>
+            <option value="fr">🇫🇷 Francês</option>
+            <option value="de">🇩🇪 Alemão</option>
+            <option value="el">🇬🇷 Grego</option>
+            <option value="gu">Gujarati</option>
+            <option value="he">🇮🇱 Hebraico</option>
+            <option value="hi">Hindi</option>
+            <option value="hu">🇭🇺 Húngaro</option>
+            <option value="is">🇮🇸 Islandês</option>
+            <option value="id">🇮🇩 Indonésio</option>
             <option value="it">🇮🇹 Italiano</option>
+            <option value="ja">🇯🇵 Japonês</option>
+            <option value="kn">Kannada</option>
+            <option value="ko">🇰🇷 Coreano</option>
+            <option value="lv">Letão</option>
+            <option value="lt">Lituano</option>
+            <option value="ml">Malayalam</option>
+            <option value="mr">Marathi</option>
+            <option value="no">🇳🇴 Norueguês</option>
+            <option value="fa">🇮🇷 Persa</option>
+            <option value="pl">🇵🇱 Polonês</option>
+            <option value="pt">🇵🇹 Português</option>
+            <option value="pa">Punjabi</option>
+            <option value="ro">🇷🇴 Romeno</option>
+            <option value="ru">🇷🇺 Russo</option>
+            <option value="sk">🇸🇰 Eslovaco</option>
+            <option value="sl">🇸🇮 Esloveno</option>
+            <option value="es">🇪🇸 Espanhol</option>
+            <option value="sw">Suaíli</option>
+            <option value="sv">🇸🇪 Sueco</option>
+            <option value="ta">Tâmil</option>
+            <option value="te">Telugu</option>
+            <option value="th">🇹🇭 Tailandês</option>
+            <option value="tr">🇹🇷 Turco</option>
+            <option value="uk">🇺🇦 Ucraniano</option>
+            <option value="ur">Urdu</option>
+            <option value="vi">🇻🇳 Vietnamita</option>
+            <option value="zu">Zulú</option>
         </select>
         <h4>
             esse idioma sera utilizado no inicio da sua jornada, <br> mas podes troca-la.
@@ -28,6 +70,7 @@
 
         document.getElementById("avanca").addEventListener("click", () => {
             let select = document.getElementById("idioma").value;
+            localStorage.setItem("idioma",select)
             console.log(select);
 
             const request = indexedDB.open("idiomas", 1);

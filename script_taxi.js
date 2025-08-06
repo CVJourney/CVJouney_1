@@ -31,7 +31,21 @@ function renderTaxiList(data, filtro, container) {
 
   if (filtro === "com_guia") {
     data = data.filter(t => t.guia === true);
-    alert("Viagem com guia selecionada.");
+    alertTraduzido
+    
+    async function alertTraduzido(textoOriginal) {
+  const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ text: textoOriginal }),
+  });
+
+  const dados = await resposta.json();
+  const textoTraduzido = dados.resultado;
+  alert(textoTraduzido);
+}("Viagem com guia selecionada.");
   } else if (filtro === "sem_guia") {
     data = data.filter(t => t.guia === false);
   }
@@ -87,3 +101,35 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.dispatchEvent(evento);
     console.log(evento)
 })
+
+//alertTraduzido
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
+}

@@ -226,3 +226,4 @@ apanha("t_restaurante").addEventListener("click",async function (){
   separa(this.id)
 })
 
+//alert

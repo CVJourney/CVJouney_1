@@ -146,8 +146,38 @@ document.getElementById('pesquisa').addEventListener('keydown', function (e) {
         window.location.href = `res_destaque.html?id=${resultado.id}`;
       }
     } else {
-      alert(`Não encontramos nada relacionado a "${e.target.value}"`);
+      alertTraduzido(`Não encontramos nada relacionado a "${e.target.value}"`);
     }
   }
 });
 
+//alert
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
+}

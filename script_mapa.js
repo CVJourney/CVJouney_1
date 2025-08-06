@@ -13,7 +13,7 @@ function latlog(iframe){
         },
         function(erro){
             if(erro.code==1){
-                alert("❌ Permissão negada!\nPor favor, ative o acesso à localização para que possamos mostrar exatamente onde você está no mapa. 🌍")
+                alertTraduzido("❌ Permissão negada!\nPor favor, ative o acesso à localização para que possamos mostrar exatamente onde você está no mapa. 🌍")
                 iframe.src="https://www.google.com/maps"
             }
         }
@@ -50,3 +50,35 @@ apanha("serch").addEventListener("input",async function(){
 
     }
 })
+
+//alertTraduzido
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
+}

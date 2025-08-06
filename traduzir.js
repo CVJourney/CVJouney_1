@@ -104,6 +104,7 @@ async function traduzirTexto(texto, idiomaDestino) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ texto, idiomaDestino }),
   });
+  localStorage.setItem("idioma",idiomaDestino)
 
   if (!res.ok) throw new Error("Erro na API de tradução");
 

@@ -81,7 +81,7 @@ async function taxista() {
       const tipo=document.getElementById("tipo").value
 
       if (!destino || !tempo) {
-        alert("Preencha todos os campos.");
+        alertTraduzido("Preencha todos os campos.");
         return;
       }
 
@@ -107,12 +107,12 @@ async function taxista() {
           guia:guia
         }
 
-        alert("Solicitação de corrida feito")
+        alertTraduzido("Solicitação de corrida feito")
         await corida("https://cvprisma.vercel.app/data_corrida",obj)
         
         
 
-      }, err => alert("Erro ao obter localização: " + err.message));
+      }, err => alertTraduzido("Erro ao obter localização: " + err.message));
     });
   }
 
@@ -149,4 +149,35 @@ async function corida(url,data){
     },
     body:JSON.stringify(data)
   })
+}
+//alertTraduzido
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
 }

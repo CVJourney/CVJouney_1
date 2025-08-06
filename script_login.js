@@ -27,7 +27,8 @@ async function chamada(tipo){
   let centro_2=apanha("centra_2")
 
   if(String(completo).length>25){
-    alert("O teu username não pode ter mais de 25 digitos\nTente um mais pequeno")
+    
+    alertTraduzido("O teu username não pode ter mais de 25 digitos\nTente um mais pequeno")
   }
 
   let ver=String(nome).length>2 && String(senha).length>8 && String(completo).length>1 //ver essa parte 1º
@@ -50,7 +51,9 @@ async function chamada(tipo){
 
 
   if(verefica && tipo==1){
-    alert("Ja existe um usuario com esse username.\nTente outro porfavor")
+    alert
+    
+    alertTraduzido("Ja existe um usuario com esse username.\nTente outro porfavor")
   }
   
   else if(String(senha).length<=8){
@@ -304,5 +307,35 @@ function colocar(data) {
 }
 
 
-
 //fundo_
+
+//alert
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
+}

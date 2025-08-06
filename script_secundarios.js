@@ -100,3 +100,4 @@ function procura(id){
   window.location.href=`info.html?id=${id}&url=empresas`
 }
 
+//alert

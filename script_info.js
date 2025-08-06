@@ -120,8 +120,8 @@ function separa_(texto){
 
 }
 
-function mapa(){
-  alert("Espera um pouquinho que iremos te dar o mapa⏩")
+async function mapa(){
+  await alertTraduzido("Espera um pouquinho que iremos te dar o mapa ⏩")
   let iframe=document.getElementById("map")
   let local=String(document.getElementById("local_x").innerText).replace(" ","+")
   let url=`https://www.google.com/maps?q=${local},+Cabo+Verde&output=embed`
@@ -135,3 +135,36 @@ document.getElementById("close_map").addEventListener("click",function(){
   document.getElementById("mapas").style.display="none"
 })
 /*https://cvprisma.vercel.app */
+//alert
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    alert(textoTraduzido,idiomaDestino);
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    alert(texto); // Fallback
+  }
+}
+
+

@@ -79,3 +79,5 @@ function go(id) {
 }
 
 //data_info
+
+//alert
