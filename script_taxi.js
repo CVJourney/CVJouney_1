@@ -29,7 +29,7 @@ async function lista_taxi(filtro = 'todos') {
   try {
     let [lat,lon]=await getLocation()
     console.log(2)
-    const dat = await fetch("http://localhost:4000/data_taxi",{
+    const dat = await fetch("https://cvprisma.vercel.app/data_taxi",{
       method:"post",
       headers:{
         "content-type":"application/json"
