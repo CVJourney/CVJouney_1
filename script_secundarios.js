@@ -53,8 +53,8 @@ async function pega(){
       btn.className = "vermais_new";
       btn.innerText = "Ver mais";
       btn.id=`vermais_${categoria}`
-      btn.onclick = () => {
-        vermais(categoria,`vermais_${categoria}`)
+      btn.onclick = async () => {
+        await vermais(categoria,`vermais_${categoria}`)
       };
 
       section.appendChild(content);
@@ -71,13 +71,13 @@ document.addEventListener("dadosCarregados",async function(){
 
 
 
-function vermais(div_,id) {
+async function vermais(div_,id) {
   const div = document.getElementById(div_);
   const btn = document.getElementById(id);
 
   if (div.classList.contains("area_conteudo_expandido_new")) {
     div.classList.remove("area_conteudo_expandido_new");
-    btn.textContent = "Ver mais";
+    btn.textContent = await Traduzido("Ver mais");
 
     document.querySelectorAll(".content_new").forEach(e=>{
       e.scrollTop=0
@@ -92,7 +92,7 @@ function vermais(div_,id) {
     document.querySelectorAll(".content_new").forEach((e)=>{
       e.style.overflowY="auto"
     })
-    btn.textContent = "Fechar";
+    btn.textContent = await Traduzido("Fechar");
   }
 }
 
@@ -100,4 +100,32 @@ function procura(id){
   window.location.href=`info.html?id=${id}&url=empresas`
 }
 
-//alert
+async function Traduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    alert(texto);
+    return;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+
+    return textoTraduzido
+
+  } catch (err) {
+  }
+}
