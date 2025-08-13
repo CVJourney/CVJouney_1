@@ -9,6 +9,16 @@ async function lista_taxi(filtro = 'todos') {
   // 1. Tenta pegar do sessionStorage
   let localData = sessionStorage.getItem("taxiData");
   let data = [];
+  function getLocation() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          resolve([pos.coords.latitude, pos.coords.longitude]);
+        },
+        err => reject(err)
+      );
+    });
+  }
 
   if (localData) {
     data = JSON.parse(localData);
@@ -17,7 +27,18 @@ async function lista_taxi(filtro = 'todos') {
 
   // 2. Busca nova versão atualizada da API
   try {
-    const freshData = await get("https://cvprisma.vercel.app/data_taxi");
+    let [lat,lon]=await getLocation()
+    console.log(2)
+    const dat = await fetch("http://localhost:4000/data_taxi",{
+      method:"post",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify({lat,lon})
+    });
+    const freshData=await dat.json()
+    console.log(freshData)
+
     sessionStorage.setItem("taxiData", JSON.stringify(freshData)); // Salva nova versão
     renderTaxiList(freshData, filtro, container); // Atualiza a lista visualmente
   } catch (error) {
