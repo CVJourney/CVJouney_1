@@ -1,0 +1,122 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#titulo_1{
+    background:linear-gradient(to right,rgb(161, 160, 158), rgb(0, 0, 0)); 
+    color: transparent;
+    background-clip: text;
+    margin: 10px;
+}
+
+#saida_nada{
+    text-align: center;
+    margin: 50px 10px;
+}
+
+.campos_mail_x{
+    margin: 10px;
+    padding: 5px;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+.campos_mail_x h6{
+    font-weight: 540;
+    font-size: 13px;
+    font-family:monospace;
+    display: block;
+    width: 60%;
+    padding: 10px;
+    border: solid 1px black;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.campos_mail_x h3{
+    text-align: center;
+    margin: 5px;
+    font-size: 13px;
+    padding: 10px;
+    color: red;
+}
+
+#aceito{
+    padding: 10px 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px rgb(135, 252, 67);
+    background-color: rgb(106, 250, 106);
+    color: white;
+    margin-top: 5px;
+}
+
+.dias{
+    font-size: 11px;
+    position: absolute;
+    right: 10px;
+    width: 90px;
+    margin: 3px;
+    font-weight: bold;
+}
+
+#novo_criar{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    overflow-y: auto;
+    padding-top: 10px;
+}
+
+#novo_criar input{
+    padding: 15px;
+    display: block;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 1px black;
+    margin-top: 10px;
+    width: 70%;
+}
+
+#novo_criar button{
+    padding: 20px;
+    border-radius: 20px;
+    border: solid 1px black;
+    background-color: black;
+    color: white;
+    width: 90%;
+    margin-top: 20px;
+    background-image: url("https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aXRicm1zeXJwYjBpZXIxMmJ0MzM5MW15b3F0NDFlamdra3ZpZXBwdSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/pViWHLiQBA1q0/giphy.gif");
+    background-size: 100% 100%;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+
+}
+#move_y{
+    height: 100px;
+}
+#novo_criar img{
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+#aguarde{
+    margin: 10px;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+}

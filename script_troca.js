@@ -37,6 +37,9 @@ apanha("t_taxi").addEventListener("click",function(){
   separa(this.id)
 })
 
+apanha("t_mail").addEventListener("click",function(){
+  separa(this.id)
+})
 
 
 

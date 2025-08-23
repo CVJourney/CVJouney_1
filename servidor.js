@@ -95,7 +95,7 @@ app.post("/data_info",async (req,res)=>{
     comando=`select nome,fotos,local,ilha,custo,empresa,estrela,info from ${bd} where id=${id}`
   }
   else if(String(bd)=="empresas"){
-    comando=`select nome,imagem,localizacao,ilha,estrela,info,empresa from ${bd} where id=${id}`
+    comando=`select nome,imagem,localizacao,ilha,estrela,info,empresa,custo from ${bd} where id=${id}`
   }
 
   let resposta=await pool.query(comando)
@@ -160,11 +160,29 @@ ORDER BY
   res.json(resp)
 })
 
+app.post("/data_reserva",async (req,res)=>{
+  let {usuario}=req.body
+  let comando=`select * from mensagem where autor='${usuario}'`
+  let response=await pool.query(comando)
+  let resp=response.rows
 
-module.exports=app
+  res.json(resp)
+})
+
+app.post("/data_envia",async (req,res)=>{
+  let {nome,telefone,empresa,data,preco}=req.body
+  let comando=`insert into mensagem (destinatario,preco,data,autor,telefone) values('${empresa}','${preco}','${data}','${nome}',${Number(telefone)})`
+  console.log(req.body)
+
+  await pool.query(comando)
+  res.send("#ÉCaChatiaNou")
+})
+
 /*
+module.exports=app
+*/
+
 const porta = 4000;
 app.listen(porta, () => {
   console.log("Servidor rodando na porta", porta);
 });
-*/

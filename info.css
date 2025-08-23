@@ -161,10 +161,13 @@ div#mapas{
 }
 
 .reserva{
-  padding: 10px;
-  background-image: linear-gradient(to right,white,rgb(2, 2, 2));
+  padding: 14px 7px;
+  background-image: url("https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aXRicm1zeXJwYjBpZXIxMmJ0MzM5MW15b3F0NDFlamdra3ZpZXBwdSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/pViWHLiQBA1q0/giphy.gif");
+  background-size: 100% 100%;
+  background-color: rgba(0, 0, 0, 0.856);
   color: white;
-  border-radius: 20px;
+  margin: 10px 10px 10px 0;
+  border-radius: 8px;
   text-align: center;
 
 }

@@ -50,7 +50,7 @@ async function post() {
           <div class="info">${hotel.info}</div>
           <div class="price">Preço: ${hotel.custo.toLocaleString()} CVE</div>
           <div id="empresas">Empresa: <strong>${hotel.empresa}</strong></div>
-          <div class="reserva" id="reserva_${id}">Reservar</div>
+          <div class="reserva" id="reserva_${id}" onclick="reservar('${hotel.empresa}',${hotel.custo},'estadia')">Reservar</div>
         </div>
       `;
     } else if (bd === "empresas") {
@@ -68,8 +68,9 @@ async function post() {
           <div class="location">${hotel.localizacao}, Ilha de ${hotel.ilha}</div>
           <h6 id="local_x">${hotel.nome} ${hotel.localizacao}</h6>
           <div class="info">${hotel.info}</div>
+          <div id="empresas">Empresa:<strong> ${hotel.empresa}</strong></div>
+          <div id="agendar" class="reserva" onclick="reservar('${hotel.empresa}','${hotel.custo}','empresa')">Agendar visita</strong></div>
           <div class="price">🚖 Chamar Táxi</div>
-          <div id="empresas">Empresa: <strong>${hotel.empresa}</strong></div>
         </div>
       `;
     }
@@ -92,7 +93,6 @@ async function post() {
   dados.forEach(criarCard);
   
 }
-
 
 
 function separa_(texto){
@@ -167,4 +167,21 @@ async function alertTraduzido(texto) {
   }
 }
 
+function reservar(empresa,preco,tipo){
+  console.log(empresa,preco)
+  if(String(empresa).toLowerCase()=="sem empresa"){
+    alertTraduzido("Não há visitas disponíveis, mas é fácil chegar de táxi. Solicite o seu aqui!")
+  }
+  else{
+    if(empresa=="empresa"){
+      alertTraduzido("Para solicitar a visita, você será redirecionado para a página de solicitação.")
+    }
+    else{
+      alertTraduzido("Para reservar a estadia, você será redirecionado para a página de reservas.")
+    }
+    window.location.href=`mail.html?valida=1&empresa=${empresa}&preco=${preco}`
+  }
+}
 
+
+//http://localhost
