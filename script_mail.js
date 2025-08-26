@@ -31,11 +31,12 @@ async function Trabalhar_dados(data){
     let campo=apanha("campo_mail")
 
     data.map((e)=>{
-        let {destinatario,autor,data,preco,vista,resposta,telefone}=e
+        let {destinatario,autor,data,preco,vista,resposta,telefone,lugar}=e
         let html=`
         ${vista!=null?`<p class="dias">${verificarData(resposta)=="data invalida"?"":verificarData(resposta)}</p>`:""}
         <h6>Cliente: ${autor}</h6>
         <h6>Telefoen: ${telefone}</h6>
+        <h6>Destino: ${lugar}</h6>
         <h6>Empresa: ${destinatario}</h6>
         <h6>Data: ${data}</h6>
         <h6>Preço: ${preco}ECV</h6>
