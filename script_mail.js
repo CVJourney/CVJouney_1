@@ -123,6 +123,7 @@ async function Novo_registro(){
   let valida=params.get("valida")
   let empresa=params.get("empresa")
   let preco=params.get("preco")
+  let nome=params.get("nome")
 
   if(valida==1){
     const hoje = new Date();
@@ -138,7 +139,7 @@ async function Novo_registro(){
     btn.id="envia_data"
 
     btn.onclick=async ()=>{
-      await enviar(`${name}`,`${empresa}`,`${preco}`)
+      await enviar(`${name}`,`${empresa}`,`${preco}`,`${nome}`)
     }
 
     let df=document.createElement("div")
@@ -151,6 +152,7 @@ async function Novo_registro(){
     <input type="text" value="${name}"readonly>
     <input type="tel" id="telefone_novo"placeholder="Numero telefone(📞)">
     <input type="text" value="${empresa}" readonly>
+    <input type="text" value="${nome}" readonly>
     <input type="date" id="data_novo" required onclick="datas_()" min="${dataHoje}">
     <input type="text" value="${preco}ECV" readonly>`
 
@@ -213,7 +215,7 @@ function datas_(){
 
 
 
-async function enviar(nome,empresa,preco){
+async function enviar(nome,empresa,preco,nome_l){
   let tel=apanha("telefone_novo").value
   let data_=String(apanha("data_novo").value).split("-")
   console.log("hhh",data_)
@@ -226,7 +228,8 @@ async function enviar(nome,empresa,preco){
       telefone:tel,
       empresa:empresa,
       data:data,
-      preco:preco
+      preco:preco,
+      nome_l:nome_l
   
     }
   

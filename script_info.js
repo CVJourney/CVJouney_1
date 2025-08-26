@@ -50,7 +50,7 @@ async function post() {
           <div class="info">${hotel.info}</div>
           <div class="price">Preço: ${hotel.custo.toLocaleString()} CVE</div>
           <div id="empresas">Empresa: <strong>${hotel.empresa}</strong></div>
-          <div class="reserva" id="reserva_${id}" onclick="reservar('${hotel.empresa}',${hotel.custo},'estadia')">Reservar</div>
+          <div class="reserva" id="reserva_${id}" onclick="reservar('${hotel.empresa}',${hotel.custo},'estadia','${hotel.nome}')">Reservar</div>
         </div>
       `;
     } else if (bd === "empresas") {
@@ -69,7 +69,7 @@ async function post() {
           <h6 id="local_x">${hotel.nome} ${hotel.localizacao}</h6>
           <div class="info">${hotel.info}</div>
           <div id="empresas">Empresa:<strong> ${hotel.empresa}</strong></div>
-          <div id="agendar" class="reserva" onclick="reservar('${hotel.empresa}','${hotel.custo}','empresa')">Agendar visita</strong></div>
+          <div id="agendar" class="reserva" onclick="reservar('${hotel.empresa}','${hotel.custo}','empresa','${hotel.nome}')">Agendar visita</strong></div>
           <div class="price">🚖 Chamar Táxi</div>
         </div>
       `;
@@ -167,7 +167,7 @@ async function alertTraduzido(texto) {
   }
 }
 
-function reservar(empresa,preco,tipo){
+function reservar(empresa,preco,tipo,nome){
   console.log(empresa,preco)
   if(String(empresa).toLowerCase()=="sem empresa"){
     alertTraduzido("Não há visitas disponíveis, mas é fácil chegar de táxi. Solicite o seu aqui!")
@@ -179,7 +179,7 @@ function reservar(empresa,preco,tipo){
     else{
       alertTraduzido("Para reservar a estadia, você será redirecionado para a página de reservas.")
     }
-    window.location.href=`mail.html?valida=1&empresa=${empresa}&preco=${preco}`
+    window.location.href=`mail.html?valida=1&empresa=${empresa}&preco=${preco}&nome=${nome}`
   }
 }
 
