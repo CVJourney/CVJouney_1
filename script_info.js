@@ -31,7 +31,6 @@ async function post() {
     
     const div = document.createElement("div");
     div.className = "hotel-card";
-    hotel.info = separa_(hotel.info);
 
     if (bd === "estadia") {
       div.innerHTML = `
@@ -95,31 +94,6 @@ async function post() {
 }
 
 
-function separa_(texto){
-  let sep=String(texto).split(" ")
-  let len=sep.length-1
-  let lei=len
-  console.log("hotel ",len)
-  let num=0
-  while(len>0){
-
-    num+=String(sep[len]).length
-    console.log(num)
-    if(num>=200){
-      break
-    }
-    len-=1
-  }
-  console.log("--->",sep[len])
-  let inicio=sep.slice(0,len).join(" ")
-  let fim=sep.slice(len, lei+1).join(" ")
-  console.log(inicio,fim)
-  let text=`<details><summary>${inicio}...</summary><p>${fim}</p></details>`
-
-  return text
-
-}
-
 async function mapa(){
   await alertTraduzido("Espera um pouquinho que iremos te dar o mapa ⏩")
   let iframe=document.getElementById("map")
@@ -182,6 +156,7 @@ function reservar(empresa,preco,tipo,nome){
     window.location.href=`mail.html?valida=1&empresa=${empresa}&preco=${preco}&nome=${nome}`
   }
 }
+
 
 
 //http://localhost
