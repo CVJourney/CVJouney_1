@@ -27,9 +27,9 @@ async function apanha_sol(){
 
 }
 
-async function Trabalhar_dados(data){
+async function Trabalhar_dados(data_l){
     let campo=apanha("campo_mail")
-
+    let data=data_l.reverse()
     data.map((e)=>{
         let {destinatario,autor,data,preco,vista,resposta,telefone,lugar}=e
         let html=`
@@ -249,4 +249,5 @@ async function enviar(nome,empresa,preco,nome_l){
   }
   
 }
+
 //https://cvprisma.vercel.app
