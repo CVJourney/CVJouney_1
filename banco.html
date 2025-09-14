@@ -1,0 +1,74 @@
+<!-- bank-receipt-uploader.html - apenas HTML + CSS -->
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CVJourney-Recibo Bancário</title>
+  <link rel="shortcut icon" href="img/logo_2_png.png" type="image/x-icon">
+  <link rel="stylesheet" href="banco.css">
+  <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+</head>
+<body>
+  <main class="card" role="main">
+    <section class="left">
+      <div class="brand">
+        <div class="logo">$</div>
+        <div>
+          <h1>Dados da Conta & Recibo</h1>
+          <p class="lead">Aqui estão os dados bancários do vendedor. Por favor, realize a transferência para esta conta e envie o comprovativo de pagamento neste espaço.</p>
+        </div>
+      </div>
+
+      <form class="form" autocomplete="off">
+        <div class="fields">
+          <div>
+            <label for="nib">NIB / IBAN</label>
+            <input readonly id="nib" name="nib" type="text" placeholder="Ex: CV123456789012345678" />
+          </div>
+
+          <div>
+            <label for="bank">Banco</label>
+            <input readonly id="bank" name="bank" type="text" placeholder="Ex: Banco de Cabo Verde" />
+          </div>
+
+          <div class="full">
+            <label for="account">Nome da Conta</label>
+            <input readonly id="account" name="account" type="text" placeholder="Ex: João Silva" />
+          </div>
+
+          <div class="full price-row">
+            <div style="flex:1">
+              <label for="price">Preço</label>
+              <input readonly id="price" name="price" type="number" placeholder="0.00" step="0.01" />
+            </div>
+            <div style="width:120px;display:flex;flex-direction:column;justify-content:flex-end">
+              <label style="visibility:hidden">.</label>
+              <div class="small">ecv</div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <aside class="right">
+      <div class="drop" role="region" aria-label="Área de upload">
+        <strong>Carregue o recibo</strong>
+        <p class="hint">Aceitamos: PDF, DOC, DOCX, PNG, JPG — até 6MB</p>
+
+        <div class="file-input">
+          <!-- apenas HTML/CSS: input sem JS -->
+          <input type="file" name="receipt" accept=".pdf, .doc, .docx, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*" id="files_"/>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" type="button" id="enviar">Enviar</button>
+        </div>
+
+      </div>
+    </aside>
+  </main>
+  <script src="script_banco.js"></script>
+  <script src="traduzir.js"></script>
+</body>
+</html>

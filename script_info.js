@@ -94,6 +94,7 @@ async function post() {
 }
 
 
+
 async function mapa(){
   await alertTraduzido("Espera um pouquinho que iremos te dar o mapa ⏩")
   let iframe=document.getElementById("map")
@@ -156,7 +157,6 @@ function reservar(empresa,preco,tipo,nome){
     window.location.href=`mail.html?valida=1&empresa=${empresa}&preco=${preco}&nome=${nome}`
   }
 }
-
 
 
 //http://localhost

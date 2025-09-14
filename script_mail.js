@@ -27,11 +27,11 @@ async function apanha_sol(){
 
 }
 
-async function Trabalhar_dados(data_l){
+async function Trabalhar_dados(data_){
     let campo=apanha("campo_mail")
-    let data=data_l.reverse()
+    let data=data_.reverse()
     data.map((e)=>{
-        let {destinatario,autor,data,preco,vista,resposta,telefone,lugar}=e
+        let {destinatario,autor,data,preco,vista,resposta,telefone,lugar,id}=e
         let html=`
         ${vista!=null?`<p class="dias">${verificarData(resposta)=="data invalida"?"":verificarData(resposta)}</p>`:""}
         <h6>Cliente: ${autor}</h6>
@@ -41,7 +41,7 @@ async function Trabalhar_dados(data_l){
         <h6>Data: ${data}</h6>
         <h6>Preço: ${preco}ECV</h6>
         ${
-            vista==null?"<p id='aguarde'>Aguardando Resposta da empresa</p>":vista==true && verificarData(`${resposta}`)!="prazo expirado"?`<button id="aceito">Efetuar reserva ${preco}</button>`:`<h3>Reserva não aceitada</h3>`
+            vista==null?"<p id='aguarde'>Aguardando Resposta da empresa</p>":vista==true && verificarData(`${resposta}`)!="prazo expirado"?`<button id="aceito" onclick='pagamento("${destinatario}",${preco},${id})'>Efetuar reserva ${preco}$Ecv</button>`:`<h3>Reserva não aceitada</h3>`
         }`
 
         let article=document.createElement("article")
@@ -250,4 +250,8 @@ async function enviar(nome,empresa,preco,nome_l){
   
 }
 
+function pagamento(empresa,preco,id){
+  alert("Estas a um passo de consiguir o que desejas")
+  window.location.href=`banco.html?emp=${empresa}&pr=${preco}&tk=${id}`
+}
 //https://cvprisma.vercel.app
