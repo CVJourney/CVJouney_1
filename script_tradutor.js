@@ -238,36 +238,34 @@ async function campo_2(gosto){
         console.log("---->zzz",img_)
 
         let campo=String(img_).trim().split("||")
-        let len=campo.length-1
+        console.log("imagem em testes ",campo)
+        
+        let img=criar("img")
+        img.src=campo[0]
+        img.className="img_empresas"
 
-        while(len>=0){
-            let img=criar("img")
-            img.src=campo[len]
-            img.className="img_empresas"
 
+        let ilha=criar("h6")
+        ilha.className="ilhas_"
+        ilha.innerText=ilha_
 
-            let ilha=criar("h6")
-            ilha.className="ilhas_"
-            ilha.innerText=ilha_
+        let estrela=criar("h6")
+        estrela.className="estrela"
+        estrela.innerText=star.repeat(estrela_)
 
-            let estrela=criar("h6")
-            estrela.className="estrela"
-            estrela.innerText=star.repeat(estrela_)
+        let div_2=criar("div")
+        div_2.className="div_2"
+        div_2.appendChild(ilha)
 
-            let div_2=criar("div")
-            div_2.className="div_2"
-            div_2.appendChild(ilha)
+        let nome_des=criar("h5")
+        nome_des.className="nome_des"
+        nome_des.innerText=nome_des_
 
-            let nome_des=criar("h5")
-            nome_des.className="nome_des"
-            nome_des.innerText=nome_des_
-
-            div.appendChild(img)
-            div.appendChild(div_2)
-            div.appendChild(nome_des)
-            div.appendChild(estrela)
-            len-=1
-        }
+        div.appendChild(img)
+        div.appendChild(div_2)
+        div.appendChild(nome_des)
+        div.appendChild(estrela)
+    
 
         destaque.appendChild(div)
         document.dispatchEvent(new Event("dadosCarregados"));
