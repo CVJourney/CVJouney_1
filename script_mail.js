@@ -31,7 +31,7 @@ async function Trabalhar_dados(data_){
     let campo=apanha("campo_mail")
     let data=data_.reverse()
     data.map((e)=>{
-        let {destinatario,autor,data,preco,vista,resposta,telefone,lugar,id}=e
+        let {destinatario,autor,data,preco,vista,resposta,telefone,lugar,id,compra}=e
         let html=`
         ${vista!=null?`<p class="dias">${verificarData(resposta)=="data invalida"?"":verificarData(resposta)}</p>`:""}
         <h6>Cliente: ${autor}</h6>
@@ -40,9 +40,16 @@ async function Trabalhar_dados(data_){
         <h6>Empresa: ${destinatario}</h6>
         <h6>Data: ${data}</h6>
         <h6>Preço: ${preco}ECV</h6>
+        ${compra==true?`<button id="aceito" style="background-color:black; border-color:black">Reserva de ${preco}Ecv concluida</button>`:
+        `        
         ${
             vista==null?"<p id='aguarde'>Aguardando Resposta da empresa</p>":vista==true && verificarData(`${resposta}`)!="prazo expirado"?`<button id="aceito" onclick='pagamento("${destinatario}",${preco},${id})'>Efetuar reserva ${preco}$Ecv</button>`:`<h3>Reserva não aceitada</h3>`
-        }`
+        }
+        `
+      }
+        
+
+`
 
         let article=document.createElement("article")
         article.innerHTML=html
