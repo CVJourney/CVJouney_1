@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     await campo_1()
     lerdadosempresas()
     document.dispatchEvent(new Event("traduzir"))
+    document.dispatchEvent(new Event("verifica_data"))
 })
 
 
