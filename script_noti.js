@@ -27,8 +27,12 @@ async function apanha_sol(){
 }
 
 async function chamamento(data){
+  let lc=localStorage.getItem("bombas")||0
+  let num=0
     if(time==0){
-        data.map((e)=>{
+        data.map((e,i)=>{
+          num+=1
+          if(Number(lc)<=i){
             let {compra,vista,lugar}=e
             console.log(compra,vista,lugar,e)
             if(compra!=true && vista==true){
@@ -36,9 +40,11 @@ async function chamamento(data){
               let mail=apanha("t_mail")
               mail.style.boxShadow="0 0 10px black"
             }
+          }
         })
         time=1
     }
+    localStorage.setItem("bombas",num)
 }
 
 function getData(dbName, storeName, columnName) {
