@@ -1,4 +1,7 @@
 async function taxista() {
+  let dd=await getUsuarios()
+  let len_d=dd.length
+  let dd_=dd[len_d-1].username
   const params = new URLSearchParams(window.location.search);
   let id = params.get("wwr");
   const data = await post("https://cvprisma.vercel.app/data_chama", id);
@@ -99,6 +102,7 @@ async function taxista() {
         let obj={
           id:dados.id,
           nome:dados.nome,
+          user:dd_,
           destino:destino,
           tempo:tempo,
           lat:latitude,
@@ -180,4 +184,40 @@ async function alertTraduzido(texto) {
     console.error("Erro na tradução:", err);
     alert(texto); // Fallback
   }
+}
+
+async function getUsuarios() {
+  for (let version = 1; version <= 10; version++) {
+    try {
+      const usuarios = await new Promise((resolve, reject) => {
+        const request = indexedDB.open("prismacv", version);
+
+        request.onerror = () => reject(null);
+
+        request.onsuccess = (event) => {
+          try {
+            const db = event.target.result;
+            const transaction = db.transaction(["usuarios"], "readonly");
+            const store = transaction.objectStore("usuarios");
+
+            const getAllRequest = store.getAll();
+
+            getAllRequest.onsuccess = () => resolve(getAllRequest.result);
+            getAllRequest.onerror = () => reject(null);
+          } catch (e) {
+            reject(null);
+          }
+        };
+      });
+
+      if (usuarios && usuarios.length >= 0) {
+        console.log(`✅ Banco aberto na versão ${version}`);
+        return usuarios; // retorna assim que conseguir
+      }
+    } catch {
+      // continua tentando com a próxima versão
+    }
+  }
+
+  throw new Error("❌ Não foi possível abrir o banco prismacv em nenhuma versão de 1 a 10");
 }
