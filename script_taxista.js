@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded",async function(){
-  alertTraduzido("Neste espaço estão as solicitações que você realizou para os taxistas.")
+  await alertTraduzido("Neste espaço estão as solicitações que você realizou para os taxistas.")
     document.dispatchEvent(new Event("traduzir"))
     await procurar()
 })
@@ -29,6 +29,8 @@ function trabalhar_xs(data){
     data.map((e,i)=>{
         let cria=document.createElement("div")
         cria.classList.add("campo_taxi")
+        let btn=document.createElement("button")
+        cria.id=`${i}_campo`
         let html=
         `
 <div class="taxi-container">
@@ -52,9 +54,9 @@ function trabalhar_xs(data){
   <h1 class="title">${e.guia}</h1>
 
   ${e.confirmado==null
-    ? `<h2 class="pending">Esperando a resposta do taxista</h2><button id="cancela">Cancelar solicitação</button>`
+    ? `<h2 class="pending">Esperando a resposta do taxista</h2><button id="cancela" onclick="cancelar(${e.id})">Cancelar solicitação</button>`
     : e.confirmado==false
-      ? `<h2 class="denied">Solicitação negada</h2>`
+      ? `<h2 class="denied">Solicitação negada(ou cancelada)</h2>`
       : `<h1 class="title">Preço:</h1><h3 class="info">${e.preco} Ecv</h3><h2 class="approved">Solicitação aprovada</h2>`}
 
   ${e.confirmado!=false
@@ -68,11 +70,11 @@ function trabalhar_xs(data){
         cria.innerHTML=html
         taxi_div.appendChild(cria)
           if (e.confirmado != false) {
-                iniciarTempo(`tempo${i}`,e.tempo);
+                iniciarTempo(`tempo${i}`,e.tempo,e.id,cria.id);
             }
     })
 
-function iniciarTempo(id, limiteStr) {
+function iniciarTempo(id, limiteStr,id_,names) {
   // Recupera segundos salvos e hora da última saída
   let tempoSalvo = localStorage.getItem(id) ? parseInt(localStorage.getItem(id)) : 0;
   let ultimaSaida = localStorage.getItem(id + "_saida");
@@ -102,6 +104,15 @@ function iniciarTempo(id, limiteStr) {
       clearInterval(intervalo);
       document.getElementById(id).textContent = formatarTempo(limite);
       document.getElementById(id).style.color = "red";
+      let elemina=document.createElement("button")
+      elemina.textContent="Cancelar"
+      elemina.onclick=async ()=>{
+        await cancelar(id_)
+      }
+      elemina.classList.add("cancelado")
+      let div=document.getElementById(names)
+      let filho=div.children[0]
+      filho.appendChild(elemina)
       return;
     }
 
@@ -123,8 +134,33 @@ function detales_carros(id){
     let url=`taxi_chamada.html?wwr=${id}`
     window.location.href=url
 }
+//cancelar a solicitação
+async function cancelar(id){
+  let x=await alertTraduzido("Deseja mesmo cancelar essa solicitação",2)
+  console.log(x)
+  if(x==true){
+    let st=document.getElementById("caregamento").style
+    st.display="block"
+    let response=await fetch("https://cvprisma.vercel.app/data_cancela_taxi",{
+      method:"post",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify({id:id})
+    })
+    if(response.ok){
+      st.display="none"
+      await alertTraduzido("Vamos atualizar os dados para você")
+      location.reload()
+    }
+    else{
+      alertTraduzido("Deu um pequeno erro, tente denovo mais tarde")
+      st.display="none"
+    }
+  }
+}
 
-async function alertTraduzido(texto) {
+async function alertTraduzido(texto,tipo) {
   const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
 
   if (!idiomaDestino) {
@@ -147,7 +183,12 @@ async function alertTraduzido(texto) {
 
     const dados = await resposta.json();
     const textoTraduzido = dados.traducao
-    alert(textoTraduzido,idiomaDestino);
+    if(tipo==2){
+      return confirm(texto)
+    }
+    else{
+      alert(textoTraduzido,idiomaDestino);
+    }
   } catch (err) {
     console.error("Erro na tradução:", err);
     alert(texto); // Fallback

@@ -73,7 +73,7 @@ body {
 }
 
 /* Botão */
-.btn-details {
+.btn-details,.cancelado {
   display: inline-block;
   padding: 10px 18px;
   background: #fc9520;
@@ -101,12 +101,16 @@ h1{
     font-weight: 500;
 }
 
-#cancela{
+button#cancela{
     padding: 10px;
     background-color: rgb(255, 94, 0);
     color: white;
     border: none;
     border-radius: 10px;
+}
+.cancelado{
+  width: 70%;
+  background-color: rgb(255, 94, 0);
 }
 
 #caregamento{
