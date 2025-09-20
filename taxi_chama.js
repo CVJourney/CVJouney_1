@@ -65,7 +65,7 @@ async function taxista() {
       <h3>Solicitar corrida</h3>
       <input type="text" id="destino" placeholder="Onde quero ir" />
       <label for="tempo"><h5>Tempo para o táxi chegar até mim</h5></label>
-      <input type="time" id="tempo"/>
+      <input type="time" id="tempo" value="00:10"/>
       <select id="tipo" class="opt_">
         <option value="turrista">Turrista</option>
         <option value="morrador">Morrador</option>
