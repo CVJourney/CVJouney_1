@@ -4,35 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVJourney-Taxi-call</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="taxi_chama.css">
-    <link rel="stylesheet" href="estilo_btn.css">
     <link rel="shortcut icon" href="img/logo_2_png.png" type="image/x-icon">
+    <link rel="stylesheet" href="estilo_btn.css">
+    <link rel="stylesheet" href="taxistas.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <div class="perfil">
-      <img id="perfil-img" src="">
-      <div id="info-text"></div>
+
+    <section id="caregamento">
+        <aside id="loading">
+            <h3>Buscando informações...</h3>
+        </aside>
+    </section>
+    <div id="taxista_campo">
+
     </div>
-
-    <h3>Fotos do carro</h3>
-    <div class="carrossel" id="carrossel"></div>
-    <div id="indicadores" style="text-align: center; margin-top: 10px;">
-      <!-- indicadores numéricos serão inseridos aqui -->
-    </div>
-
-  </div>
-
-  <article id="loading_">
-    <aside>
-      Carregando...<br>
-    </aside>
-  </article>
 
     <nav style="height: 100px;"></nav>
-
-
     <footer class="fundo-fixado">
         <div id="temas_">
             <i class="material-icons baixo" id="t_mapa">public</i>
@@ -43,10 +31,8 @@
         </div>
     </footer>
 
-    <script src="script_troca.js"></script>
-    <script src="taxi_chama.js"></script>
+    <script src="script_taxista.js"></script>
     <script src="traduzir.js"></script>
-    
+    <script src="script_troca.js"></script>
 </body>
 </html>
-

@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   document.dispatchEvent(new Event("traduzir"))
 });
 
-
-
 async function Buscar() {
   const sessionKey = "dadosRestaurante";
 

@@ -43,7 +43,7 @@ body {
   flex-shrink: 0;
 }
 
-input[type="text"] {
+input[type="text"],input[type="time"] {
   font-size: 16px;
   padding: 12px;
   width: 100%;
@@ -123,4 +123,34 @@ button {
 #carrossel img{
   height: 170px;
   width: 100%;
+}
+#loading_{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 99999999;
+  backdrop-filter: blur(3px);
+  display:none;
+}
+
+#loading_ aside{
+  width: 80%;
+  height: 50%;
+  max-width: 300px;
+  max-height: 300px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+  position: relative;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  font-weight: 600;
+  background-image: url("img/loading2.webp");
+  background-size: 70%;
+  background-position: center center;
+  background-repeat: no-repeat;
 }

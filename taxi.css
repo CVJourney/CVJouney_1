@@ -142,3 +142,20 @@ button#filtro-sem-guia {
 .proximo-btn:hover {
   background: #fdb25d;
 }
+
+#solicita_3 *{
+  display: inline-block;
+  margin: 0;
+}
+
+#solicita_3 .txt_sol{
+  position: relative;
+  top: -5px;
+}
+#solicita_3{
+  background-color: rgba(255, 166, 0, 0.692);
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+}

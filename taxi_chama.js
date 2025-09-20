@@ -64,7 +64,8 @@ async function taxista() {
     container.innerHTML = `
       <h3>Solicitar corrida</h3>
       <input type="text" id="destino" placeholder="Onde quero ir" />
-      <input type="text" id="tempo" placeholder="Tempo para o táxi chegar até mim" />
+      <label for="tempo"><h5>Tempo para o táxi chegar até mim</h5></label>
+      <input type="time" id="tempo"/>
       <select id="tipo" class="opt_">
         <option value="turrista">Turrista</option>
         <option value="morrador">Morrador</option>
@@ -111,7 +112,6 @@ async function taxista() {
           guia:guia
         }
 
-        alertTraduzido("Solicitação de corrida feito")
         await corida("https://cvprisma.vercel.app/data_corrida",obj)
         
         
@@ -146,13 +146,26 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 async function corida(url,data){
   console.log("*999*",data)
-  await fetch(url,{
+  let loading=document.getElementById("loading_")
+  loading.style.display="block"
+  let response=await fetch(url,{
     method:"post",
     headers:{
       "Content-type":"application/json"
     },
     body:JSON.stringify(data)
   })
+  console.log(response.ok)
+  if(response.ok){
+    alertTraduzido("Solicitação enviada...")
+    alertTraduzido("Aviso: Se o taxista não chegar dentro do tempo solicitado, você pode cancelar a solicitação e chamar outro motorista.")
+    loading.style.display="none"
+    location.href='taxista.html'
+  }
+  else{
+    alertTraduzido("Erro ao fazer a solicitação\ntente mais tarde")
+    loading.style.display="none"
+  }
 }
 //alertTraduzido
 
@@ -221,3 +234,6 @@ async function getUsuarios() {
 
   throw new Error("❌ Não foi possível abrir o banco prismacv em nenhuma versão de 1 a 10");
 }
+
+//solicitação feito
+//localhost

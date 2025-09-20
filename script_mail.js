@@ -175,7 +175,6 @@ async function Novo_registro(){
   }
 }
 
-
 async function go_up(){
   await alertTraduzido("Não se preocupes, temos outras opções ainda melhores para ti!")
   window.location.href="home.html"
@@ -219,9 +218,6 @@ function datas_(){
     x=2
   }
 }
-
-
-
 
 async function enviar(nome,empresa,preco,nome_l){
   let tel=apanha("telefone_novo").value
