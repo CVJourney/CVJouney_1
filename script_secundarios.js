@@ -62,7 +62,7 @@ async function pega(){
       container.appendChild(section);
     });
 }
-
+//bomba
 document.addEventListener("dadosCarregados",async function(){
   console.log("vai dar sim")
   await pega()

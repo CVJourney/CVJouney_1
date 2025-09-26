@@ -139,10 +139,12 @@ app.post("/data_chama",async (req,res)=>{
 app.post("/data_corrida",async (req,res)=>{
   console.log("Corrida solicitada...")
   let body=req.body
-  let {id,nome,destino,tempo,lat,long,tipo,guia}=body
-  let comando=`insert into corrida (id_, nome, cliente, destino, latitude,longitude, guia, tempo) values(${id},'${nome}','${tipo}','${destino}','${lat}','${long}','${guia}','${tempo}')`
+  let {id,nome,destino,tempo,lat,long,tipo,guia,user}=body
+  let n=user
+  let comando=`insert into corrida (id_, nome, cliente, destino, latitude,longitude, guia, tempo,pessoa) values(${id},'${nome}','${tipo}','${destino}','${lat}','${long}','${guia}','${tempo}','${n}')`
   console.log(comando)
   await pool.query(comando)
+  res.send("deu certo")
 })
 
 app.get("/data_restaurante",async (req,res)=>{
@@ -170,14 +172,53 @@ app.post("/data_reserva",async (req,res)=>{
 })
 
 app.post("/data_envia",async (req,res)=>{
-  let {nome,telefone,empresa,data,preco}=req.body
-  let comando=`insert into mensagem (destinatario,preco,data,autor,telefone) values('${empresa}','${preco}','${data}','${nome}',${Number(telefone)})`
+  let {nome,telefone,empresa,data,preco,nome_l}=req.body
+  let comando=`insert into mensagem (destinatario,preco,data,autor,telefone,lugar) values('${empresa}','${preco}','${data}','${nome}',${Number(telefone)},'${nome_l}')`
   console.log(req.body)
 
   await pool.query(comando)
   res.send("#ÉCaChatiaNou")
 })
 
+//new
+
+app.post("/data_bancaria",async (req,res)=>{
+  let {empresa}=req.body
+  let comando=`select * from cvpage where empresa='${empresa}'`
+  let row=await pool.query(comando)
+  let dd=row.rows
+  res.json(dd)
+})
+
+app.post("/data_done",async(req,res)=>{
+  let {id,link}=req.body
+  let comando=`update mensagem set link='${link}', compra=true where id=${id}`
+  await pool.query(comando)
+  res.send("calma deu malkkkkk")
+})
+
+
+app.post("/data_taxista",async (req,res)=>{
+  let {usuario}=req.body
+  let comando=`select * from corrida where pessoa='${usuario}'`
+  console.log(comando)
+  let response=await pool.query(comando)
+  let row=response.rows
+  res.json(row)
+})
+
+app.post("/data_cancela_taxi",async (req,res)=>{
+  let {id}=req.body
+  let comando=`update corrida set confirmado=false where id=${Number(id)}`
+  await pool.query(comando)
+  res.send("deu certo")
+})
+app.post("/data_cancela_reg",async (req,res)=>{
+  let {id}=req.body
+  let comando=`update mensagem set vista=false where id=${id}`
+  await pool.query(comando)
+  res.send("200 em funcionamento")
+})
 /*
 module.exports=app
 */

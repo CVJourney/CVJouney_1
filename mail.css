@@ -124,3 +124,69 @@ input[type="date"]{
     background-color: white;
     color: black;
 }
+@media (min-width:1144px){
+    #envia_data{
+        max-width: 340px;
+    }
+    #novo_criar input{
+        max-width: 300px;
+        background-color: transparent;
+        backdrop-filter: blur(5px);
+    }
+    #novo_criar::-webkit-scrollbar{
+        display: none;
+    }
+    #novo_criar{
+        background-image: radial-gradient(rgb(228, 225, 225),rgb(230, 230, 230),rgb(209, 208, 208));
+        background-size: 100% 100%;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    
+}
+.cancela_{
+    padding: 10px;
+    border: solid 1px red;
+    color: red;
+    border-radius: 7px;
+    margin: 4px;
+}
+#novo_criar span{
+    cursor: pointer;
+    margin: 2px;
+}
+
+@media (min-width:1050px){
+    .campos_mail_x{
+        display: inline-block;
+        width: 30%;
+        height: 350px;
+    }
+    .campos_mail_x h6{
+        width: 90%;
+    }
+}
+#loading_{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999999999;
+    backdrop-filter: blur(2px);
+    display: none;
+}
+#loading{
+    width: 80%;
+    height: 50%;
+    max-width: 400px;
+    max-height: 400px;
+    background-color: white;
+    background-image: url("https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTJ5MXA2cDg5ZTBzMjhnYjB5dWJlMXdnemxiZms1bTlpY2JqZ3R2biZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/xT39D3pHl63aiQh2De/giphy.gif");
+    background-size: 100% 100%;
+    position: relative;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+}

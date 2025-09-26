@@ -8,6 +8,7 @@ body {
   background: #f9f9f9;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .intro {
@@ -158,4 +159,26 @@ button#filtro-sem-guia {
   display: inline-block;
   padding: 10px;
   border-radius: 10px;
+}
+@media (min-width:1144px){
+  .intro{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+  }
+  .switch-label{
+    border-radius: 10px;
+  }
+  button#filtro-sem-guia{
+    border-radius: 10px;
+  }
+  .intro p.info_mais::after{
+    content:" Nossos motoristas são experientes, pontuais e conhecem cada detalhe das rotas, garantindo uma viagem segura e confortável. Além disso, você terá a oportunidade de descobrir curiosidades locais, pontos turísticos escondidos e a cultura única de cada região. Seja numa viagem rápida ou num passeio mais longo, cada trajeto transforma-se numa experiência inesquecível, feita sob medida para você.";
+  }
+  div.taxi-card h2{
+    font-size: 16px;
+  }
 }

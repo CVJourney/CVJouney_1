@@ -1,11 +1,16 @@
+let loading=document.getElementById("loading_").style
 async function taxista() {
   let dd=await getUsuarios()
   let len_d=dd.length
   let dd_=dd[len_d-1].username
   const params = new URLSearchParams(window.location.search);
   let id = params.get("wwr");
+  loading.display="block"
   const data = await post("https://cvprisma.vercel.app/data_chama", id);
   const dados = data[0];
+  if(dados){
+    loading.display="none"
+  }
   console.log("--->", dados);
 
   function montarPerfil() {
@@ -141,9 +146,19 @@ document.addEventListener("DOMContentLoaded", async function() {
   const evento = new CustomEvent("realiza");
   document.dispatchEvent(evento);
   await taxista();
+  await places_()
   document.dispatchEvent(new Event("traduzir"))
 });
 
+async function places_(){
+  let params=new URLSearchParams(location.search)
+  let place=params.get("place")
+  if(place){
+    console.log(place)
+    await alertTraduzido("Já preenchemos automaticamente o nome do destino, não precisas te preocupar com isso. Agora, basta indicares o tempo para o táxi chegar até ti")
+    document.getElementById("destino").value=place
+  }
+}
 async function corida(url,data){
   console.log("*999*",data)
   let loading=document.getElementById("loading_")
@@ -167,6 +182,8 @@ async function corida(url,data){
     loading.style.display="none"
   }
 }
+
+
 //alertTraduzido
 
 async function alertTraduzido(texto) {

@@ -131,7 +131,7 @@ function abrirModal(index) {
   let texto = "★";
 
   const pratosHTML = `
-    <h2>Top 10 dos melhores pratos da ${rest.nome}</h2>
+    <h2>Top 5 dos melhores pratos da ${rest.nome}</h2>
     <h2 id="detalhes_ini" onclick="manda(${rest.id})">Detalhes</h2>
     <div class="pratos-lista">
       ${rest._pratos.map(p => `
@@ -169,4 +169,4 @@ function manda(id_){
 }
 
 //https://cvprisma.vercel.app
-//alert
+//alert top 10

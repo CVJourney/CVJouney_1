@@ -32,3 +32,12 @@ body{
     width: 100vw;
     height: 98vh;
 }
+@media (min-width:1144px){
+    #serch{
+        padding: 15px;
+        font-size: large;
+    }
+    #serch::placeholder{
+        color: black;
+    }
+}

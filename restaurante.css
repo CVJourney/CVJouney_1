@@ -1,7 +1,14 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
+
+:root{
+  --cor_1:rgb(248, 169, 51);
+  --cor_2:rgb(247, 183, 66);
+  --cor_3:rgb(255, 202, 57);
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -114,7 +121,7 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,100 +146,215 @@ button:hover {
   cursor: pointer;
   color: red;
 }
-.modal-content h2{
-  margin-top:20px;
+
+.modal-content h2 {
+  margin-top: 20px;
 }
 
 .hidden {
   display: none;
 }
-#img_res{
-    width: 150px;
-    height: 150px;
-    display: block;
+
+#img_res {
+  width: 150px;
+  height: 150px;
+  display: block;
 }
 
-.apresentacao h1,.apresentacao p{
-    font-size: 16px;
-    padding: 10px;
-
-}
-#titulo{
-    backdrop-filter: blur(10px);
-    padding: 10px;
-}
-
-.apresentacao{
-    height: 100vh;
-    background-image: url("https://i.pinimg.com/736x/23/c6/21/23c621432cdfaa943e2c86bd7de07a8b.jpg");
-    background-position: center center;
-    background-size: 100% 100%;
-    background-attachment: fixed;
-}
-
-.prato img{
-    display: inline-block;
-    margin-top: 20px;
-    border-radius: 20px;
-}
-.prato p,.fotos p{
-    display: inline-block;
-    position: relative;
-    top: -40px;
-    font-size:10px;
-    margin: 10px;
-}
-.fotos{
-    margin-top: 20px;
-}
-
-.restaurante button{
-    width: 100%;
-    background-color: rgb(248, 169, 51);
-}
-.prato p{
-    font-size: 10px;
-    position: relative;
-    top:-60px;
-}
-p mark{
-    padding: 10px;
-    display: block;
-    margin-top: 10px;
-    background-color: rgb(248, 169, 51);
-    color: white;
-    border-radius: 10px;
+.apresentacao h1,
+.apresentacao p {
+  font-size: 16px;
+  padding: 10px;
 
 }
 
-p.dinheiro{
-  left:109px;
-  font-size:12px;
-  padding:5px 10px;
-  background-color: rgb(247, 183, 66);
+#titulo {
+  backdrop-filter: blur(10px);
+  padding: 10px;
+}
+
+.apresentacao {
+  height: 100vh;
+  background-image: url("https://i.pinimg.com/736x/23/c6/21/23c621432cdfaa943e2c86bd7de07a8b.jpg");
+  background-position: center center;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+.prato img {
+  display: inline-block;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.prato p,
+.fotos p {
+  display: inline-block;
+  position: relative;
+  top: -40px;
+  font-size: 10px;
+  margin: 10px;
+}
+
+.fotos {
+  margin-top: 20px;
+}
+
+.restaurante button {
+  width: 100%;
+  background-color: var(--cor_1);
+}
+
+.prato p {
+  font-size: 10px;
+  position: relative;
+  top: -60px;
+}
+
+p mark {
+  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  background-color: var(--cor_1);
+  color: white;
+  border-radius: 10px;
+
+}
+
+p.dinheiro {
+  left: 109px;
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: var(--cor_2);
   font-weight: bolder;
-  color:white;
+  color: white;
 }
-.principal_pr{
+
+.principal_pr {
   height: 200px;
 }
-p.dinheiro_pri{
-  left:150px;
-  font-size:13px;
-  background-color: rgb(247, 183, 66);
-  padding:5px 10px;
-  color:white;
+
+p.dinheiro_pri {
+  left: 150px;
+  font-size: 13px;
+  background-color: var(--cor_2);
+  padding: 5px 10px;
+  color: white;
   border-radius: 10px;
 }
 
-section#carrossel img{
+section#carrossel img {
   width: 250px;
 }
-#detalhes_ini{
+
+#detalhes_ini {
   text-align: center;
-  font-size:12px;
-  background-color: rgb(255, 202, 57);
+  font-size: 12px;
+  background-color: var(--cor_3);
   padding: 10px;
   border-radius: 10px;
   color: white;
+}
+
+@media (min-width:1185px) {
+  .apresentacao {
+    background-image: url("img/CVJourney-restaurante.jpg");
+    position: relative;
+    z-index: 999999999999;
+  }
+
+  div#titulo {
+    display: none;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  section#carrossel img {
+    height: 200px;
+    width: 300px;
+  }
+
+  section#carrossel::-webkit-scrollbar {
+    height: 6px;
+    /* um pouco mais visível */
+    border-radius: 10px;
+  }
+
+  section#carrossel::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    /* cor de fundo da trilha */
+    border-radius: 10px;
+  }
+
+  section#carrossel::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #b4b7b8, #272727);
+    /* efeito degradê */
+    border-radius: 10px;
+  }
+
+  section#carrossel::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #865203, #732602);
+    /* destaque no hover */
+  }
+
+  div.fotos{
+    width: 50%;
+    display: inline-block;
+    border: solid 3px whitesmoke;
+    border-radius: 5px;
+  }
+  div.fotos img{
+    width: 500px;
+    height: 350px;
+  }
+  div.fotos .estrela{
+    font-size: 20px;
+  }
+  div.fotos p{
+    position: relative;
+    top: -300px;
+  }
+  div.fotos p mark{
+    font-size: 15px;
+    width: 100%;
+  }
+  div.pratos-lista{
+    display: inline-block;
+    width: 40%;
+  }
+  div.prato{
+    margin: 10px;
+    position: relative;
+    top: 20px;
+  }
+  .restaurante p{
+    max-width: 70%;
+  }
+  :root{
+    --cor_1:rgb(204, 131, 85);
+    --cor_2:rgb(196, 145, 113);
+    --cor_3:rgb(255, 202, 57);
+  }
+  .principal_pr{
+    display: inline-block;
+    width: 30%;
+  }
+  #modal-body .pratos-lista{
+    width: 100%;
+  }
+  #detalhes_ini{
+    background-color: var(--cor_2);
+  }
+  #modal{
+    z-index: 99999999999999999999;
+  }
+  .restaurante button{
+    max-width: 38.5%;
+    padding:10px 0 ;
+    position: relative;
+    left: 51.5%;
+    margin-top: 0;
+  }
 }

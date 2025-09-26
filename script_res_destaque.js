@@ -37,14 +37,16 @@ document.addEventListener("DOMContentLoaded",async function(){
 
       
       const infoHTML = `
-      <h1>${rest.nome}</h1>
-      <p style="text-align:center;">${rest.info}</p>
-      <p class="estrelas" style="text-align:center;">${estrelas}</p>
+      
+      <h1 id="res_dest">${rest.nome}</h1>
+      <section id="conteudos">
+      <p class="info_text">${rest.info}</p>
+      <p class="estrelas">${estrelas}</p>
       ${carrosselHTML}
       <p id="ilha_2">Ilha: <strong class="ilha_3">${rest.ilha}</strong></p>
-      <img src="img/mapa_3.png" id="mapa_res"/>
+      <img src="img/mapa_3.png" id="mapa_res" class="map_"/>
       <h6 id="nome_sai">${rest.nome}</h6>
-      `;
+      `;//mapa
 
 
 
@@ -56,12 +58,15 @@ document.addEventListener("DOMContentLoaded",async function(){
             <div class="prato">
               <img src="${p.imagem}" alt="${p.nome}" />
               <p><strong>${p.nome}</strong></p>
+              <p>origem:<strong style="text-transform:capitalize"> ${p.origem}</strong>
               <p class="estrelas">${"★".repeat(Number(p.estrelas))}</p>
               <p class="dinheiro">${p.dinheiro}$ECV</p>
             </div>
           `).join("")}
         </div>
+        </section>
       `;
+      console.log("--",rest._pratos)
 
       container.innerHTML = infoHTML + pratosHTML;
 

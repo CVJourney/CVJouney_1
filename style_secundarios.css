@@ -8,13 +8,332 @@
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  max-width: 90vw;
+  width: 400px;
+  max-width: 85vw;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   position: relative;
-  
+
   display: flex;
   flex-direction: column;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+@media(max-width:1144px) {
+  #dono_logo {
+    display: none;
+  }
+
+  #meuCarrossel,#msg_pc {
+    display: none;
+  }
+
+  #campos_::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width:1144px) {
+  /*pesquisas-inicio*/
+  #temas_pes{
+    background-color: white;
+    margin: 3px;
+    border-radius: 10px;
+  }
+  /*pesquisas-fim*/
+  #usuario_{
+    background-color: transparent;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px black;
+  }
+  #sai{
+    background-color: red;
+    border-radius: 6px;
+  }
+  #meuCarrossel {
+    display: inline-block;
+    width: 40vw;
+    height: 55vh;
+    position: absolute;
+    top: 23%;
+    left: 45%;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  #msg_pc{
+    position: absolute;
+    top: 58%;
+    width: 40%;
+    padding: 20px;
+    border-radius: 20px;
+    color: rgb(68, 67, 67);
+    margin-left: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  .carrossel img {
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .carrossel img.ativo {
+    opacity: 1;
+  }
+
+  .indicadores {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  .indicadores span {
+    display: block;
+    width: 25px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+
+  .indicadores span.ativo {
+    background: white;
+  }
+
+  #dono_logo {
+    width: 30%;
+    padding: 20px;
+    border-radius: 50px;
+  }
+
+  body {
+    background-image: url("img/fundo_9.jpg");
+    background-position: center center;
+  }
+
+  #campos_ {
+    padding: 5px 10px;
+    backdrop-filter: blur(0);
+    position: absolute;
+    top: 0;
+    overflow-x: auto;
+  }
+
+  #t_restaurante,
+  #sol {
+    background-color: rgb(252, 212, 189);
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.438);
+  }
+
+  #sol{
+    margin-left: 10px;
+    border-radius: 10px;
+  }
+  #sol::after{
+    content: "PERFIL";
+  }
+  #titulo_estadia,#titulo_destaque{
+    font-size: 26px;
+    color: white;
+    text-shadow: 0 0 0.5px black;
+  }
+
+  /* Largura/altura da scrollbar (usa o pseudo correto) */
+  #campos_::-webkit-scrollbar {
+    width: 12px;
+    /* largura vertical */
+    height: 12px;
+    /* altura horizontal (se houver) */
+  }
+
+  /* Track (fundo da barra) */
+  #campos_::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    /* tom suave */
+    border-radius: 10px;
+    /* se quiseres um aspecto "mais recuado", podes usar padding interno no thumb via border */
+  }
+
+  /* Thumb (a "pegada") */
+  #campos_::-webkit-scrollbar-thumb {
+    background: rgba(133, 121, 107, 0.685);
+    /* usa rgba para compatibilidade */
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0);
+    /* cria um efeito de separação entre thumb e track */
+    background-clip: padding-box;
+    /* garante que o border cria o espaçamento visual */
+  }
+
+  /* Hover do thumb */
+  #campos_::-webkit-scrollbar-thumb:hover {
+    background: rgba(133, 121, 107, 0.65);
+  }
+
+  /* Canto (quando há scroll horizontal + vertical) */
+  #campos_::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Fallback para Firefox (simples) */
+  #campos_ {
+    scrollbar-width: thin;
+    /* auto | thin | none */
+    scrollbar-color: rgba(133, 121, 107, 0.47) rgba(0, 0, 0, 0.03);
+  }
+
+  #pesquisa {
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 55vw;
+  }
+
+  #campos_ li {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  #campos_ {
+    min-height: 100px;
+    width: 55%;
+    width: 100%;
+  }
+
+  #welcome {
+    position: relative;
+    font-size: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("img/fundo_9.jpg");
+    background-size: 100% 100%;
+    backdrop-filter: none;
+    background-attachment: fixed;
+  }
+  #cima_3{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999999;
+  }
+  #pesquisa_{
+    margin-top: 40px;
+    margin-left: 20px;
+    position: relative;
+    text-align: left;
+  }
+  #estadia{
+    margin-top: 180px;
+  }
+
+  #welcome mark {
+    background-color: transparent;
+  }
+
+  h6,
+  h5 {
+    font-size: 12px;
+    color: rgb(41, 41, 41);
+  }
+
+  .div_estadia,
+  .div_imagens_campos {
+    width: 250px;
+    min-height: 260px;
+  }
+
+  .img_estadia,
+  .img_empresas {
+    width: 100%;
+    height: 200px;
+  }
+
+  .div_2_estadia {
+    top: -238px;
+    text-align: right;
+  }
+
+  .ilhas_estadia,
+  .ilhas_ {
+    float: left;
+    color: white;
+  }
+
+  .ilhas_ {
+    position: relative;
+    top: -40px;
+  }
+
+  .nome_des {
+    margin-top: 30px;
+    text-align: left;
+  }
+
+  .categoria_new {
+    margin: 40px 10px;
+    display: inline-flex;
+  }/*ilhas*/
+
+  div.content_new {
+    overflow-y: hidden;
+  }
+
+  #container_new {
+    text-align: center;
+  }
+
+  .area_conteudo_expandido_new {
+    min-height: 100vh;
+    min-width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 9999999999;
+    overflow-y: auto;
+  }
+  .area_conteudo_expandido_new .content_new{
+    position: relative;
+    gap:none;
+    flex: none;
+    display: block;
+    grid-template-columns: none;
+  }
+  .area_conteudo_expandido_new .card_new{
+    width: 20%;
+    margin: 20px;
+    display: inline-block;
+  }
+  .area_conteudo_expandido_new .vermais_new{
+    background-color: white;
+    color: black;
+    width: 50%;
+  }
+  button.vermais_new{
+    background-color: rgba(255, 255, 255, 0.418);
+    color: black;
+  }
+
+}
+
+@media (min-width:506px) {
+  #titulo_x {
+    text-align: center;
+  }
 }
 
 /* Título */
@@ -33,8 +352,9 @@
   gap: 20px;
   max-height: 500px;
   transition: max-height 0.5s ease;
-  
-  flex: 1; /* Ocupa o espaço disponível */
+
+  flex: 1;
+  /* Ocupa o espaço disponível */
   overflow-y: auto;
   overflow: hidden;
 }
@@ -109,6 +429,9 @@
   text-align: left;
   color: gold;
 }
-nav.espaco{
+
+nav.espaco {
   display: block;
 }
+
+/*ilhas_estadia after

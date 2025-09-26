@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVJourney-home</title>
     <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="estilo_btn.css">
     <link rel="stylesheet" href="style_secundarios.css">
+    <link rel="stylesheet" href="estilo_btn.css">
     <link rel="shortcut icon" href="img/logo_2_png.png" type="image/x-icon">
 
 
@@ -14,35 +15,72 @@
 
 
 </head>
+
 <body>
-    <div id="welcome">
-        <h2><nav>Bem vindo ao </nav><mark>CVJourney</mark></h2>
-    </div>
-    <div id="pesquisa_">
-        <input type="search" name="" id="pesquisa" placeholder="Busque por um lugar">
-        <div id="tela_sol_lua">
-            <span class="material-icons" id="t_restaurante">local_dining</span>
-            <span class="material-icons" id="sol">account_circle</span>
+    <div id="cima_3">
+        <div id="welcome">
+            <img src="img/logo_4.png" alt="" id="dono_logo">
+            <h2>
+                <nav>Bem vindo ao </nav><mark>CVJourney</mark>
+            </h2>
         </div>
-        <div id="temas_pes"></div>
-    </div>
-    <div id="campos_">
-        <li onclick="manda()">Gostos</li>
+
+        <div id="pesquisa_">
+            <input type="search" name="" id="pesquisa" placeholder="Busque por um lugar">
+            <div id="tela_sol_lua">
+                <span class="material-icons" id="t_restaurante">local_dining</span>
+                <span class="material-icons" id="sol">account_circle</span>
+            </div>
+            <div id="temas_pes"></div>
+
+        </div>
+        <div id="meuCarrossel" class="carrossel">
+            <div class="slides">
+                <img src="img/im1.jpg" class="ativo">
+                <img src="img/im2.jpg">
+                <img src="img/im3.jpg">
+                <img src="img/im5.jpeg">
+            </div>
+            <div class="indicadores">
+                <span class="ativo"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="msg_pc">
+            <p>
+                O CVJourney é o seu portal para explorar as maravilhas de Cabo Verde. <br>
+                Encontre as melhores opções de reserva de apartamentos, com conforto e praticidade. <br>
+                <br>
+                Oferecemos também visitas guiadas exclusivas, para descobrir a cultura, a história e a beleza natural
+                das ilhas. <br>
+                <br>
+                E para a sua mobilidade, o CVJourney conecta você a táxis disponíveis, levando-o aonde quiser com
+                rapidez, segurança e comodidade. <br>
+                <br>
+                🚀 Em breve: nosso aplicativo oficial, trazendo tudo isso na palma da sua mão!
+            </p>
+        </div>
+
+        <div id="campos_">
+            <li onclick="manda()">Gostos</li>
+        </div>
     </div>
 
     <div id="estadia">
         <div class="titulos_">
             <h3 id="titulo_estadia">Procure a sua estadia aqui</h3>
         </div>
-        
-        
+
+
     </div>
 
     <div id="destaque">
         <div class="titulos_">
             <h4 id="titulo_destaque">Veja locais para ir em cabo verde</h4>
         </div>
-        
+
     </div>
 
     <h3 id="titulo_x">
@@ -94,7 +132,7 @@
             <i class="material-icons baixo" id="t_mail">mail</i>
         </div>
     </footer>
-    
+
     <script src="script_tradutor.js"></script>
     <script src="script_cria_campos.js"></script>
     <script src="script_troca.js"></script>
@@ -104,11 +142,101 @@
     <script src="script_noti.js"></script>
 
     <script>
-        function manda(){
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('script_noti.js')
+                .then(() => console.log("Service Worker registrado!"))
+                .catch(err => console.error("Erro ao registrar SW:", err));
+        }
+
+        // Função de permissão
+        function pedirPermissaoNotificacao() {
+            return new Promise((resolve, reject) => {
+                if (!("Notification" in window)) {
+                    reject("Este navegador não suporta notificações.");
+                    return;
+                }
+                if (Notification.permission === "granted") {
+                    resolve("Permissão já concedida.");
+                } else if (Notification.permission === "denied") {
+                    reject("Permissão negada anteriormente.");
+                } else {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") resolve("Permissão concedida!");
+                        else reject("Permissão não concedida.");
+                    });
+                }
+            });
+        }
+
+        // Chamar ao carregar a página
+        pedirPermissaoNotificacao()
+            .then(msg => console.log(msg))
+            .catch(err => console.log(err));
+
+        // Quando voltar online, agenda o SW para buscar reservas
+        window.addEventListener("online", () => {
+            navigator.serviceWorker.ready.then(reg => {
+                reg.sync.register("verificar-reservas");
+            });
+        });
+        window.addEventListener("entrada",() => {
+            navigator.serviceWorker.ready.then(reg => {
+                reg.sync.register("verificar-reservas");
+            });
+        })
+
+        // Opcional: timer para rodar a cada 1h
+        setInterval(() => {
+            navigator.serviceWorker.ready.then(reg => {
+                reg.sync.register("verificar-reservas");
+            });
+        }, 3600000*24);
+
+        function manda() {
             const item = document.getElementById("titulo_destaque");
             item.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+        (function () {
+            const carrossel = document.getElementById("meuCarrossel");
+            const slides = carrossel.querySelectorAll("img");
+            const indicadores = carrossel.querySelectorAll(".indicadores span");
+
+            let index = 0;
+            let intervalo = 3000;
+            let timer;
+
+            function mostrarSlide(i) {
+                slides.forEach(s => s.classList.remove("ativo"));
+                indicadores.forEach(d => d.classList.remove("ativo"));
+
+                slides[i].classList.add("ativo");
+                indicadores[i].classList.add("ativo");
+            }
+
+            function proximo() {
+                index = (index + 1) % slides.length;
+                mostrarSlide(index);
+            }
+
+            function iniciar(intervaloAtual = intervalo) {
+                clearInterval(timer);
+                timer = setInterval(proximo, intervaloAtual);
+            }
+
+            indicadores.forEach((dot, i) => {
+                dot.addEventListener("click", () => {
+                    index = i;
+                    mostrarSlide(index);
+                    iniciar(6000); // se clicar no traço → pausa 10s
+                });
+            });
+
+            mostrarSlide(index);
+            iniciar();
+        })();
+
     </script>
 
 </body>
+
 </html>

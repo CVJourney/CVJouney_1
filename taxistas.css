@@ -4,6 +4,24 @@ body {
   background: #fafafa;
   margin: 0;
 }
+@media (min-width:1144px){
+  div.taxi-container{
+    min-width: 90%;
+    margin: auto;
+    margin-top:20px;
+  }
+  .map-frame{
+    max-width: 50%;
+  }
+  .detalhes_info{
+    display: inline-block;
+    margin: 20px;
+    border: solid 3px whitesmoke;
+    padding: 1%;
+    width: 40%;
+    border-radius: 10px;
+  }
+}
 
 .taxi-container {
   max-width: 650px;

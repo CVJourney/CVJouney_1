@@ -1,114 +1,131 @@
-let time=0
-function apanha(id){
-    return document.getElementById(id)
-}
+// script_noti.js (Service Worker)
+self.addEventListener("install", event => {
+    console.log("Service Worker instalado");
+    self.skipWaiting(); // ativa imediatamente
+});
 
-document.addEventListener("verifica_data",async function(){
-    await apanha_sol()
-})
+self.addEventListener("activate", event => {
+    console.log("Service Worker ativo");
+});
 
-async function apanha_sol(){
-    let user=await getData("prismacv","usuarios","username")
-    console.log(user)
-    let len=user.length
-    let username=user[len-1]
-
-    let response=await fetch("https://cvprisma.vercel.app/data_reserva",{
-        method:"post",
-        headers:{
-            "content-type":"application/json"
-        },
-        body:JSON.stringify({usuario:username})
-    })
-
-    let res=await response.json()
-    await chamamento(res)
-
-}
-
-async function chamamento(data){
-  let lc=localStorage.getItem("bombas")||0
-  let num=0
-    if(time==0){
-        data.map((e,i)=>{
-          num+=1
-          if(Number(lc)<=i){
-            let {compra,vista,lugar}=e
-            console.log(compra,vista,lugar,e)
-            if(compra!=true && vista==true){
-              alertTraduzido(`Já recebeste uma resposta sobre ${lugar}. Clica no botão com o ícone de mensagem para ver.`)
-              let mail=apanha("t_mail")
-              mail.style.boxShadow="0 0 10px black"
-            }
-          }
-        })
-        time=1
+// Evento de sincronização
+self.addEventListener("sync", event => {
+    if (event.tag === "verificar-reservas") {
+        event.waitUntil(buscarReservas());
     }
-    localStorage.setItem("bombas",num)
+});
+
+// Função que busca reservas e mostra notificações
+
+async function buscarReservas() {
+    try {
+        const username = await pegarUltimoUsuario();
+        if (!username) return;
+
+        const response = await fetch("https://cvprisma.vercel.app/data_reserva", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ usuario: username })
+        });
+
+        const data = await response.json();
+
+        data.forEach(async (e) => {
+            if (e.vista === true && e.compra !== true) {
+              let td=await alertTraduzido(`Resposta sobre a reserva /|/ Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
+              let sep=String(td).split("/|/")
+                const titulo = sep[0];
+                const mensagem = sep[1];
+
+                self.registration.showNotification(titulo, {
+                    body: mensagem,
+                    icon: "img/logo_2_png.png"
+                });
+            }
+        });
+
+    } catch (err) {
+        console.error("Erro ao buscar reservas:", err);
+    }
 }
 
-function getData(dbName, storeName, columnName) {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(dbName);
+// Pega último usuário salvo no IndexedDB
+async function pegarUltimoUsuario() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("prismacv");
+        request.onsuccess = e => {
+            const db = e.target.result;
+            const tx = db.transaction("usuarios", "readonly");
+            const store = tx.objectStore("usuarios");
+            const getAll = store.getAll();
 
-    request.onerror = (event) => {
-      reject("Erro ao abrir o banco: " + event.target.errorCode);
-    };
+            getAll.onsuccess = () => {
+                const arr = getAll.result;
+                if (arr.length > 0) resolve(arr[arr.length - 1].username);
+                else resolve(null);
+            };
+            getAll.onerror = err => reject(err);
+        };
+        request.onerror = err => reject(err);
+    });
+}
 
-    request.onsuccess = (event) => {
-      const db = event.target.result;
-      const transaction = db.transaction(storeName, "readonly");
-      const store = transaction.objectStore(storeName);
 
-      const result = [];
+// Pega o idioma do último usuário salvo no IndexedDB
+async function pegarIdioma() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("idiomas", 1);
 
-      // abrir cursor para percorrer todos os dados
-      const cursorRequest = store.openCursor();
+        request.onsuccess = e => {
+            const db = e.target.result;
 
-      cursorRequest.onsuccess = (e) => {
-        const cursor = e.target.result;
-        if (cursor) {
-          // pega só o campo que você pediu (coluna)
-          result.push(cursor.value[columnName]);
-          cursor.continue();
-        } else {
-          resolve(result); // terminou de ler todos
-        }
-      };
+            // Verifica se existe o objectStore
+            if (!db.objectStoreNames.contains("usuarios")) {
+                resolve(null);
+                return;
+            }
 
-      cursorRequest.onerror = (e) => {
-        reject("Erro ao ler os dados: " + e.target.errorCode);
-      };
-    };
-  });
+            const tx = db.transaction("usuarios", "readonly");
+            const store = tx.objectStore("usuarios");
+
+            const getAll = store.getAll();
+
+            getAll.onsuccess = () => {
+                const arr = getAll.result;
+                if (arr.length > 0) {
+                    // Pega o último registro e retorna o campo idioma
+                    resolve(arr[arr.length - 1].idioma);
+                } else {
+                    resolve(null);
+                }
+            };
+
+            getAll.onerror = err => reject(err);
+        };
+
+        request.onerror = err => reject(err);
+    });
 }
 
 async function alertTraduzido(texto) {
-  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+    const idiomaDestino = await pegarIdioma(); // ✅ pega do IndexedDB
 
-  if (!idiomaDestino) {
-    console.warn("Idioma não encontrado. Mostrando texto original.");
-    alert(texto);
-    return;
-  }
+    if (!idiomaDestino) {
+        console.warn("Idioma não encontrado. Mostrando texto original.");
+        return texto;
+    }
 
-  try {
-    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        texto,
-        idiomaDestino
-      }),
-    });
+    try {
+        const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ texto, idiomaDestino })
+        });
 
-    const dados = await resposta.json();
-    const textoTraduzido = dados.traducao
-    alert(textoTraduzido,idiomaDestino);
-  } catch (err) {
-    console.error("Erro na tradução:", err);
-    alert(texto); // Fallback
-  }
+        const dados = await resposta.json();
+        return dados.traducao;
+    } catch (err) {
+        console.error("Erro na tradução:", err);
+        return texto; // fallback
+    }
 }

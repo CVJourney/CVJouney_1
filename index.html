@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta property="og:title" content="CVJourney - Turismo em Cabo Verde">
-    <meta property="og:description" content="CVJourney é um site de turismo em Cabo Verde que oferece informações sobre passeios, praias, hotéis, cultura e atividades locais para turistas.">
+    <meta property="og:description"
+        content="CVJourney é um site de turismo em Cabo Verde que oferece informações sobre passeios, praias, hotéis, cultura e atividades locais para turistas.">
     <meta property="og:image" content="img/logo_2_png.png">
     <meta property="og:url" content="https://cvjourney.github.io/CVJouney_1/">
 
@@ -13,6 +15,7 @@
     <link rel="shortcut icon" href="img/logo_2_png.png" type="image/x-icon">
     <title>CVJourney</title>
 </head>
+
 <body>
     <div id="centra">
         <h3 id="titulo_esc">Escolha seu idioma</h3>
@@ -49,7 +52,7 @@
             <option value="no">🇳🇴 Norueguês</option>
             <option value="fa">🇮🇷 Persa</option>
             <option value="pl">🇵🇱 Polonês</option>
-            <option value="pt">🇵🇹 Português</option>
+            <option value="pt" selected>🇵🇹 Português</option>
             <option value="pa">Punjabi</option>
             <option value="ro">🇷🇴 Romeno</option>
             <option value="ru">🇷🇺 Russo</option>
@@ -76,13 +79,28 @@
     <script>
 
         document.getElementById("avanca").addEventListener("click", () => {
+            // 👉 Primeiro apaga o banco se existir
+            const deleteRequest = indexedDB.deleteDatabase("idiomas");
+
+            deleteRequest.onsuccess = () => {
+                console.log("Banco de dados 'idiomas' apagado (ou não existia).");
+                criarBancoENovoIdioma(select);
+            };
+
+            deleteRequest.onerror = (event) => {
+                console.error("Erro ao apagar o banco:", event.target.error);
+            };
+
+            deleteRequest.onblocked = () => {
+                console.warn("Não foi possível apagar o banco porque ainda está em uso.");
+            };
             let select = document.getElementById("idioma").value;
-            localStorage.setItem("idioma",select)
+            localStorage.setItem("idioma", select)
             console.log(select);
 
             const request = indexedDB.open("idiomas", 1);
 
-            request.onupgradeneeded = function(event) {
+            request.onupgradeneeded = function (event) {
                 const db = event.target.result;
 
                 if (!db.objectStoreNames.contains("usuarios")) {
@@ -90,7 +108,7 @@
                 }
             };
 
-            request.onsuccess = function(event) {
+            request.onsuccess = function (event) {
                 const db = event.target.result;
 
                 const tx = db.transaction("usuarios", "readwrite");
@@ -115,14 +133,15 @@
                 };
             };
 
-            request.onerror = function(event) {
+            request.onerror = function (event) {
                 console.error("Erro ao abrir o banco:", event.target.error);
             };
 
-            window.location.href="login.html"
+            window.location.href = "login.html"
 
         });
     </script>
     <script src="script_entrada.js"></script>
 </body>
+
 </html>

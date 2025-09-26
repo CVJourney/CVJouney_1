@@ -11,6 +11,12 @@ body{
     background-attachment: fixed;
 }
 
+@media (min-width:1144px){
+    body{
+        background-image: url("img/fundo_9.jpg");
+    }
+}
+
 #centra{
     position: relative;
     top: 50%;

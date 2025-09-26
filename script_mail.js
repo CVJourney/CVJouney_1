@@ -43,7 +43,7 @@ async function Trabalhar_dados(data_){
         ${compra==true?`<button id="aceito" style="background-color:black; border-color:black">Reserva de ${preco}Ecv concluida</button>`:
         `        
         ${
-            vista==null?"<p id='aguarde'>Aguardando Resposta da empresa</p>":vista==true && verificarData(`${resposta}`)!="prazo expirado"?`<button id="aceito" onclick='pagamento("${destinatario}",${preco},${id})'>Efetuar reserva ${preco}$Ecv</button>`:`<h3>Reserva não aceitada</h3>`
+            vista==null?`<p id='aguarde'>Aguardando Resposta da empresa</p><h5 class='cancela_' onclick='cancela_(${id})'>Cancelar solicitação</h5>`:vista==true && verificarData(`${resposta}`)!="prazo expirado"?`<button id="aceito" onclick='pagamento("${destinatario}",${preco},${id})'>Efetuar reserva ${preco}$Ecv</button><h5 class='cancela_' onclick='cancela_(${id})'>Cancelar solicitação</h5>`:`<h3>Reserva não aceitada</h3>`
         }
         `
       }
@@ -214,7 +214,7 @@ let x=1
 
 function datas_(){
   if(x==1){
-    alertTraduzido('Aqui você deve indicar a data em que pretende visitar o local.')
+    alertTraduzido('Aqui você deve indicar a data em que pretende ao local.')
     x=2
   }
 }
@@ -251,6 +251,28 @@ async function enviar(nome,empresa,preco,nome_l){
     alertTraduzido("Preenche bem todos os campos!!")
   }
   
+}
+
+async function cancela_(id){
+  let loading=document.getElementById("loading_").style
+  loading.display="block"
+  let response=await fetch("https://cvprisma.vercel.app/data_cancela_reg",{
+    method:"post",
+    headers:{
+      "content-type":"application/json"
+    },
+    body:JSON.stringify({id:id})
+  })
+  if(response.ok){
+    alertTraduzido("Cancelado com sucesso")
+    location.reload()
+    loading.display="none"
+  }
+  else{
+    alertTraduzido("Deu erro tente denovo mais tarde")
+    loading.display="none"
+  }
+
 }
 
 function pagamento(empresa,preco,id){

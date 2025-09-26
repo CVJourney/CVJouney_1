@@ -1,12 +1,50 @@
 let star="★"
 document.addEventListener("DOMContentLoaded",async ()=>{
+    await aviso()
     await verificarSeTemDadosNaBD()
     await campo_1()
     lerdadosempresas()
     document.dispatchEvent(new Event("traduzir"))
     document.dispatchEvent(new Event("verifica_data"))
+    window.dispatchEvent(new Event("entrada"))
 })
 
+async function aviso(){
+  console.log("vamos traduzir")
+  let res=await alertTraduzido("para enviarmos notificações importantes enquanto o site permanece aberto, mesmo em segundo plano. Para não perder nenhuma atualização ou aviso, mantenha a aba aberta e continue conectado.")
+  alert(res)
+}
+
+async function alertTraduzido(texto) {
+  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+
+  if (!idiomaDestino) {
+    console.warn("Idioma não encontrado. Mostrando texto original.");
+    
+    return texto;
+  }
+
+  try {
+    const resposta = await fetch("https://apiprisma.vercel.app/api_tradutor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        texto,
+        idiomaDestino
+      }),
+    });
+
+    const dados = await resposta.json();
+    const textoTraduzido = dados.traducao
+    return textoTraduzido
+  } catch (err) {
+    console.error("Erro na tradução:", err);
+    return texto; // Fallback
+  }
+}
+//bomba
 
 async function verificarSeTemDadosNaBD() {
   if (!('databases' in indexedDB)) {
@@ -284,6 +322,8 @@ function envia(id){
     window.location.href=`info.html?id=${campo}&url=${metodo}`
 
 }
+
+
 
 //data_info
 

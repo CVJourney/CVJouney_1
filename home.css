@@ -88,9 +88,6 @@ span{
     overflow-x: auto;
 }
 
-#campos_::-webkit-scrollbar{
-    display: none;
-}
 
 
 .img_empresas,.img_estadia{
@@ -303,5 +300,29 @@ span{
     color: rgb(29, 29, 29);
     text-shadow: 0 0 20px black;
 }
-
+/*categoria_new
 /*pesquisa*/
+/*configurações para pc iniciando*/
+/* Contêiner do scroll */
+#estadia::-webkit-scrollbar,#destaque::-webkit-scrollbar {
+    width: 2px; /* largura da scrollbar */
+    height: 5px;
+}
+
+/* Fundo da barra de scroll */
+#estadia::-webkit-scrollbar-track,#destaque::-webkit-scrollbar-track {
+    background: transparent; /* cor suave */
+    border-radius: 10px; /* cantos arredondados */
+}
+
+/* Barra de rolagem */
+#estadia::-webkit-scrollbar-thumb, #destaque::-webkit-scrollbar-thumb {
+    background-color: #85796b77; /* cor da "pegada" */
+    border-radius: 10px;
+    height: 2px; /* cria efeito de separação */
+}
+
+/* Efeito quando passa o mouse */
+#estadia::-webkit-scrollbar-thumb:hover,#destaque::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* muda cor ao passar o mouse */
+}

@@ -1,0 +1,290 @@
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    height: 100vh;
+    background-image: url("img/restaurante_.jpg");
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    margin: auto;
+}
+i.baixo{
+    background-color: rgb(253, 223, 166);
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.carrossel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.carrossel img {
+    width: 100%;
+    height: 300px;
+    display: none;
+}
+
+.carrossel img.ativo {
+    display: block;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.indicadores {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 6px;
+}
+
+.indicadores span {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.indicadores .ativo {
+    background-color: #333;
+}
+
+.pratos-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (max-width: 600px) {
+    .pratos-container {
+    grid-template-columns: 1fr;
+    }
+}
+
+.prato {
+    backdrop-filter: blur(20px);
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeInUp 0.6s ease;
+}
+
+.prato img {
+    width: 80%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+@keyframes fadeInUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.dinheiro {
+    color: rgb(255, 152, 35);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(255, 228, 205);
+}
+
+.estrelas {
+    color: gold;
+    font-size: 20px;
+    margin: 4px 0;
+}
+div#conteudo p{
+    text-align: left;
+}
+
+h1#titulo_prato{
+    margin: 100px 0;
+}
+
+#back{
+    background-color: rgba(255, 255, 255, 0.39);
+    backdrop-filter: blur(30px);
+    color:white;
+    border-radius:100%;
+    text-align: center;
+    position:relative;
+    left:-20px;
+
+}
+
+#ilha_2{
+    padding: 5px 13px;
+    box-shadow: 0 0 10px black;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    display: inline-block;
+}
+#mapa_res{
+    width: 30px;
+    float: right;
+}
+
+#mapa_fim{
+    width: 100vw;
+    height:100vh;
+    position:fixed;
+    top:0;
+    right:0;
+    z-index: 9999;
+    background-color: white;
+    
+}
+
+#mapa_show{
+    width: 100%;
+    height: 100%;
+}
+
+#nome_sai{
+    display: none;
+}
+
+.desaparece{
+    display: none;
+}
+
+#sai_mapa{
+    padding: 10px;
+    box-shadow: 0 0 20px black;
+    background-color: rgba(255, 255, 255, 0.767);
+    display: inline-block;
+    border-radius: 20px;
+    margin: 10px;
+    position: absolute;
+    left: 80%;
+}
+div#conteudo p.info_text{
+    text-align: center;
+}
+div#conteudo p.estrelas{
+    text-align: center;
+}
+@media (min-width:1144px){
+    body{
+        background-image: url("img/restaurante_2.png");
+        background-size: cover;
+        min-width: 99vw;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+    }
+    h1#res_dest{
+        height: 100vh;
+        font-size: 10vw;
+        margin-top: 30vh;
+        background-image: linear-gradient(to left,white,rgb(170, 137, 132),rgb(230, 213, 200));
+        background-clip: text;
+        color: transparent;
+        position: sticky;
+        top: 0;
+        z-index: -1;
+
+    }
+    #conteudo{
+        width:100%;
+        display: block;
+        
+    }
+    #back{
+        position: fixed;
+        top: 0;
+        border-radius: 10px;
+        left: 1px;
+        margin: 20px 20px 20px 2px;
+        z-index: 999;
+    }
+    #back::after{
+        content: "VOLTAR";
+    }
+    div#conteudo p.info_text{
+        font-size: 19px;
+        width: 60%;
+        text-align: left;
+        padding: 20px;
+        border-radius: 20px;
+        border: solid 3px #d8d7d7;
+        display: block;
+        margin: auto;
+    }
+    div#conteudo p.estrelas{
+        font-size: 30px;
+        padding: 5px;
+    }
+    div#conteudo p.estrelas::before{
+        content: "Avaliação: ";
+        color: black;
+        font-size: 18px;
+    }
+    #carrossel img.ativo{
+        height: 100%;
+        width: 100%;
+    }
+    #carrossel{
+        min-width: 900px;
+        height: 500px;
+    }
+    p#ilha_2{
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 19px;
+        position: relative;
+        left:50%;
+        transform: translateX(-50%);
+    }
+    div.pratos-container{
+        min-width: 100%;
+        display: block;
+        margin: 0;
+    }
+    div.prato{
+        width: 30%;
+        display: inline-block;
+        height: 450px;
+        margin: 10px;
+    }
+    .map_{
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 20px;
+        float: left;
+        border: solid 4px rgb(171, 136, 131);
+    }
+    #conteudos{
+        width: 100vw;
+        background-image: url("img/restaurante_2.png");
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+
+}

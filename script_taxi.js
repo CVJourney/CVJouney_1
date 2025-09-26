@@ -1,3 +1,15 @@
+let more=""
+
+function esperando_t(){
+  let params=new URLSearchParams(window.location.search)
+  let titulo=params.get("titulo")
+  console.log(titulo)
+  if(titulo=="chama"){
+    let place=params.get("place")
+    more=`&place=${place}`
+    alertTraduzido("Agora, escolhe o taxista que irá fazer esse percurso.")
+  }
+}
 async function get(url) {
   const res = await fetch(url);
   return await res.json();
@@ -114,10 +126,11 @@ document.getElementById("filtro-sem-guia").addEventListener("click", function ()
 lista_taxi();
 
 function passa(id){
-  window.location.href=`taxi_chamada.html?wwr=${id}`
+  window.location.href=`taxi_chamada.html?wwr=${id}${more}`
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
+  esperando_t()
     const evento = new CustomEvent("realiza");
     document.dispatchEvent(evento);
     console.log(evento)
@@ -154,3 +167,5 @@ async function alertTraduzido(texto) {
     alert(texto); // Fallback
   }
 }
+
+//wwr

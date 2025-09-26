@@ -69,7 +69,9 @@ async function post() {
           <div class="info">${hotel.info}</div>
           <div id="empresas">Empresa:<strong> ${hotel.empresa}</strong></div>
           <div id="agendar" class="reserva" onclick="reservar('${hotel.empresa}','${hotel.custo}','empresa','${hotel.nome}')">Agendar visita</strong></div>
-          <div class="price">🚖 Chamar Táxi</div>
+          <a href='taxi.html?titulo=chama&place=${hotel.nome}'>
+            <div class="price">🚖 Chamar Táxi</div>
+          </a>
         </div>
       `;
     }

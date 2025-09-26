@@ -47,30 +47,31 @@ function trabalhar_xs(data){
     referrerpolicy="no-referrer-when-downgrade"
     src="https://www.google.com/maps?q=${e.latitude},${e.longitude}&hl=pt&z=15&output=embed">
   </iframe>
-
-  <h1 class="title">Destino:</h1>
-  <h3 class="info">${e.destino}</h3>
-
-  <h1 class="title">${e.guia}</h1>
-
-  ${e.confirmado==null
-    ? `<h2 class="pending">Esperando a resposta do taxista</h2><button id="cancela" onclick="cancelar(${e.id})">Cancelar solicitação</button>`
-    : e.confirmado==false
-      ? `<h2 class="denied">Solicitação negada(ou cancelada)</h2>`
-      : `<h1 class="title">Preço:</h1><h3 class="info">${e.preco} Ecv</h3><h2 class="approved">Solicitação aprovada</h2>`}
-
-  ${e.confirmado!=false
-    ? `<h1 class="title">Tempo:</h1>${e.tempo}<h3 class="info" id="tempo${i}">00:00:0 (m)</h3>`
-    : ``}
-
-  <button class="btn-details" onclick='detales_carros(${e.id_})'>Detalhes do veículo do taxista</button>
-</div>
+  <div class="detalhes_info">
+      <h1 class="title">Destino:</h1>
+      <h3 class="info">${e.destino}</h3>
+    
+      <h1 class="title">${e.guia}</h1>
+    
+      ${e.confirmado==null
+        ? `<h2 class="pending">Esperando a resposta do taxista</h2><button id="cancela" onclick="cancelar(${e.id})">Cancelar solicitação</button>`
+        : e.confirmado==false
+          ? `<h2 class="denied">Solicitação negada(ou cancelada)</h2>`
+          : `<h1 class="title">Preço:</h1><h3 class="info">${e.preco} Ecv</h3><h2 class="approved">Solicitação aprovada</h2>`}
+    
+      ${e.confirmado!=false
+        ? `<h1 class="title">Tempo:</h1>${e.tempo}<h3 class="info" id="tempo${e.id}">00:00:0 (m)</h3>`
+        : ``}
+    
+      <button class="btn-details" onclick='detales_carros(${e.id_})'>Detalhes do veículo do taxista</button>
+    </div>
+  </div>
 
         `
         cria.innerHTML=html
         taxi_div.appendChild(cria)
           if (e.confirmado != false) {
-                iniciarTempo(`tempo${i}`,e.tempo,e.id,cria.id);
+                iniciarTempo(`tempo${e.id}`, e.tempo, e.id, cria.id);
             }
     })
 

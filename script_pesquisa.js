@@ -1,3 +1,5 @@
+
+//bomba
 // Extrai nomes, agora com origem e índice para cada item
 function extrairNomesComOrigem(obj, origemNome) {
   let nomes = [];

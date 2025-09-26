@@ -154,3 +154,36 @@ button {
   background-position: center center;
   background-repeat: no-repeat;
 }
+
+
+
+@media (min-width:1144px){
+  #info-text p{
+    border: solid 1px black;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 10px;
+
+  }
+  #info-text{
+    padding: 10px;
+    border: solid 3px whitesmoke;
+    border-radius: 20px;
+  }
+  #perfil-img{
+    width: 200px;
+    height: 200px;
+  }
+  div.carrossel img{
+    min-width: 80%;
+    min-height: 100%;
+  }
+  .carrossel{
+    height: 600px;
+    width: 100%;
+  }
+  div.perfil{
+    margin-top: 20px;
+  }
+}

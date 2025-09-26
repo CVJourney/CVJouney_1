@@ -7,7 +7,9 @@ body {
     color: #333;
 }
 
-
+a{
+  text-decoration: none;
+}
 .container {
     max-width: 1000px;
     margin: 30px auto;
@@ -15,6 +17,77 @@ body {
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+@media (min-width:1144px){
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .container{
+    height: 90vh;
+    min-width: 90vw;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .hotel-image {
+      flex: 1 1 300px;      /* mantém a largura flexível */
+      min-width: 600px;     /* não ultrapassa 400px de largura */
+      height: 500px;        /* altura fixa de 500px */
+      border-radius: 12px;
+      overflow: hidden;
+      object-fit: unset;    /* garante que a imagem preencha o espaço sem distorcer */
+    }
+    
+    
+    img.imagem-principal{
+      width: auto;
+      min-height: 80%;
+      object-fit: unset;    /* garante que a imagem preencha o espaço sem distorcer */
+
+  }
+  .hotel-card{
+    display: inline-block;
+    flex-wrap: none;
+    gap: none;
+    align-items: none;
+  }
+.miniatura {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  min-width: 110px;
+  min-height: 80px;
+}
+div.price,div#empresas,div.reserva{
+  font-size: 20px;
+  padding: 20px;
+}
+div.info{
+  font-size: 18px;
+}
+img.mapa_img{
+  width: 70px;
+  height: 70px;
+}
+/*object-fit:*/
+.thumbnails {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+
+
 }
 
 .hotel-card {
@@ -181,7 +254,6 @@ div#mapas{
 .hotel-image img.imagem-principal {
   width: 100%;
   max-height: 240px;
-  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
   transition: 1s ease-in-out;
