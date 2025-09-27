@@ -19,7 +19,7 @@ async function apanha_sol(){
         headers:{
             "content-type":"application/json"
         },
-        body:JSON.stringify({usuario:username})
+        body:JSON.stringify({usuario:username,ids:[]})
     })
 
     let res=await response.json()
