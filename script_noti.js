@@ -19,7 +19,6 @@ self.addEventListener("sync", event => {
 
 async function buscarReservas() {
     console.log("notifica")
-    console.log("ooooo-",ids)
     try {
         const username = await pegarUltimoUsuario();
         if (!username) return;
@@ -33,7 +32,7 @@ async function buscarReservas() {
         const data = await response.json();
 
         data.forEach(async (e) => {
-            if (e.vista === true && e.compra !== true) {
+            if (e.vista == true && e.compra != true) {
                 let td = await alertTraduzido(`Resposta sobre a reserva ||| Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
                 let sep = String(td).split("|||")
                 const titulo = sep[0];
