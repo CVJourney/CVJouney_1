@@ -19,7 +19,7 @@ async function apanha_sol(){
         headers:{
             "content-type":"application/json"
         },
-        body:JSON.stringify({usuario:username,ids:[]})
+        body:JSON.stringify({usuario:username})
     })
 
     let res=await response.json()
@@ -30,8 +30,10 @@ async function apanha_sol(){
 async function Trabalhar_dados(data_){
     let campo=apanha("campo_mail")
     let data=data_.reverse()
+    console.log(data)
     data.map((e)=>{
         let {destinatario,autor,data,preco,vista,resposta,telefone,lugar,id,compra}=e
+        console.log(lugar, compra, vista)
         let html=`
         ${vista!=null?`<p class="dias">${verificarData(resposta)=="data invalida"?"":verificarData(resposta)}</p>`:""}
         <h6>Cliente: ${autor}</h6>
@@ -85,8 +87,8 @@ function verificarData(prazoString) {
   } else {
     // calcula quantos dias faltam
     const diferenca = prazo - hoje; // diferença em milissegundos
-    const diasFaltando = Math.ceil(diferenca / (1000 * 60 * 60 * 24));
-    return `${diasFaltando} dia(s) para responder`;
+    const diasFaltando = prazoString;
+    return `Resposta até ${diasFaltando}`;
   }
 }
 
@@ -280,3 +282,4 @@ function pagamento(empresa,preco,id){
   window.location.href=`banco.html?emp=${empresa}&pr=${preco}&tk=${id}`
 }
 //https://cvprisma.vercel.app
+//reserva
