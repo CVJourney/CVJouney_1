@@ -1,6 +1,5 @@
 let star="★"
 document.addEventListener("DOMContentLoaded",async ()=>{
-    await aviso()
     await verificarSeTemDadosNaBD()
     await campo_1()
     lerdadosempresas()
@@ -8,12 +7,13 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     document.dispatchEvent(new Event("verifica_data"))
     window.dispatchEvent(new Event("entrada"))
 })
-
+/*
 async function aviso(){
   console.log("vamos traduzir")
-  let res=await alertTraduzido("para enviarmos notificações importantes enquanto o site permanece aberto, mesmo em segundo plano. Para não perder nenhuma atualização ou aviso, mantenha a aba aberta e continue conectado.")
+  let res=await alertTraduzido("passei aqui s+o para te avisar que se fizeres algum pedido de reserva ou algo do tipo consulte o site sempre para poder avistar as respostas")
   alert(res)
 }
+*/
 
 async function alertTraduzido(texto) {
   const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
