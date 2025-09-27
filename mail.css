@@ -61,8 +61,9 @@ body{
 
 .dias{
     font-size: 11px;
-    position: absolute;
-    right: 10px;
+    background-color: rgb(230, 218, 203);
+    color: rgb(85, 82, 82);
+    border-radius:4px ;
     width: 90px;
     margin: 3px;
     font-weight: bold;
@@ -143,6 +144,10 @@ input[type="date"]{
     body{
         overflow-x: hidden;
     }
+    .campos_mail_x{
+        height: 399px;
+        vertical-align: top;
+    }
     
 }
 .cancela_{
@@ -158,10 +163,13 @@ input[type="date"]{
 }
 
 @media (min-width:1050px){
+    #campo_mail{
+        text-align: center;
+    }
     .campos_mail_x{
         display: inline-block;
         width: 30%;
-        height: 350px;
+        height: 399px;
     }
     .campos_mail_x h6{
         width: 90%;
@@ -190,3 +198,4 @@ input[type="date"]{
     transform: translate(-50%,-50%);
     border-radius: 10px;
 }
+/*dias
