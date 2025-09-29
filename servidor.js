@@ -163,10 +163,20 @@ ORDER BY
 })
 
 app.post("/data_reserva",async (req,res)=>{
-  let {usuario}=req.body
-  let comando=`select * from mensagem where autor='${usuario}'`
+  let {usuario,ids}=req.body
+  let comando
+  console.log(ids)
+  if(ids.length>0){
+    comando=`select * from mensagem where autor='${usuario}' and id not in (${ids})`
+  }
+  else{
+    comando=`select * from mensagem 
+where autor='${usuario}' 
+order by id asc;`
+  }
   let response=await pool.query(comando)
   let resp=response.rows
+  console.log(resp)
 
   res.json(resp)
 })
@@ -227,3 +237,4 @@ const porta = 4000;
 app.listen(porta, () => {
   console.log("Servidor rodando na porta", porta);
 });
+//data_reserva

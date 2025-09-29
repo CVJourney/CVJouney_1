@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVJourney-home</title>
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="notifica.css">
     <link rel="stylesheet" href="style_secundarios.css">
     <link rel="stylesheet" href="estilo_btn.css">
     <link rel="shortcut icon" href="img/logo_2_png.png" type="image/x-icon">
-
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
 
 </head>
@@ -117,6 +118,7 @@
         </div>
     </div>
     <div id="container_new"></div>
+    <nav id="sound" style="display: none;"></nav>
 
     <nav style="height: 100px;"></nav>
 
@@ -140,62 +142,92 @@
     <script src="script_pesquisa.js"></script>
     <script src="traduzir.js"></script>
     <script src="script_noti.js"></script>
+    <script src="script_noti_in.js"></script>
 
     <script>
+        // ---------- Firebase ----------
+        const firebaseConfig = {
+            databaseURL: "https://subscription-41d39-default-rtdb.europe-west1.firebasedatabase.app/"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // ---------- Service Worker ----------
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('script_noti.js')
                 .then(() => console.log("Service Worker registrado!"))
                 .catch(err => console.error("Erro ao registrar SW:", err));
         }
 
-        // Função de permissão
-        function pedirPermissaoNotificacao() {
-            return new Promise((resolve, reject) => {
-                if (!("Notification" in window)) {
-                    reject("Este navegador não suporta notificações.");
-                    return;
-                }
-                if (Notification.permission === "granted") {
-                    resolve("Permissão já concedida.");
-                } else if (Notification.permission === "denied") {
-                    reject("Permissão negada anteriormente.");
-                } else {
-                    Notification.requestPermission().then(permission => {
-                        if (permission === "granted") resolve("Permissão concedida!");
-                        else reject("Permissão não concedida.");
-                    });
-                }
-            });
+        // ---------- Permissão de Notificação ----------
+        async function pedirPermissaoNotificacao() {
+            if (!("Notification" in window)) throw "Navegador não suporta notificações.";
+            if (Notification.permission === "granted") return "Permissão já concedida.";
+            if (Notification.permission === "denied") throw "Permissão negada anteriormente.";
+
+            const permission = await Notification.requestPermission();
+            if (permission === "granted") return "Permissão concedida!";
+            throw "Permissão não concedida.";
         }
 
-        // Chamar ao carregar a página
+        // ---------- Criar e salvar subscription ----------
+        async function salvarSubscription() {
+            if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+
+            const swReg = await navigator.serviceWorker.ready;
+            const subscription = await swReg.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(
+                    "BGp2boq4FE1QyAXEA_SQxBqqXdCdakzpPmOmfo2MpxycWjDSs2LGzi6TSVrTrp4LnkwDvrm8tPqRaCatvKoKTBw"
+                )
+            });
+
+            // Transformar em JSON
+            const subJSON = subscription.toJSON();
+            const endpoint = subJSON.endpoint;
+
+            // Checar se já existe no Firebase
+            const snapshot = await db.ref("subscriptions").orderByChild("endpoint").equalTo(endpoint).once("value");
+            if (snapshot.exists()) {
+                console.log("Subscription já existe no Firebase:", endpoint);
+                return;
+            }
+
+            // Salvar apenas se não existir
+            await db.ref("subscriptions").push(subJSON);
+            console.log("Subscription salva no Firebase:", endpoint);
+        }
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+        }
+
+        // ---------- Inicialização ----------
         pedirPermissaoNotificacao()
+            .then(() => salvarSubscription())
             .then(msg => console.log(msg))
             .catch(err => console.log(err));
 
-        // Quando voltar online, agenda o SW para buscar reservas
-        window.addEventListener("online", () => {
+        // ---------- Sincronização com SW ----------
+        function registrarSync() {
             navigator.serviceWorker.ready.then(reg => {
-                reg.sync.register("verificar-reservas");
+                reg.sync.register("verificar-reservas")
+                    .then(() => console.log("Sync registrado!"))
+                    .catch(err => console.error("Erro no sync:", err));
             });
-        });
-        window.addEventListener("entrada",() => {
-            navigator.serviceWorker.ready.then(reg => {
-                reg.sync.register("verificar-reservas");
-            });
-        })
+        }
 
-        // Opcional: timer para rodar a cada 1h
-        setInterval(() => {
-            navigator.serviceWorker.ready.then(reg => {
-                reg.sync.register("verificar-reservas");
-            });
-        }, 3600000*24);
 
+        // ---------- Função scroll ----------
         function manda() {
             const item = document.getElementById("titulo_destaque");
             item.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+
+        // ---------- Carrossel ----------
         (function () {
             const carrossel = document.getElementById("meuCarrossel");
             const slides = carrossel.querySelectorAll("img");
@@ -208,7 +240,6 @@
             function mostrarSlide(i) {
                 slides.forEach(s => s.classList.remove("ativo"));
                 indicadores.forEach(d => d.classList.remove("ativo"));
-
                 slides[i].classList.add("ativo");
                 indicadores[i].classList.add("ativo");
             }
@@ -227,14 +258,13 @@
                 dot.addEventListener("click", () => {
                     index = i;
                     mostrarSlide(index);
-                    iniciar(6000); // se clicar no traço → pausa 10s
+                    iniciar(6000); // pausa 6s se clicar no indicador
                 });
             });
 
             mostrarSlide(index);
             iniciar();
         })();
-
     </script>
 
 </body>

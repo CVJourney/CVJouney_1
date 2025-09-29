@@ -3,17 +3,20 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     await verificarSeTemDadosNaBD()
     await campo_1()
     lerdadosempresas()
+    letsgo()
     document.dispatchEvent(new Event("traduzir"))
     document.dispatchEvent(new Event("verifica_data"))
     window.dispatchEvent(new Event("entrada"))
 })
-/*
-async function aviso(){
-  console.log("vamos traduzir")
-  let res=await alertTraduzido("passei aqui s+o para te avisar que se fizeres algum pedido de reserva ou algo do tipo consulte o site sempre para poder avistar as respostas")
-  alert(res)
+
+function letsgo(){
+  let tipo=sessionStorage.getItem("noti")
+  if(tipo=="0"){
+    return
+  }
+  sessionStorage.setItem("noti",0)
+  document.dispatchEvent(new Event("notifica_in"))
 }
-*/
 
 async function alertTraduzido(texto) {
   const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB

@@ -120,6 +120,7 @@ function capitalizarInicial(frase) {
 async function mostrarLoading(idiomaDestino) {
   const loadingBox = document.createElement("div");
   loadingBox.id = "tela-loading-traducao";
+  loadingBox.style.zIndex="999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
   loadingBox.style.position = "fixed";
   loadingBox.style.top = "10px";
   loadingBox.style.right = "10px";
@@ -127,7 +128,6 @@ async function mostrarLoading(idiomaDestino) {
   loadingBox.style.padding = "10px 15px";
   loadingBox.style.fontFamily = "Arial, sans-serif";
   loadingBox.style.fontSize = "14px";
-  loadingBox.style.zIndex = "9999";
   loadingBox.style.color="white"
   loadingBox.style.display = "flex";
   loadingBox.style.alignItems = "center";
