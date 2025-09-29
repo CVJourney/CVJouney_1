@@ -120,7 +120,6 @@ function capitalizarInicial(frase) {
 async function mostrarLoading(idiomaDestino) {
   const loadingBox = document.createElement("div");
   loadingBox.id = "tela-loading-traducao";
-  loadingBox.style.zIndex="999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
   loadingBox.style.position = "fixed";
   loadingBox.style.top = "10px";
   loadingBox.style.right = "10px";

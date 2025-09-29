@@ -309,7 +309,7 @@ span{
     height: 5px;
 }
 
-/* Fundo da barra de scroll */
+/* Fundo da barra de scroll tela*/
 #estadia::-webkit-scrollbar-track,#destaque::-webkit-scrollbar-track {
     background: transparent; /* cor suave */
     border-radius: 10px; /* cantos arredondados */
