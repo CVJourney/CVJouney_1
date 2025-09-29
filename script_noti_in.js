@@ -119,10 +119,28 @@ async function alertTraduzido(texto) {
         document.body.appendChild(container);
     }
 
+    const cores = ['#fdc04d', '#f5d291ff', '#ffad6aff', '#fca400', '#fcbc73ff'];
+    let indiceCor = 0;
+
+    let fila = [];
+    let exibindo = false;
+
     window.showNotification = function (titulo, mensagem, type = "info", timeout = 6000) {
+        fila.push({ titulo, mensagem, type, timeout });
+        exibirProxima();
+    };
+
+    function exibirProxima() {
+        if (exibindo || fila.length === 0) return;
+
+        exibindo = true;
+        const { titulo, mensagem, type, timeout } = fila.shift();
+
         const el = document.createElement('div');
         el.className = `nv-notification nv-${type}`;
-        
+        // muda a cor de fundo da notificação
+        el.style.backgroundColor = cores[indiceCor];
+        indiceCor = (indiceCor + 1) % cores.length; // próxima cor da lista
 
         // ação de clique
         el.onclick = () => {
@@ -134,7 +152,7 @@ async function alertTraduzido(texto) {
         closeBtn.textContent = "×";
         closeBtn.className = "nv-close";
         closeBtn.onclick = (e) => {
-            e.stopPropagation(); // não deixa o clique da div acontecer
+            e.stopPropagation();
             fecharNotificacao(el);
         };
 
@@ -157,25 +175,33 @@ async function alertTraduzido(texto) {
             el.style.opacity = "1";
             el.style.transform = "translateY(0)";
         });
-        document.getElementById("sound").click()
 
-        // remover depois de um tempo
-        if (timeout > 0) {
-            setTimeout(() => fecharNotificacao(el), timeout);
+        // tocar som
+        tocarSom();
+
+        // remover depois do timeout
+        const timer = setTimeout(() => fecharNotificacao(el), timeout);
+
+        function fecharNotificacao(el) {
+            clearTimeout(timer);
+            el.style.opacity = "0";
+            el.style.transform = "translateY(-10px)";
+            setTimeout(() => {
+                el.remove();
+                exibindo = false;
+                exibirProxima();
+            }, 300);
         }
-    };
-
-    function fecharNotificacao(el) {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(-10px)";
-        setTimeout(() => el.remove(), 300);
     }
+
+    function tocarSom() {
+        const audio = new Audio('notification.wav');
+        audio.play().catch(err => console.warn("Som bloqueado pelo navegador", err));
+    }
+
 })();
 
 function gomail() {
     window.location.href = "mail.html";
 }
-document.getElementById("sound").addEventListener("click",function(){
-    const audio = new Audio('notification.wav');
-    audio.play().catch(err => console.warn("Som bloqueado pelo navegador", err));
-})
+
