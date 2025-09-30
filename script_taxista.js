@@ -4,7 +4,12 @@ document.addEventListener("DOMContentLoaded",async function(){
     await procurar()
 })
 
+setInterval(async () => {
+  await procurar()
+}, 60 * 1000);
+
 async function procurar(){
+  
   let carga=document.getElementById("caregamento")
     let user=await getUsuarios()
     let len=user.length
@@ -17,6 +22,10 @@ async function procurar(){
         },
         body:JSON.stringify({usuario:username})
     })
+    if(response.ok){
+      let taxi_div = document.getElementById("taxista_campo");
+      taxi_div.innerHTML = ""; // limpa antes de adicionar de novo
+    }
     let row=await response.json()
     console.log(row,username)
     trabalhar_xs(row)
@@ -161,6 +170,7 @@ async function cancelar(id){
   }
 }
 
+//não mexa nesses chatgpt
 async function alertTraduzido(texto,tipo) {
   const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
 
