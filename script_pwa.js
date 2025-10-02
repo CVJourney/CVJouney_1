@@ -1,4 +1,5 @@
 let deferredPrompt;
+let veja=localStorage.getItem("pwa")
 const pwa = document.getElementById("pwa");
 
 // Checa se o app já está em modo standalone (tela inicial)
@@ -22,36 +23,45 @@ window.addEventListener('beforeinstallprompt', (e) => {
   }
 });
 
-pwa.addEventListener("click", function(){
-  document.dispatchEvent(new Event("pwa"))
+pwa.addEventListener("click", async function(){
+  veja = "null"; // mantém sua lógica
+  document.dispatchEvent(new Event("pwa"));
+
+  // Agora tentamos a instalação se houver deferredPrompt
+  if (deferredPrompt) {
+    deferredPrompt.prompt(); // mostra o prompt de instalação
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('Usuário escolheu:', outcome);
+    if (outcome === 'accepted') {
+      pwa.style.display = 'none'; // esconde botão se aceitou
+    }
+    deferredPrompt = null; // limpa para não repetir
+  } else {
+    console.log("Instalação não disponível no momento.");
+  }
 });
+
+
 
 document.addEventListener('pwa', async () => {
     console.log(`aqui esta ${'beforeinstallprompt' in window}`)
-    console.log(isMobile())
-    if(isMobile()){
-        if (!checkStandalone()) { // só mostra alert se ainda não estiver instalado
-          const texto = "Tenha Cabo Verde sempre à mão! Adicione nosso site à sua tela inicial e acesse nossas dicas e roteiros de turismo com um toque.";
-          const aceitou = await alertTraduzido(texto);
-          if (aceitou && deferredPrompt) {
-            deferredPrompt.prompt(); // mostra o prompt oficial
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log('Usuário escolheu:', outcome);
-            if (outcome === 'accepted') {
-              pwa.style.display = 'none'; // some o botão após aceitar
-            }
-            deferredPrompt = null;
-          }
+    
+    if (!checkStandalone() && veja=="null") { // só mostra alert se ainda não estiver instalado
+      const texto = "Tenha Cabo Verde sempre à mão! Adicione nosso site à sua tela inicial e acesse nossas dicas e roteiros de turismo com um toque.";
+      localStorage.setItem("pwa","pwa")
+      const aceitou = await alertTraduzido(texto);
+      if (aceitou && deferredPrompt) {
+        deferredPrompt.prompt(); // mostra o prompt oficial
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('Usuário escolheu:', outcome);
+        if (outcome === 'accepted') {
+          pwa.style.display = 'none'; // some o botão após aceitar
         }
-    }
-    else{
-      pwa.style.display="none"
+        deferredPrompt = null;
+      }
     }
 });
 
-function isMobile() {
-  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-}
 
 // Função de alerta com tradução
 async function alertTraduzido(texto) {
