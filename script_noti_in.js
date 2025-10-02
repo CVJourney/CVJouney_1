@@ -15,16 +15,26 @@ async function buscarReservas() {
         });
 
         const data = await response.json();
+        let len=data.length
+        if(len>4){
+            let td = await alertTraduzido2(`Novas respostas ||| Você tem ${len} novas respostas às suas solicitações. Por favor, acesse o ícone de e-mail para visualizá-las.`)
+            let sep = String(td).split("|||")
+            const titulo = sep[0];
+            const mensagem = sep[1];
+            showNotification(titulo, mensagem, "info", 3000);
+        }
+        else{
+            data.forEach(async (e) => {
+                if (e.vista == true && e.compra != true) {
+                    let td = await alertTraduzido2(`Resposta sobre a reserva ||| Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
+                    let sep = String(td).split("|||")
+                    const titulo = sep[0];
+                    const mensagem = sep[1];
+                    showNotification(titulo, mensagem, "info", 3000);
+                }
+            });
+        }
 
-        data.forEach(async (e) => {
-            if (e.vista == true && e.compra != true) {
-                let td = await alertTraduzido2(`Resposta sobre a reserva ||| Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
-                let sep = String(td).split("|||")
-                const titulo = sep[0];
-                const mensagem = sep[1];
-                showNotification(titulo, mensagem, "info", 5000);
-            }
-        });
 
     } catch (err) {
         console.error("Erro ao buscar reservas:", err);
@@ -125,7 +135,7 @@ async function alertTraduzido2(texto) {
     let fila = [];
     let exibindo = false;
 
-    window.showNotification = function (titulo, mensagem, type = "info", timeout = 6000) {
+    window.showNotification = function (titulo, mensagem, type = "info", timeout = 4000) {
         fila.push({ titulo, mensagem, type, timeout });
         exibirProxima();
     };

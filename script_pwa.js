@@ -43,6 +43,9 @@ document.addEventListener('pwa', async () => {
           }
         }
     }
+    else{
+      pwa.style.display="none"
+    }
 });
 
 // Função de alerta com tradução
