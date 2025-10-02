@@ -28,6 +28,7 @@ pwa.addEventListener("click", function(){
 
 document.addEventListener('pwa', async () => {
     console.log(`aqui esta ${'beforeinstallprompt' in window}`)
+    console.log(isMobile())
     if(isMobile()){
         if (!checkStandalone()) { // só mostra alert se ainda não estiver instalado
           const texto = "Tenha Cabo Verde sempre à mão! Adicione nosso site à sua tela inicial e acesse nossas dicas e roteiros de turismo com um toque.";
@@ -44,7 +45,7 @@ document.addEventListener('pwa', async () => {
         }
     }
     else{
-      pwa.style.display="none"
+      pwa.style.backgroundColor="red"
     }
 });
 
