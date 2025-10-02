@@ -28,7 +28,7 @@ pwa.addEventListener("click", function(){
 
 document.addEventListener('pwa', async () => {
     console.log(`aqui esta ${'beforeinstallprompt' in window}`)
-    if('beforeinstallprompt' in window){
+    if(isMobile()){
         if (!checkStandalone()) { // só mostra alert se ainda não estiver instalado
           const texto = "Tenha Cabo Verde sempre à mão! Adicione nosso site à sua tela inicial e acesse nossas dicas e roteiros de turismo com um toque.";
           const aceitou = await alertTraduzido(texto);
@@ -47,6 +47,10 @@ document.addEventListener('pwa', async () => {
       pwa.style.display="none"
     }
 });
+
+function isMobile() {
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
 
 // Função de alerta com tradução
 async function alertTraduzido(texto) {
