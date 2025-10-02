@@ -45,7 +45,7 @@ document.addEventListener('pwa', async () => {
         }
     }
     else{
-      pwa.style.backgroundColor="red"
+      pwa.style.display="none"
     }
 });
 
