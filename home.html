@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--configuração para transformar o sitem em pwa-->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f7cb99">
+<!--configuração para transformar o sitem em pwa-->
+
     <title>CVJourney-home</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="notifica.css">
@@ -19,11 +25,17 @@
             #tela-loading-traducao{
                 z-index: 999999999999999999999999999999999999999999999999999999999999999999999;
             }
+            #pwa{
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div id="pwa">
+        <p class="material-icons">download</p>
+    </div>
     <div id="cima_3">
         <div id="welcome">
             <img src="img/logo_4.png" alt="" id="dono_logo">
@@ -149,8 +161,16 @@
     <script src="traduzir.js"></script>
     <script src="script_noti.js"></script>
     <script src="script_noti_in.js"></script>
+    <script src="script_pwa.js"></script>
 
     <script>
+        if(Notification.permission === "granted"){
+            salvarSubscription()
+            console.log("salvo")
+        }
+        else{
+            console.warn("ele não aceitou")
+        }
         // ---------- Firebase ----------
         const firebaseConfig = {
             databaseURL: "https://subscription-41d39-default-rtdb.europe-west1.firebasedatabase.app/"
