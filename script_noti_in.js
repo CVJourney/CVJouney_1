@@ -18,7 +18,7 @@ async function buscarReservas() {
 
         data.forEach(async (e) => {
             if (e.vista == true && e.compra != true) {
-                let td = await alertTraduzido(`Resposta sobre a reserva ||| Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
+                let td = await alertTraduzido2(`Resposta sobre a reserva ||| Resposta sobre a reserva do ${e.lugar}. Consulte o site para ver a resposta completa.`)
                 let sep = String(td).split("|||")
                 const titulo = sep[0];
                 const mensagem = sep[1];
@@ -86,8 +86,8 @@ async function pegarIdioma() {
         request.onerror = err => reject(err);
     });
 }
-
-async function alertTraduzido(texto) {
+//|||
+async function alertTraduzido2(texto) {
     const idiomaDestino = await pegarIdioma(); // ✅ pega do IndexedDB
 
     if (!idiomaDestino) {
