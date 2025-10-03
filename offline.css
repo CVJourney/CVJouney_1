@@ -1,0 +1,14 @@
+.desi_x{
+    height: 30vh;
+    max-height: 300px;
+}
+.desi_x article{
+    height: 90%;
+    width: 40%;
+    max-width: 300px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(202, 200, 200, 0.336);
+}

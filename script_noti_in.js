@@ -15,7 +15,14 @@ async function buscarReservas() {
         });
 
         const data = await response.json();
-        let len=data.length
+        let len=0
+
+        data.map((es)=>{
+            let {vista,compra}=es
+            if(vista==true && compra!=true){
+                len+=1
+            }
+        })
         if(len>4){
             let td = await alertTraduzido2(`Novas respostas ||| Você tem ${len} novas respostas às suas solicitações. Por favor, acesse o ícone de e-mail para visualizá-las.`)
             let sep = String(td).split("|||")

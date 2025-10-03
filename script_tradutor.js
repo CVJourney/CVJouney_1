@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     letsgo()
     document.dispatchEvent(new Event("traduzir"))
     document.dispatchEvent(new Event("verifica_data"))
+    document.dispatchEvent(new Event("pwa"))
     window.dispatchEvent(new Event("entrada"))
+})
+
+window.addEventListener("online",function(){
+  this.location.reload()
 })
 
 function letsgo(){
@@ -106,7 +111,9 @@ function apanha(id){
 async function post(tema, cache) {
     const cacheString = sessionStorage.getItem(cache);
 
+    let desi2=apanha("desi2")
     if (cacheString) {
+      desi2.style.display="none"
         console.log("🔁 Cache encontrado:", cache);
         return JSON.parse(cacheString);
     }
@@ -120,8 +127,12 @@ async function post(tema, cache) {
         },
         body: JSON.stringify({ tema })
     });
-
+    if(resposta.ok){
+      desi2.style.display="none"
+      console.log("deu certo9")
+    }
     const res = await resposta.json();
+
 
     // Salva no cache
     sessionStorage.setItem(cache, JSON.stringify(res));
@@ -193,6 +204,10 @@ function criar(tag){
 async function campo_1(){
     let dados=await get("https://cvprisma.vercel.app/data_estadia")
     console.log("dados estão vindos: ", dados)
+    let desi1=apanha("desi1")
+    if(dados!=[]){
+      desi1.style.display="none"
+    }
 
     function separa(fotos){
         let sepa=String(fotos).trim().split('||')
