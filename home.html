@@ -30,6 +30,20 @@
         #tela-loading-traducao{
             margin-right: 40px;
         }
+
+        #island{
+            position: absolute;
+            top: 0;
+            margin-top: 20px;
+            border-radius: 6px;
+            z-index: 9999999999;
+            color:white;
+            font-size: 10px;
+            padding: 5px;
+            border: solid 2px white;
+            backdrop-filter: blur(3px);
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -39,6 +53,7 @@
     </div>
     <div id="cima_3">
         <div id="welcome">
+            <h3 id="island"></h3>
             <img src="img/logo_4.png" alt="" id="dono_logo">
             <h2>
                 <nav>Bem vindo ao </nav><mark>CVJourney</mark>
@@ -169,6 +184,7 @@
     </footer>
 
     <script src="script_tradutor.js"></script>
+    <script src="script_subscription.js"></script>
     <script src="script_cria_campos.js"></script>
     <script src="script_troca.js"></script>
     <script src="script_secundarios.js"></script>
@@ -179,133 +195,68 @@
     <script src="script_pwa.js"></script>
 
     <script>
-        if(Notification.permission === "granted"){
-            salvarSubscription()
-            console.log("salvo")
+        let il=document.getElementById("island")
+        il.innerText=localStorage.getItem("ilhas")
+        il.addEventListener("click",function(){
+            window.location.href="island.html"
+        })
+        console.log("/////// ",il)
+        // ---------- Função scroll ----------
+        function manda() {
+        const item = document.getElementById("titulo_destaque");
+        item.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-        else{
-            console.warn("ele não aceitou")
-        }
-        // ---------- Firebase ----------
-        const firebaseConfig = {
-            databaseURL: "https://subscription-41d39-default-rtdb.europe-west1.firebasedatabase.app/"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // ---------- Service Worker ----------
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('script_noti.js')
-                .then(() => console.log("Service Worker registrado!"))
-                .catch(err => console.error("Erro ao registrar SW:", err));
-        }
-
-        // ---------- Permissão de Notificação ----------
-        async function pedirPermissaoNotificacao() {
-            if (!("Notification" in window)) throw "Navegador não suporta notificações.";
-            if (Notification.permission === "granted") return "Permissão já concedida.";
-            if (Notification.permission === "denied") throw "Permissão negada anteriormente.";
-
-            const permission = await Notification.requestPermission();
-            if (permission === "granted") return "Permissão concedida!";
-            throw "Permissão não concedida.";
-        }
-
-        // ---------- Criar e salvar subscription ----------
-        async function salvarSubscription() {
-            if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
-
-            const swReg = await navigator.serviceWorker.ready;
-            const subscription = await swReg.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array(
-                    "BGp2boq4FE1QyAXEA_SQxBqqXdCdakzpPmOmfo2MpxycWjDSs2LGzi6TSVrTrp4LnkwDvrm8tPqRaCatvKoKTBw"
-                )
-            });
-
-            // Transformar em JSON
-            const subJSON = subscription.toJSON();
-            const endpoint = subJSON.endpoint;
-
-            // Checar se já existe no Firebase
-            const snapshot = await db.ref("subscriptions").orderByChild("endpoint").equalTo(endpoint).once("value");
-            if (snapshot.exists()) {
-                console.log("Subscription já existe no Firebase:", endpoint);
-                return;
-            }
-
-            // Salvar apenas se não existir
-            await db.ref("subscriptions").push(subJSON);
-            console.log("Subscription salva no Firebase:", endpoint);
-        }
-
-        function urlBase64ToUint8Array(base64String) {
-            const padding = '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
-            const rawData = window.atob(base64);
-            return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
-        }
-
-        // ---------- Inicialização ----------
-        pedirPermissaoNotificacao()
-            .then(() => salvarSubscription())
-            .then(msg => console.log(msg))
-            .catch(err => console.log(err));
 
         // ---------- Sincronização com SW ----------
         function registrarSync() {
+        if ('serviceWorker' in navigator) {
             navigator.serviceWorker.ready.then(reg => {
-                reg.sync.register("verificar-reservas")
-                    .then(() => console.log("Sync registrado!"))
-                    .catch(err => console.error("Erro no sync:", err));
+            reg.sync.register("verificar-reservas")
+                .then(() => console.log("Sync registrado!"))
+                .catch(err => console.error("Erro no sync:", err));
             });
         }
-
-
-        // ---------- Função scroll ----------
-        function manda() {
-            const item = document.getElementById("titulo_destaque");
-            item.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
         // ---------- Carrossel ----------
         (function () {
-            const carrossel = document.getElementById("meuCarrossel");
-            const slides = carrossel.querySelectorAll("img");
-            const indicadores = carrossel.querySelectorAll(".indicadores span");
+        const carrossel = document.getElementById("meuCarrossel");
+        const slides = carrossel.querySelectorAll("img");
+        const indicadores = carrossel.querySelectorAll(".indicadores span");
 
-            let index = 0;
-            let intervalo = 3000;
-            let timer;
+        let index = 0;
+        let intervalo = 3000;
+        let timer;
 
-            function mostrarSlide(i) {
-                slides.forEach(s => s.classList.remove("ativo"));
-                indicadores.forEach(d => d.classList.remove("ativo"));
-                slides[i].classList.add("ativo");
-                indicadores[i].classList.add("ativo");
-            }
+        function mostrarSlide(i) {
+            slides.forEach(s => s.classList.remove("ativo"));
+            indicadores.forEach(d => d.classList.remove("ativo"));
+            slides[i].classList.add("ativo");
+            indicadores[i].classList.add("ativo");
+        }
 
-            function proximo() {
-                index = (index + 1) % slides.length;
-                mostrarSlide(index);
-            }
-
-            function iniciar(intervaloAtual = intervalo) {
-                clearInterval(timer);
-                timer = setInterval(proximo, intervaloAtual);
-            }
-
-            indicadores.forEach((dot, i) => {
-                dot.addEventListener("click", () => {
-                    index = i;
-                    mostrarSlide(index);
-                    iniciar(6000); // pausa 6s se clicar no indicador
-                });
-            });
-
+        function proximo() {
+            index = (index + 1) % slides.length;
             mostrarSlide(index);
-            iniciar();
+        }
+
+        function iniciar(intervaloAtual = intervalo) {
+            clearInterval(timer);
+            timer = setInterval(proximo, intervaloAtual);
+        }
+
+        indicadores.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+            index = i;
+            mostrarSlide(index);
+            iniciar(6000);
+            });
+        });
+
+        mostrarSlide(index);
+        iniciar();
         })();
+
     </script>
 
 </body>

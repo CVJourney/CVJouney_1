@@ -117,6 +117,7 @@ async function post(tema, cache) {
         console.log("🔁 Cache encontrado:", cache);
         return JSON.parse(cacheString);
     }
+    let island=localStorage.getItem("ilhas")||"cv"
 
     console.log("🌐 Nenhum cache. Fazendo requisição POST...");
 
@@ -125,13 +126,14 @@ async function post(tema, cache) {
         headers: {
             "content-type": "application/json"
         },
-        body: JSON.stringify({ tema })
+        body: JSON.stringify({ tema,ilha:island })
     });
     if(resposta.ok){
       desi2.style.display="none"
       console.log("deu certo9")
     }
     const res = await resposta.json();
+
 
 
     // Salva no cache
@@ -202,7 +204,14 @@ function criar(tag){
 }
 
 async function campo_1(){
-    let dados=await get("https://cvprisma.vercel.app/data_estadia")
+  //https://cvprisma.vercel.app/data_estadia
+    let island=localStorage.getItem("ilhas")||"cv"
+    let dados_=await fetch("https://cvprisma.vercel.app/data_estadia",{
+      method:"post",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({ilha:island})
+    })
+    let dados=await dados_.json()
     console.log("dados estão vindos: ", dados)
     let desi1=apanha("desi1")
     if(dados!=[]){
@@ -277,7 +286,6 @@ async function campo_2(gosto){
     let destaque=apanha("destaque")
 
     let data=await post(gosto,"gosto")
-    data=data.reverse()
     console.log(data)
     let i=""
 

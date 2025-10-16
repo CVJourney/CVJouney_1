@@ -302,7 +302,7 @@ function colocar(data) {
       reject(event.target.error);
     };
 
-    window.location.href="home.html"
+    window.location.href="island.html"
   });
 }
 
@@ -339,3 +339,5 @@ async function alertTraduzido(texto) {
     alert(texto); // Fallback
   }
 }
+
+//home.html

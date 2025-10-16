@@ -18,6 +18,7 @@
   flex-direction: column;
 }
 
+
 body::-webkit-scrollbar {
   display: none;
 }
@@ -34,10 +35,20 @@ body::-webkit-scrollbar {
   #campos_::-webkit-scrollbar {
     display: none;
   }
+  #island{
+    margin-left: 86.6%;
+    margin-top: 54px;
+  }
+}
+#tela-loading-traducao{
+  z-index: 0;
 }
 
 @media (min-width:1144px) {
   /*pesquisas-inicio*/
+  #island{
+    margin-left: 90%;
+  }
   #temas_pes{
     background-color: white;
     margin: 3px;

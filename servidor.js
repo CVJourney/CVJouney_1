@@ -5,7 +5,7 @@ const { Pool } = require("pg");
 
 const app = express();
 
-// Configurações de segurança e middleware
+// Configurações de segurança e middleware data_estadia
 app.use(express.json({ limit: "10mb" }));
 app.use(cors()); // ATENÇÃO: você esqueceu os parênteses aqui
 
@@ -23,7 +23,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
-// Rota GET para retornar todos os usuários
+// Rota GET para retornar todos os usuários  data_empresas
 app.get("/data_usuarios", async (req, res) => {
   try {
     const resultado = await pool.query('SELECT * FROM usuarios');
@@ -37,9 +37,22 @@ app.get("/data_usuarios", async (req, res) => {
   }
 });
 
-app.get("/data_estadia",async (req,res)=>{
+app.post("/data_estadia",async (req,res)=>{
+  let {ilha}=req.body
+  let comando='SELECT id, fotos, nome, ilha, local, estrela FROM estadia WHERE reserva = false ORDER BY plano DESC, RANDOM()'
+  if(ilha!="cv"){
+    comando=`
+    SELECT id, fotos, nome, ilha, local, estrela
+    FROM estadia
+    WHERE reserva = false
+    ORDER BY 
+      (ilha = '${ilha}') DESC,  -- quem tem a mesma ilha vem primeiro
+      plano DESC,
+      RANDOM()
+    `
+  }
   try {
-    const resultado = await pool.query('SELECT id, fotos, nome, ilha, local, estrela FROM estadia WHERE reserva = false ORDER BY plano DESC, RANDOM()');
+    const resultado = await pool.query(comando);
     let data=resultado.rows
     res.json(data); // CORRETO: pg retorna dados em `rows`
 
@@ -48,6 +61,7 @@ app.get("/data_estadia",async (req,res)=>{
     console.error("Erro ao buscar usuários:", err);
     res.status(500).json({ erro: "Erro interno no servidor" });
   }
+
 })
 
 app.post("/data_usuarios_post",async (req,res)=>{
@@ -66,7 +80,7 @@ app.post("/data_usuarios_post",async (req,res)=>{
 
 app.post("/data_empresas", async (req, res) => {
   let body = req.body;
-  let { tema } = body;
+  let { tema,ilha } = body;
 
   let comando = `
   SELECT id, nome, tipo, imagem, localizacao, ilha, estrela, categoria, plano,
@@ -80,6 +94,23 @@ app.post("/data_empresas", async (req, res) => {
     plano DESC,            -- Depois ordena pelo plano (3 > 2 > 1)
     RANDOM();              -- Depois aleatoriza entre os mesmos planos
   `;
+  if(ilha!="cv"){
+    console.log(ilha)
+    comando=`
+  SELECT id, nome, tipo, imagem, localizacao, ilha, estrela, categoria, plano,
+         CASE 
+           WHEN LOWER(ilha) = LOWER('${ilha}') THEN 0       -- mesma ilha (sem distinguir maiúsculas/minúsculas)
+           WHEN tipo = ANY(string_to_array('${tema}', ',')) THEN 1
+           ELSE 2
+         END AS prioridade
+  FROM empresas
+  ORDER BY 
+    prioridade ASC,
+    plano DESC,
+    RANDOM();
+`;
+
+  }
 
   let dados = await pool.query(comando);
   let json_ = dados.rows;
