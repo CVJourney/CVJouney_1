@@ -36,18 +36,26 @@ body::-webkit-scrollbar {
     display: none;
   }
   #island{
-    margin-left: 86.6%;
-    margin-top: 54px;
+    margin-left: 80%;
+    margin-bottom: 84px;
   }
 }
 #tela-loading-traducao{
   z-index: 0;
 }
 
+#island{
+  margin-left: 80%;
+  margin-top: 54px;
+  border: none;
+  font-size: 12px;
+}
+
 @media (min-width:1144px) {
   /*pesquisas-inicio*/
   #island{
-    margin-left: 90%;
+    margin-left: 88.4%;
+    margin-top: 34px;
   }
   #temas_pes{
     background-color: white;

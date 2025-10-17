@@ -9,6 +9,7 @@ document.querySelectorAll(".ilhas").forEach((e) => {
 })
 
 async function mostra(id) {
+
     let island = String(id).replaceAll("_", " ")
     console.log(island)
     localStorage.setItem("ilhas", island)

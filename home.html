@@ -34,15 +34,21 @@
         #island{
             position: absolute;
             top: 0;
-            margin-top: 20px;
             border-radius: 6px;
             z-index: 9999999999;
             color:white;
             font-size: 10px;
             padding: 5px;
-            border: solid 2px white;
             backdrop-filter: blur(3px);
             cursor: pointer;
+        }
+        #ilha_img{
+            width: 18px;
+            display: inline-block;
+        }
+        #island_{
+            font-size: 13px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -53,7 +59,10 @@
     </div>
     <div id="cima_3">
         <div id="welcome">
-            <h3 id="island"></h3>
+            <h3 id="island" class="ilhas_is">
+                <img src="" alt="img" id="ilha_img">
+                <p id="island_" class="ilhas_is"></p>
+            </h3>
             <img src="img/logo_4.png" alt="" id="dono_logo">
             <h2>
                 <nav>Bem vindo ao </nav><mark>CVJourney</mark>
@@ -196,10 +205,20 @@
 
     <script>
         let il=document.getElementById("island")
-        il.innerText=localStorage.getItem("ilhas")
+        let dd=localStorage.getItem("ilhas")
+        let id=String(dd).replace(" ","_")
+        let ilh=document.getElementById("island_")
+        ilh.innerText=dd
+
         il.addEventListener("click",function(){
             window.location.href="island.html"
         })
+
+        let img_i=document.getElementById("ilha_img")
+        console.log(`img/island/${id}_z.png`)
+        console.log(img_i)
+        img_i.src=`img/island/${id}_z.png`
+
         console.log("/////// ",il)
         // ---------- Função scroll ----------
         function manda() {
