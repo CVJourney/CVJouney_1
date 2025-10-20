@@ -94,7 +94,7 @@ function renderTaxiList(data, filtro, container) {
     div.innerHTML = `
       <img src="${taxi.perfil}" class="perfil-img" alt="Motorista ${taxi.nome}">
       <div class="taxi-info">
-        <h2>${taxi.nome}</h2>
+        <h2 class="traduzido">${taxi.nome}</h2>
         <p><strong>Preço da guia</strong>: ${taxi.preco_dia}$ ECV</p>
         <p><strong>Estrelas:</strong><i class="estrela"> ${'⭐'.repeat(taxi.estrela)}</i></p>
       </div>

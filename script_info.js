@@ -41,14 +41,14 @@ async function post() {
           </div>
         </div>
         <div class="hotel-info">
-          <h2>${hotel.nome}</h2>
+          <h2 class="traduzido">${hotel.nome}</h2>
           <div class="mapa_"><img alt="img" class="mapa_img" src="img/mapa_2.png" id="icone_map" onclick="mapa()"></div>
           <div class="stars">${"★".repeat(hotel.estrela)}${"☆".repeat(5 - hotel.estrela)}</div>
           <div class="location">${hotel.local}, Ilha de ${hotel.ilha}</div>
           <h6 id="local_x">${hotel.nome} ${hotel.local}</h6>
           <div class="info">${hotel.info}</div>
           <div class="price">Preço: ${hotel.custo.toLocaleString()} CVE</div>
-          <div id="empresas">Empresa: <strong>${hotel.empresa}</strong></div>
+          <div id="empresas">Empresa: <strong class="traduzido">${hotel.empresa}</strong></div>
           <div class="reserva" id="reserva_${id}" onclick="reservar('${hotel.empresa}',${hotel.custo},'estadia','${hotel.nome}')">Reservar</div>
         </div>
       `;
@@ -61,13 +61,13 @@ async function post() {
           </div>
         </div>
         <div class="hotel-info">
-          <h2>${hotel.nome}</h2>
+          <h2 class="traduzido">${hotel.nome}</h2>
           <div class="mapa_"><img alt="img" class="mapa_img" src="img/mapa_2.png" id="icone_map" onclick="mapa()"></div>
           <div class="stars">${"★".repeat(hotel.estrela)}${"☆".repeat(5 - hotel.estrela)}</div>
           <div class="location">${hotel.localizacao}, Ilha de ${hotel.ilha}</div>
           <h6 id="local_x">${hotel.nome} ${hotel.localizacao}</h6>
           <div class="info">${hotel.info}</div>
-          <div id="empresas">Empresa:<strong> ${hotel.empresa}</strong></div>
+          <div id="empresas">Empresa:<strong class="traduzido"> ${hotel.empresa}</strong></div>
           <div id="agendar" class="reserva" onclick="reservar('${hotel.empresa}','${hotel.custo}','empresa','${hotel.nome}')">Agendar visita</strong></div>
           <a href='taxi.html?titulo=chama&place=${hotel.nome}'>
             <div class="price">🚖 Chamar Táxi</div>

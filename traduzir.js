@@ -1,4 +1,4 @@
-const classesIgnoradas = ['material-icons', 'estrela', 'nome_estadia', "local_estadia", "nome_des","ilhas_estadia","ilhas_","ilha_3","estrelas","chapa_","star_x","ilhas_is","traduzido"];
+const classesIgnoradas = ['material-icons', 'estrela', 'nome_estadia', "local_estadia", "nome_des","ilhas_estadia","ilhas_","ilha_3","estrelas","chapa_","star_x","ilhas_is","traduzido","ilha_x"];
 
 document.addEventListener("DOMContentLoaded", async () => {
   await traduzirPagina();
@@ -189,5 +189,3 @@ async function obterIdiomaDoIndexedDB() {
     };
   });
 }
-
-

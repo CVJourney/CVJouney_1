@@ -36,10 +36,10 @@ async function Trabalhar_dados(data_){
         console.log(lugar, compra, vista)
         let html=`
         ${vista!=null?`<p class="dias">${verificarData(resposta)=="data invalida"?"":verificarData(resposta)}</p>`:""}
-        <h6>Cliente: ${autor}</h6>
+        <h6 class="traduzido">Cliente: ${autor}</h6>
         <h6>Telefoen: ${telefone}</h6>
-        <h6>Destino: ${lugar}</h6>
-        <h6>Empresa: ${destinatario}</h6>
+        <h6 class="traduzido">Destino: ${lugar}</h6>
+        <h6 class="traduzido">Empresa: ${destinatario}</h6>
         <h6>Data: ${data}</h6>
         <h6>Preço: ${preco}ECV</h6>
         ${compra==true?`<button id="aceito" style="background-color:black; border-color:black">Reserva de ${preco}Ecv concluida</button>`:
