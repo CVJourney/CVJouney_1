@@ -1,4 +1,5 @@
 /* Categoria com blur e fundo transparente */
+/*PERFIL*/
 .categoria_new {
   margin: 40px auto;
   padding: 20px;
@@ -155,16 +156,14 @@ body::-webkit-scrollbar {
   #sol {
     background-color: rgb(252, 212, 189);
     padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.438);
+    box-shadow: 0 0 10px rgba(228, 226, 226, 0.438);
   }
 
   #sol{
     margin-left: 10px;
     border-radius: 10px;
   }
-  #sol::after{
-    content: "PERFIL";
-  }
+
   #titulo_estadia,#titulo_destaque{
     font-size: 26px;
     color: white;
