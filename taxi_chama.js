@@ -19,7 +19,7 @@ async function taxista() {
       <h2 class="traduzido">${dados.nome}</h2>
       <p><b>Marca:</b> ${dados.marca}</p>
       <p><b>Modelo:</b> ${dados.modelo}</p>
-      <p><b>Chapa:</b> <span class="chapa_ traduzido">${dados.chapa}</span></p>
+      <p><b>Placa de matrícula:</b> <span class="chapa_ traduzido">${dados.chapa}</span></p>
       <p><b>Telefone:</b> ${dados.telefone}</p>
       <p><b>Estrela:</b> ${"⭐".repeat(dados.estrela)}</p>`;
     document.getElementById("info-text").innerHTML = info;
@@ -253,4 +253,5 @@ async function getUsuarios() {
 }
 
 //solicitação feito
+
 //localhost
