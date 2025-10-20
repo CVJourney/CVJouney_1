@@ -176,7 +176,7 @@ button:hover {
 
 .apresentacao {
   height: 100vh;
-  background-image: url("img/restaurente.png");
+  background-image: url("img/restaurente.jpg");
   background-position: center center;
   background-size: 100% 100%;
   background-attachment: fixed;
@@ -364,4 +364,5 @@ section#carrossel img {
     left: 51.5%;
     margin-top: 0;
   }
+
 }
