@@ -25,10 +25,10 @@ async function chamada(tipo){
   let load_div=apanha("div_loading")
   let centro_1=apanha("centra")
   let centro_2=apanha("centra_2")
-
+//singin
   if(String(completo).length>25){
     
-    alertTraduzido("O teu username não pode ter mais de 25 digitos\nTente um mais pequeno")
+    alertTraduzido_("O teu username não pode ter mais de 25 digitos\nTente usar só o 1º nome")
   }
 
   let ver=String(nome).length>2 && String(senha).length>8 && String(completo).length>1 //ver essa parte 1º
@@ -48,12 +48,18 @@ async function chamada(tipo){
   })//vereficando se esse usuario é unico
   console.log("--",verefica,data)
 
+  let fake=[".",  "#",  "$",  "[",  "]",  "/"]
+  let n_ome=nome.split("")
 
-
-  if(verefica && tipo==1){
-    alert
+  if(n_ome.some(c => fake.includes(c))){
     
-    alertTraduzido("Ja existe um usuario com esse username.\nTente outro porfavor")
+    await alertTraduzido_("O nome do usuario não pode conter esses caracteres '.  #  $  [  ]  /' ")
+    return
+  }
+
+  console.log(verefica,tipo)
+  if(verefica==true && tipo==1){
+     await alertTraduzido_("Ja existe um usuario com esse username.\nTente outro porfavor")
   }
   
   else if(String(senha).length<=8){
@@ -311,8 +317,9 @@ function colocar(data) {
 
 //alert
 
-async function alertTraduzido(texto) {
-  const idiomaDestino = localStorage.getItem("idioma") // Pega o idioma do IndexedDB
+async function alertTraduzido_(texto) {
+  const idiomaDestino = localStorage.getItem("idioma")
+  console.log(idiomaDestino,"555") // Pega o idioma do IndexedDB
 
   if (!idiomaDestino) {
     console.warn("Idioma não encontrado. Mostrando texto original.");
