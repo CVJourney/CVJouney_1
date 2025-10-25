@@ -49,7 +49,8 @@ async function salvarSubscription() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
 
   const data = await pegarnome();
-  const nome = data?.username || "Desconhecido";
+  let nome = data?.username || "Desconhecido";
+  nome=String(nome).replace(" ","_")
   const idioma = localStorage.getItem("idioma") || "pt";
 
   const swReg = await navigator.serviceWorker.ready;
@@ -63,9 +64,10 @@ async function salvarSubscription() {
   const subJSON = subscription.toJSON();
   const endpoint = subJSON.endpoint;
 
-  subJSON.nome = nome;
+  // adiciona apenas o idioma
   subJSON.idioma = idioma;
 
+  // verifica se já existe uma subscription com o mesmo endpoint
   const snapshot = await db.ref("subscriptions")
     .orderByChild("endpoint")
     .equalTo(endpoint)
@@ -76,9 +78,12 @@ async function salvarSubscription() {
     return;
   }
 
-  await db.ref("subscriptions").push(subJSON);
-  console.log("Subscription salva no Firebase:", endpoint);
+  // usa o nome como chave principal, sem incluir o campo "nome"
+  await db.ref("subscriptions").child(nome).set(subJSON);
+
+  console.log("Subscription salva no Firebase com chave:", nome);
 }
+
 
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
