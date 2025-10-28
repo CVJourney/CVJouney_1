@@ -89,11 +89,29 @@ async function taxista() {
       const tempo = document.getElementById("tempo").value;
       const guia=document.getElementById("guia_").value
       const tipo=document.getElementById("tipo").value
-
+      
       if (!destino || !tempo) {
         alertTraduzido("Preencha todos os campos.");
         return;
       }
+      let empresa_=String(dados.empresa).replaceAll(" ","_")
+      
+
+      const resposta = await fetch("https://apinotificacao-emp.vercel.app/sendPushEmpresa", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          empresa: empresa_,           // substitui pelo nome da empresa
+          titulo: "Solicitação de corrida",
+          mensagem: `Solicitação de corrida para ${destino} para o taxista ${dados.nome}`,
+          link: "https://cvjourney.github.io/CVJourney-Company/taxi.html"     // link do Google
+        })
+      });
+
+      let res=await resposta.json()
+      console.log("deu certo ", res)
 
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const latitude = pos.coords.latitude;
