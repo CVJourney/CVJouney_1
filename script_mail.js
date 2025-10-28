@@ -149,7 +149,9 @@ async function Novo_registro(){
     btn.id="envia_data"
 
     btn.onclick=async ()=>{
+      await shownotification({empresa:empresa,titulo:`Reserva do ${nome}`,mensagem:`Cliente: ${name}, Solicitação feita para o ${nome}`,link:"https://cvjourney.github.io/CVJourney-Company/home.html"})
       await enviar(`${name}`,`${empresa}`,`${preco}`,`${nome}`)
+
     }
 
     let df=document.createElement("div")
@@ -274,6 +276,19 @@ async function cancela_(id){
     alertTraduzido("Deu erro tente denovo mais tarde")
     loading.display="none"
   }
+
+}
+
+async function shownotification(data){
+  data.empresa=String(data.empresa).replace(" ","_")
+  let response=await fetch("https://apinotificacao-emp.vercel.app/sendPushEmpresa",{
+    method:"post",
+    headers:{"content-type":"application/json"},
+    body:JSON.stringify(data)
+  })
+
+  let res=await response.json()
+  console.log("Resposta: ",res)
 
 }
 

@@ -3,6 +3,7 @@ async function taxista() {
   let dd=await getUsuarios()
   let len_d=dd.length
   let dd_=dd[len_d-1].username
+  let nome_=dd[len_d-1].nome
   const params = new URLSearchParams(window.location.search);
   let id = params.get("wwr");
   loading.display="block"
@@ -105,6 +106,20 @@ async function taxista() {
         console.log("Longitude:", longitude);
         console.log("Tipo: ",tipo)
         console.log("Guia: ",guia)
+
+        let agora=new Date()
+        const dia = agora.getDate();   
+        const mes = agora.getMonth() + 1;    // Mês (0–11 → +1 para 1–12)
+        const ano = agora.getFullYear();  
+
+        const horas = agora.getHours();      
+        const minutos = agora.getMinutes();  
+        const segundos = agora.getSeconds();
+
+        console.log(`${ano}-${mes}-${dia} ${Number(horas)+1}:${minutos}:${segundos}`);
+        let agora_=`${ano}-${mes}-${dia} ${Number(horas)+1}:${minutos}:${segundos}`
+
+        console.log("Cliente name: ",nome_)
         let obj={
           id:dados.id,
           nome:dados.nome,
@@ -114,7 +129,9 @@ async function taxista() {
           lat:latitude,
           long:longitude,
           tipo:tipo,
-          guia:guia
+          guia:guia,
+          hora:agora_,
+          cliente_name:nome_
         }
 
         await corida("https://cvprisma.vercel.app/data_corrida",obj)
@@ -253,5 +270,5 @@ async function getUsuarios() {
 }
 
 //solicitação feito
-
 //localhost
+//window.location.href
