@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded",async function(){
   await alertTraduzido("Neste espaço estão as solicitações que você realizou para os taxistas.")
-    document.dispatchEvent(new Event("traduzir"))
-    await procurar()
+  await procurar()
+  document.dispatchEvent(new Event("traduzir"))
 })
 
 setInterval(async () => {
@@ -44,7 +44,7 @@ function trabalhar_xs(data){
         `
 <div class="taxi-container">
   <h1 class="title">Taxista:</h1>
-  <h3 class="info">${e.nome}</h3>
+  <h3 class="info traduzido">${e.nome}</h3>
 
   <h1 class="title">Local da solicitação:</h1>
   <iframe
@@ -58,7 +58,7 @@ function trabalhar_xs(data){
   </iframe>
   <div class="detalhes_info">
       <h1 class="title">Destino:</h1>
-      <h3 class="info">${e.destino}</h3>
+      <h3 class="info traduzido">${e.destino}</h3>
     
       <h1 class="title">${e.guia}</h1>
     
@@ -66,7 +66,8 @@ function trabalhar_xs(data){
         ? `<h2 class="pending">Esperando a resposta do taxista</h2><button id="cancela" onclick="cancelar(${e.id})">Cancelar solicitação</button>`
         : e.confirmado==false
           ? `<h2 class="denied">Solicitação negada(ou cancelada)</h2>`
-          : `<h1 class="title">Preço:</h1><h3 class="info">${e.preco} Ecv</h3><h2 class="approved">Solicitação aprovada</h2>`}
+          : `<h1 class="title">Preço:</h1><h3 class="info">${e.preco} Ecv</h3><h2 class="approved">Solicitação aprovada</h2>${e.aceito!=true?`<button id='aceitar' onclick='aceitar(${e.id})'>Aceitar o preço e avançar</button>`:'<h2 class="approved">Espere, o taxista já está a chegar. 🚖</h2'}
+          `}
     
       ${e.confirmado!=false
         ? `<h1 class="title">Tempo:</h1>${e.tempo}<h3 class="info" id="tempo${e.id}">00:00:0 (m)</h3>`
@@ -240,5 +241,26 @@ async function getUsuarios() {
   }
 
   throw new Error("❌ Não foi possível abrir o banco prismacv em nenhuma versão de 1 a 10");
+}
+
+async function aceitar(id){
+  let carr=document.getElementById("caregamento")
+  carr.style.display="block"
+  let resposta=await fetch("https://cvprisma.vercel.app/data_aceito",{
+    method:"post",
+    headers:{"content-type":"application/json"},
+    body:JSON.stringify({id:id})
+  })
+
+  if(resposta.ok){
+    console.log("deu certo")
+    alertTraduzido("Enviado com sucesso")
+    carr.style.display="none"
+    window.location.reload()
+  }
+  else{
+    await alertTraduzido("Deu um pequeno erro por favor tente denovo")
+    carr.style.display="none"
+  }
 }
 

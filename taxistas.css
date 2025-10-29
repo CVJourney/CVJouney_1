@@ -143,6 +143,7 @@ button#cancela{
 
 #loading{
   width: 80%;
+  max-width: 400px;
   height: 50%;
   background-color: white;
   box-shadow: 0 0 10px black;
@@ -151,7 +152,7 @@ button#cancela{
   background-image: url("img/loading2.webp");
   background-position: center center;
   position: relative;
-  top:50%;
+  top:30%;
   left:50%;
   transform: translate(-50%,-50%);
 }
@@ -165,4 +166,23 @@ button#cancela{
   border-radius: 10px;
   top: 50%;
   transform: translateY(-90%);
+}
+
+#aceitar{
+  padding: 10px;
+  border: solid 2px rgba(204, 204, 204, 0.733);
+  border-radius: 5px;
+  background-color: rgb(241, 250, 250);
+  color: rgb(102, 102, 102);
+  box-shadow: 0 0 10px;
+  cursor:pointer;
+}
+
+#minhas{
+  text-align: center;
+  padding: 10px;
+  font-size: 10vw;
+  color: transparent;
+  background-image: linear-gradient(to left, orange,white);
+  background-clip:text;
 }
